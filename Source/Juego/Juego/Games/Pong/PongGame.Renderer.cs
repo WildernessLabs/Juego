@@ -28,7 +28,8 @@ namespace Juego.Games
             graphics.DrawRectangle(cpuX, cpuY, paddleWidth, paddleHeight, true, true);
 
             graphics.DrawText(0, 0, $"{playerScore}");
-            graphics.DrawText(120, 0, $"{cpuScore}");
+            graphics.DrawText(128, 0, $"{cpuScore}",
+                alignment: GraphicsLibrary.TextAlignment.Right);
 
             graphics.Show();
         }

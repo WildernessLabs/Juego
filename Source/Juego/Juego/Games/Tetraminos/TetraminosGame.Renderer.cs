@@ -4,7 +4,7 @@ using Meadow.Foundation.Graphics;
 
 namespace Juego.Games
 {
-    public partial class TetrisGame
+    public partial class TetraminosGame
     {
         int BLOCK_SIZE = 6;
 
@@ -21,16 +21,22 @@ namespace Juego.Games
             Thread.Sleep(1000);
         }
 
+        int tick = 0;
         public void Update(GraphicsLibrary graphics)
         {
+            tick++;
+            if (tick % (21 - Level) == 0)
+            {
+                Down(true);
+            }
             graphics.Clear();
-            DrawTetrisField(graphics);
+            DrawGameField(graphics);
             graphics.Show();
 
             Thread.Sleep(Math.Max(50 - Level, 0));
         }
 
-        void DrawTetrisField(GraphicsLibrary graphics)
+        void DrawGameField(GraphicsLibrary graphics)
         {
             int xIndent = 8;
             int yIndent = 12;
@@ -49,7 +55,7 @@ namespace Juego.Games
                         //  graphics.DrawPixel(i, j);
                         graphics.DrawRectangle((CurrentPiece.X + i) * BLOCK_SIZE + xIndent,
                             (CurrentPiece.Y + j) * BLOCK_SIZE + yIndent,
-                            BLOCK_SIZE + 1, BLOCK_SIZE, true, true);//+1 hack until we fix the graphics lib
+                            BLOCK_SIZE, BLOCK_SIZE, true, true);
                     }
                 }
             }
@@ -63,7 +69,7 @@ namespace Juego.Games
                     {
                         graphics.DrawRectangle((i) * BLOCK_SIZE + xIndent,
                             (j) * BLOCK_SIZE + yIndent,
-                            BLOCK_SIZE + 1, BLOCK_SIZE, true, true);//+1 hack until we fix the graphics lib
+                            BLOCK_SIZE, BLOCK_SIZE, true, true);
                     }
                 }
             }

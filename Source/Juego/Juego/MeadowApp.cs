@@ -76,7 +76,7 @@ namespace Juego
 
             graphics.Clear();
             graphics.DrawRectangle(0, 0, 128, 64);
-            graphics.DrawText(64, 26, "Loading Juego", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
+            graphics.DrawText(64, 26, "Juego v0.1", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
             graphics.Show();
 
             Console.WriteLine("Create buttons...");
@@ -112,7 +112,6 @@ namespace Juego
 
         private void Right_Clicked(object sender, EventArgs e)
         {
-            Console.WriteLine("Right_Clicked");
             if (menu.IsEnabled)
             {
                 menu.Select();
@@ -125,8 +124,6 @@ namespace Juego
 
         private void Left_Clicked(object sender, EventArgs e)
         {
-            Console.WriteLine("Left_Clicked");
-            
             currentGame?.Left();
         }
 
@@ -145,8 +142,6 @@ namespace Juego
         bool playGame = false;
         async Task StartGame(string command)
         {
-            Console.WriteLine($"******** {command}");
-
             switch (command)
             {
                 case "startFrogger":
@@ -161,8 +156,8 @@ namespace Juego
                 case "startSnake":
                     currentGame = new SnakeGame(128, 64);
                     break;
-                case "startTetris":
-                    currentGame = new TetrisGame();
+                case "startTetraminos":
+                    currentGame = new TetraminosGame();
                     break;
                 default:
                     EnableMenu();
@@ -180,34 +175,10 @@ namespace Juego
                     currentGame.Update(graphics);
                 }
             });
-
-                /*
-                int count = 0;
-                int x = 0, y = 0;
-                int xD = 1, yD = 1;
-
-                await Task.Run(() =>
-                {
-                    while (count < 150 && playGame == true)
-                    {
-                        graphics.Clear();
-                        graphics.DrawText(0, 0, $"{command}:");
-                        graphics.DrawText(0, 20, $"{count++}");
-                        graphics.DrawPixel(x += xD, y += yD);
-                        if (x == graphics.Width || x == 0) { xD *= -1; };
-                        if (y == graphics.Height || y == 0) { yD *= -1; };
-                        graphics.Show();
-                    }
-                }).ConfigureAwait(false);
-
-                EnableMenu();
-                */
-            }
+        }
 
         void EnableMenu()
         {
-            Console.WriteLine("Enable menu...");
-
             menu?.Enable();
         }
 
@@ -233,8 +204,6 @@ namespace Juego
 
         private void Menu_Selected(object sender, MenuSelectedEventArgs e)
         {
-            Console.WriteLine($"******** Selected: {e.Command}");
-
             DisableMenu();
 
             var t = StartGame(e.Command);

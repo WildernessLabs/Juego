@@ -2,7 +2,7 @@
 
 namespace Juego.Games
 {
-    public partial class TetrisGame : IGame
+    public partial class TetraminosGame : IGame
     {
         public class Tetramino
         {
@@ -62,17 +62,11 @@ namespace Juego.Games
                          0,0,0,0},
         };
 
-        public TetrisGame(int width = 8, int height = 20)
+        public TetraminosGame(int width = 8, int height = 18)
         {
             Width = width;
             Height = height;
 
-            Init();
-            Reset();
-        }
-
-        void Init()
-        {
             GameField = new byte[Width, Height];
             rand = new Random();
         }
@@ -290,7 +284,5 @@ namespace Juego.Games
                     return pieceData[3 - y + (x * 4)] == 1;
             }
         }
-
-        
     }
 }

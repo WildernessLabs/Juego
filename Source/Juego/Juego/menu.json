@@ -21,7 +21,7 @@
   },
   {
     "text": "Tetraminos",
-    "id": "tetris",
-    "command": "startTetris"
+    "id": "tetraminoes",
+    "command": "startTetraminos"
   }
 ]

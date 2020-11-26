@@ -12,9 +12,9 @@ namespace Juego.Games
         static int GameWidth = 128;
         static int GameHeight = 64;
 
-        static int ballRadius = 3;
-        static int paddleWidth = 3;
-        static int paddleHeight = 14;
+        static int ballRadius = 2;
+        static int paddleWidth = 2;
+        static int paddleHeight = 16;
 
         static int playerX = 4;
         static int cpuX = GameWidth - paddleWidth - 4;
@@ -48,7 +48,7 @@ namespace Juego.Games
             ballX = GameWidth / 2;
             ballY = GameHeight / 2;
 
-            ballXSpeed = 2 + random.Next() % 5;
+            ballXSpeed = 2 + random.Next() % 4;
             ballYSpeed = 1 + random.Next() % 3;
         }
 
@@ -63,6 +63,7 @@ namespace Juego.Games
         {
             UpdateCpuPlayer();
 
+            //player paddle collision
             ballX += ballXSpeed;
             if (ballY >= playerY &&
                 ballY <= playerY + paddleHeight &&
@@ -70,6 +71,16 @@ namespace Juego.Games
             {
                 ballXSpeed *= -1;
                 ballX += ballXSpeed;
+
+                //dynamically adjust Y speed based on paddle position
+                if(ballY <= playerY + 2)
+                {
+                    ballYSpeed--;
+                }
+                else if(ballY >= playerY + paddleHeight - 2)
+                {
+                    ballYSpeed++;
+                }
             }
             else if (ballX - ballRadius < 0)
             {
@@ -110,13 +121,13 @@ namespace Juego.Games
         {
             if(playerY < 64 - paddleHeight)
             {
-                playerY += 4;
+                playerY += 8;
             }
         }
 
         public void Left()
         {
-            
+            Reset();
         }
 
         public void Right()
@@ -126,9 +137,9 @@ namespace Juego.Games
 
         public void Up()
         {
-            if(playerY > 4)
+            if(playerY > 8)
             {
-                playerY -= 4;
+                playerY -= 8;
             }
         }
     }
