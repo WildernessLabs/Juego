@@ -8,4 +8,4 @@ Currently includes five working games:
 - Snake
 - Tetraminos (inspired by Tetris)
 
-!["Image of Juego Meadow prototype hardware"](./Juego.png)
+!["Image of Juego Meadow prototype hardware"](./juego.png)
