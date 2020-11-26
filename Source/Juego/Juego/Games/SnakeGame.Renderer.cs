@@ -9,6 +9,13 @@ namespace Juego.Games
         public void Init(GraphicsLibrary gl)
         {
             gl.CurrentFont = new Font4x8();
+
+            gl.Clear();
+            gl.DrawText(0, 0, "Meadow Snake");
+            gl.DrawText(0, 10, "v0.1.0");
+            gl.Show();
+
+            Thread.Sleep(1000);
         }
 
         public void Update(GraphicsLibrary graphics)

@@ -1,13 +1,8 @@
 [
   {
-    "text": "Tetris",
-    "id": "tetris",
-    "command":  "startTetris"
-  },
-  {
     "text": "Frogger",
     "id": "frogger",
-    "command":  "startFrogger"
+    "command": "startFrogger"
   },
   {
     "text": "Pong",
@@ -15,13 +10,18 @@
     "command": "startPong"
   },
   {
-    "text": "Snake",
-    "id": "snake",
-    "command":  "startSnake"
-  },
-  {
     "text": "Span4",
     "id": "span4",
     "command": "startSpan4"
+  },
+  {
+    "text": "Snake",
+    "id": "snake",
+    "command": "startSnake"
+  },
+  {
+    "text": "Tetraminos",
+    "id": "tetris",
+    "command": "startTetris"
   }
 ]

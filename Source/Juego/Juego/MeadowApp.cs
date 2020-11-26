@@ -76,7 +76,7 @@ namespace Juego
 
             graphics.Clear();
             graphics.DrawRectangle(0, 0, 128, 64);
-            graphics.DrawText(18, 26, "Loading Juego");
+            graphics.DrawText(64, 26, "Loading Juego", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
             graphics.Show();
 
             Console.WriteLine("Create buttons...");
@@ -152,13 +152,20 @@ namespace Juego
                 case "startFrogger":
                     currentGame = new FroggerGame();
                     break;
+                case "startPong":
+                    currentGame = new PongGame();
+                    break;
                 case "startSpan4":
                     currentGame = new Span4Game();
                     break;
                 case "startSnake":
                     currentGame = new SnakeGame(128, 64);
                     break;
+                case "startTetris":
+                    currentGame = new TetrisGame();
+                    break;
                 default:
+                    EnableMenu();
                     return;
             }
 

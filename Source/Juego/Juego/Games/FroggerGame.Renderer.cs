@@ -9,7 +9,10 @@ namespace Juego.Games
 
         public void Init(GraphicsLibrary gl)
         {
-
+            gl.Clear();
+            gl.DrawText(0, 0, "Meadow Frogger");
+            gl.DrawText(0, 16, "v0.1.0");
+            gl.Show();
         }
 
         public void Update(GraphicsLibrary gl)

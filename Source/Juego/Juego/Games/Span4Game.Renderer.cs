@@ -11,6 +11,11 @@ namespace Juego.Games
         public void Init(GraphicsLibrary gl)
         {
             gl.CurrentFont = new Font4x8();
+
+            gl.Clear();
+            gl.DrawText(0, 0, "Meadow Span4");
+            gl.DrawText(0, 10, "v0.1.0");
+            gl.Show();
         }
 
         public void Update(GraphicsLibrary gl)
