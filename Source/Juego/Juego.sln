@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.808.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Juego", "Juego\Juego.csproj", "{3408707B-D8C4-465F-93C3-A88F7F2F8887}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Foundation.Core", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj", "{7358C01B-AC25-40C1-AF41-037250804495}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Displays.TextDisplayMenu", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Displays.TextDisplayMenu\Displays.TextDisplayMenu.csproj", "{DE1AF5C8-CED1-4B76-A371-4B9CD947493C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Displays.GraphicsLibrary", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Displays.GraphicsLibrary\Displays.GraphicsLibrary.csproj", "{EEB50C5F-B76E-47DA-BEDD-32BA06A00484}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Displays.Ssd1306", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Ssd1306\Driver\Displays.Ssd1306\Displays.Ssd1306.csproj", "{39B65219-5F29-49E9-91E7-70B9D27B9D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Core", "..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj", "{5CFDB583-B897-4B98-B603-D51094F8D7B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MeadowLibs", "MeadowLibs", "{FF570CB7-3F54-4049-A167-304A90098DB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3408707B-D8C4-465F-93C3-A88F7F2F8887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3408707B-D8C4-465F-93C3-A88F7F2F8887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3408707B-D8C4-465F-93C3-A88F7F2F8887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3408707B-D8C4-465F-93C3-A88F7F2F8887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7358C01B-AC25-40C1-AF41-037250804495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7358C01B-AC25-40C1-AF41-037250804495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7358C01B-AC25-40C1-AF41-037250804495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7358C01B-AC25-40C1-AF41-037250804495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE1AF5C8-CED1-4B76-A371-4B9CD947493C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE1AF5C8-CED1-4B76-A371-4B9CD947493C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1AF5C8-CED1-4B76-A371-4B9CD947493C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE1AF5C8-CED1-4B76-A371-4B9CD947493C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB50C5F-B76E-47DA-BEDD-32BA06A00484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB50C5F-B76E-47DA-BEDD-32BA06A00484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB50C5F-B76E-47DA-BEDD-32BA06A00484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB50C5F-B76E-47DA-BEDD-32BA06A00484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39B65219-5F29-49E9-91E7-70B9D27B9D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39B65219-5F29-49E9-91E7-70B9D27B9D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39B65219-5F29-49E9-91E7-70B9D27B9D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39B65219-5F29-49E9-91E7-70B9D27B9D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFDB583-B897-4B98-B603-D51094F8D7B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFDB583-B897-4B98-B603-D51094F8D7B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFDB583-B897-4B98-B603-D51094F8D7B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFDB583-B897-4B98-B603-D51094F8D7B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB582CC6-C626-484E-9742-43FD65FE8158}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EEB50C5F-B76E-47DA-BEDD-32BA06A00484} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{39B65219-5F29-49E9-91E7-70B9D27B9D77} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{DE1AF5C8-CED1-4B76-A371-4B9CD947493C} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{5CFDB583-B897-4B98-B603-D51094F8D7B5} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{7358C01B-AC25-40C1-AF41-037250804495} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+	EndGlobalSection
+EndGlobal
