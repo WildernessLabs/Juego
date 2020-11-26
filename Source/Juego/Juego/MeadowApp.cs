@@ -191,13 +191,21 @@ namespace Juego
         {
             Console.WriteLine("Load menu data...");
 
-            var menuData = LoadResource("menu.json");
+            /*   var menuData = LoadResource("menu.json");
+               Console.WriteLine($"Data length: {menuData.Length}...");
+               Console.WriteLine("Create menu..."); 
+               menu = new Menu(display, menuData, false); */
 
-            Console.WriteLine($"Data length: {menuData.Length}...");
+            MenuItem[] menuItems = new MenuItem[]
+            {
+                new MenuItem("Frogger", command: "startFrogger"),
+                new MenuItem("Pong", command: "startPong"),
+                new MenuItem("Span4", command: "startSpan4"),
+                new MenuItem("Snake", command: "startSnake"),
+                new MenuItem("Tetraminos", command: "startTetraminos"),
+            };
 
-            Console.WriteLine("Create menu...");
-
-            menu = new Menu(display, menuData, false);
+            menu = new Menu(display, menuItems);
 
             menu.Selected += Menu_Selected;
         }
