@@ -196,7 +196,7 @@ namespace Juego
                Console.WriteLine("Create menu..."); 
                menu = new Menu(display, menuData, false); */
 
-            MenuItem[] menuItems = new MenuItem[]
+            var menuItems = new MenuItem[]
             {
                 new MenuItem("Frogger", command: "startFrogger"),
                 new MenuItem("Pong", command: "startPong"),
