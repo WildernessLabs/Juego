@@ -13,6 +13,15 @@ namespace Juego.Games
             Draw,
         };
 
+        enum UserInput
+        {
+            None,
+            Up,
+            Down,
+            Left,
+            Right,
+        }
+
         public byte Width { get; private set; }
         public byte Height { get; private set; }
 
@@ -27,6 +36,8 @@ namespace Juego.Games
 
         byte player1Value = 1;
         byte player2Value = 2;
+
+        UserInput lastInput;
 
         public byte CurrentColumn { get; private set; }
 
@@ -64,10 +75,26 @@ namespace Juego.Games
             GameField = new byte[Width, Height];
             GameState = GameStateType.Player1Turn;
             CurrentColumn = 0;
+            lastInput = UserInput.None;
         }
 
         void UpdateGameState()
         {
+            switch(lastInput)
+            {
+                case UserInput.Left:
+                    MoveLeft();
+                    break;
+                case UserInput.Right:
+                    MoveRight();
+                    break;
+                case UserInput.Down:
+                    Drop();
+                    break;
+            }
+
+            lastInput = UserInput.None;
+
             if (GameState == GameStateType.Player1Turn)
             {
                 if (DidPlayerWin(player1Value))
@@ -187,22 +214,37 @@ namespace Juego.Games
             return true;
         }
 
-        public void Left()
-        {
-            if(CurrentColumn > 0) { CurrentColumn--; }
-        }
-
-        public void Right()
-        {
-            if(CurrentColumn < Width - 1) { CurrentColumn++; }
-        }
-
         public void Up()
         {
             Reset();
         }
 
         public void Down()
+        {
+            lastInput = UserInput.Down;
+        }
+
+        public void Left()
+        {
+            lastInput = UserInput.Left;
+        }
+
+        public void Right()
+        {
+            lastInput = UserInput.Right;
+        }
+
+        public void MoveLeft()
+        {
+            if(CurrentColumn > 0) { CurrentColumn--; }
+        }
+
+        public void MoveRight()
+        {
+            if(CurrentColumn < Width - 1) { CurrentColumn++; }
+        }
+
+        public void Drop()
         {
             AddChip(CurrentColumn);
         }
