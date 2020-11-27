@@ -154,7 +154,7 @@ namespace Juego
                     currentGame = new Span4Game();
                     break;
                 case "startSnake":
-                    currentGame = new SnakeGame(128, 64);
+                    currentGame = new SnakeGame(42, 18);
                     break;
                 case "startTetraminos":
                     currentGame = new TetraminosGame();

@@ -38,8 +38,6 @@ namespace Juego.Games
         public int BoardWidth { get; private set; }
         public int BoardHeight { get; private set; }
 
-        int topOffset = 10;
-
         public ArrayList SnakePosition { get; private set; }
 
         public Point FoodPosition { get; private set; }
@@ -58,8 +56,8 @@ namespace Juego.Games
 
         public SnakeGame(int width, int height)
         {
-            BoardWidth = width; //ignore borders
-            BoardHeight = height; //make room for text
+            BoardWidth = width;
+            BoardHeight = height;
 
             SnakePosition = new ArrayList();
 
@@ -123,8 +121,8 @@ namespace Juego.Games
             int foodX, foodY;
             do
             {
-                foodX = rand.Next() % (BoardWidth - 2) + 1;
-                foodY = rand.Next() % (BoardHeight - topOffset - 1) + topOffset + 1;
+                foodX = rand.Next() % BoardWidth;
+                foodY = rand.Next() % BoardHeight;
             }
             while (IsCellEmpty(foodX, foodY) == false);
 
@@ -136,10 +134,10 @@ namespace Juego.Games
         {
             Point snakeBody;
 
-            if (x < 1 ||
-                y < topOffset ||
-                x >= BoardWidth - 1 ||
-                y >= BoardHeight - 1)
+            if (x < 0 ||
+                y < 0 ||
+                x >= BoardWidth ||
+                y >= BoardHeight)
                 return false;
 
             for (int i = ignoreHead ? 1 : 0; i < SnakePosition.Count; i++)

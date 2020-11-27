@@ -6,6 +6,9 @@ namespace Juego.Games
 {
     public partial class SnakeGame
     {
+        static int topOffset = 8; //pixels
+        static int pixelScale = 3;
+
         public void Init(GraphicsLibrary gl)
         {
             gl.CurrentFont = new Font4x8();
@@ -25,22 +28,24 @@ namespace Juego.Games
             Update();
 
             //draw score and level
-          //  var level = $"Level: {Level}";
             graphics.DrawText(0, 0, $"Score: {Level}");
-          //  graphics.DrawText(BoardWidth - level.Length * 4, 0, level);
 
             //draw border
             graphics.DrawRectangle(0, topOffset, 128, 64 - topOffset);
 
             //draw food
-            graphics.DrawPixel(FoodPosition.X, FoodPosition.Y);
+            graphics.DrawRectangle(FoodPosition.X * pixelScale + 1,
+                FoodPosition.Y * pixelScale + topOffset + 1,
+                pixelScale, pixelScale);
 
-            //draw food
+            //draw snake
             for (int i = 0; i < SnakePosition.Count; i++)
             {
                 var point = (Point)SnakePosition[i];
 
-                graphics.DrawPixel(point.X, point.Y);
+                graphics.DrawRectangle(point.X * pixelScale + 1,
+                    point.Y * pixelScale + topOffset + 1,
+                    pixelScale, pixelScale, true, true);
             }
 
           //  if (PlaySound)
