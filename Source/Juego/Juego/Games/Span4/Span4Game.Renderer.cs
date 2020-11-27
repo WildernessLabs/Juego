@@ -21,6 +21,7 @@ namespace Juego.Games
         public void Update(GraphicsLibrary gl)
         {
             gl.Clear(false);
+            Update();
             DrawGame(gl);
             gl.Show();
         }

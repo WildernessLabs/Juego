@@ -78,9 +78,9 @@ namespace Juego.Games
             lastInput = UserInput.None;
         }
 
-        void UpdateGameState()
+        void Update()
         {
-            switch(lastInput)
+            switch (lastInput)
             {
                 case UserInput.Left:
                     MoveLeft();
@@ -94,7 +94,10 @@ namespace Juego.Games
             }
 
             lastInput = UserInput.None;
+        }
 
+        void UpdateGameState()
+        {
             if (GameState == GameStateType.Player1Turn)
             {
                 if (DidPlayerWin(player1Value))
