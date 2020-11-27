@@ -20,37 +20,48 @@ namespace Juego.Games
 
             Thread.Sleep(1000);
         }
-
-        int tick = 0;
+        
         public void Update(GraphicsLibrary graphics)
         {
-            tick++;
-            if (tick % (21 - Level) == 0)
-            {
-                Down(true);
-            }
+            Update();
             graphics.Clear();
             DrawGameField(graphics);
+            DrawPreview(graphics);
             graphics.Show();
 
             Thread.Sleep(Math.Max(50 - Level, 0));
         }
 
+        void DrawPreview(GraphicsLibrary graphics)
+        {
+            //draw next piece
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (IsPieceLocationSet(i, j, NextPiece))
+                    {
+                        graphics.DrawRectangle(i*2 + 54, j*2, 2, 2);
+                    }
+                }
+            }
+        }
+
         void DrawGameField(GraphicsLibrary graphics)
         {
-            int xIndent = 8;
+            int xIndent = 5;
             int yIndent = 12;
 
             graphics.DrawText(xIndent, 0, $"Lines: {LinesCleared}");
 
-            graphics.DrawRectangle(6, 10, 52, 112);
+            graphics.DrawRectangle(3, 10, 58, 118);
 
             //draw current piece
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (IsPieceLocationSet(i, j))
+                    if (IsPieceLocationSet(i, j, CurrentPiece))
                     {
                         //  graphics.DrawPixel(i, j);
                         graphics.DrawRectangle((CurrentPiece.X + i) * BLOCK_SIZE + xIndent,

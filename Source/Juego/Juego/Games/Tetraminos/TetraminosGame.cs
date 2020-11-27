@@ -16,8 +16,18 @@ namespace Juego.Games
                 Rotation = (byte)((Rotation += 1) % 4);
             }
         }
-        
+
+        enum UserInput
+        {
+            None,
+            Rotate,
+            Down,
+            Left,
+            Right,
+        }
+
         public Tetramino CurrentPiece { get; protected set; }
+        public Tetramino NextPiece { get; protected set; }
 
         public int Score { get; private set; }
         public int Level { get; private set; }
@@ -29,6 +39,8 @@ namespace Juego.Games
         public byte[,] GameField { get; private set; }
 
         Random rand;
+
+        UserInput lastInput = UserInput.None;
 
         private byte[][] Tetraminos =
         {
@@ -62,7 +74,7 @@ namespace Juego.Games
                          0,0,0,0},
         };
 
-        public TetraminosGame(int width = 8, int height = 18)
+        public TetraminosGame(int width = 9, int height = 19)
         {
             Width = width;
             Height = height;
@@ -86,6 +98,8 @@ namespace Juego.Games
             }
 
             CurrentPiece = GetNewPiece();
+            NextPiece = GetNewPiece();
+            lastInput = UserInput.None;
         }
 
         Tetramino GetNewPiece()
@@ -101,7 +115,57 @@ namespace Juego.Games
             };
         }
 
+        int tick = 0;
+        void Update()
+        {
+            tick++;
+            if (tick % (21 - Level) == 0)
+            {
+                MoveDown(true);
+            }
+
+            switch(lastInput)
+            {
+                case UserInput.Left:
+                    MoveLeft();
+                    break;
+                case UserInput.Right:
+                    MoveRight();
+                    break;
+                case UserInput.Rotate:
+                    Roate();
+                    break;
+                case UserInput.Down:
+                    Console.WriteLine("Down");
+                    Drop();
+                    break;
+            }
+
+            lastInput = UserInput.None;
+        }
+
+        //game is in portrait so rotate input
+        public void Up()
+        {
+            lastInput = UserInput.Right;
+        }
+
+        public void Down()
+        {
+            lastInput = UserInput.Left;
+        }
+
         public void Left()
+        {
+            lastInput = UserInput.Rotate;
+        }
+
+        public void Right()
+        {
+            lastInput = UserInput.Down;
+        }
+
+        void MoveLeft()
         {
             if(IsPositionValid(CurrentPiece.X - 1,
                                CurrentPiece.Y, 
@@ -112,7 +176,7 @@ namespace Juego.Games
             }
         }
 
-        public void Right()
+        void MoveRight()
         {
             if (IsPositionValid(CurrentPiece.X + 1,
                                 CurrentPiece.Y,
@@ -124,7 +188,7 @@ namespace Juego.Games
         }
 
         //rotate
-        public void Up()
+        void Roate()
         {
             var rotation = (CurrentPiece.Rotation + 1) % 4;
 
@@ -137,23 +201,26 @@ namespace Juego.Games
             }
         }
 
-        public void Down()
+        void Drop()
         {
-            Down(false);
+            while (MoveDown(false)) ;
+           // MoveDown(false);
         }
 
-        public void Down(bool setOnFail = false)
+        public bool MoveDown(bool setOnFail = false)
         {
             if (IsPositionValid(CurrentPiece.X, CurrentPiece.Y + 1,
                                 CurrentPiece.Rotation, Tetraminos[CurrentPiece.PieceType]) == true)
             {
                 CurrentPiece.Y += 1;
+                return true;
             }
             else if(setOnFail)
             {
                 SetPieceToField();
                 CheckForCompletedLines(CurrentPiece.Y);
-                CurrentPiece = GetNewPiece();
+                CurrentPiece = NextPiece;
+                NextPiece = GetNewPiece();
 
                 //check for endgame state
                 if (IsPositionValid(CurrentPiece.X,
@@ -165,13 +232,14 @@ namespace Juego.Games
                     Reset(); //start a new game
                 }
             }
+            return false; //for drop function ... should improve
         }
 
         void SetPieceToField()
         {
             for(int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
-                    if(IsPieceLocationSet(i, j)) {   
+                    if(IsPieceLocationSet(i, j, CurrentPiece)) {   
                         GameField[CurrentPiece.X + i, CurrentPiece.Y + j] = 1; 
                     }
                 }
@@ -180,7 +248,6 @@ namespace Juego.Games
 
         void CheckForCompletedLines(int yPos)
         {
-            Console.WriteLine("Check for completed lines");
             bool complete;
             for(int j = 0; j < 4; j++)
             {
@@ -260,11 +327,10 @@ namespace Juego.Games
         }
 
         //relative to tetramino, not game field
-        public bool IsPieceLocationSet(int x, int y)
+        public bool IsPieceLocationSet(int x, int y, Tetramino piece)
         {
-            return IsPieceLocationSet(x, y, CurrentPiece.Rotation, Tetraminos[CurrentPiece.PieceType]);
+            return IsPieceLocationSet(x, y, piece.Rotation, Tetraminos[piece.PieceType]);
         }
-
 
         //relative to tetramino, not game field
         public bool IsPieceLocationSet(int x, int y, int rotation, byte[] pieceData)

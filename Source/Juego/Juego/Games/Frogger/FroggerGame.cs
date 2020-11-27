@@ -34,6 +34,16 @@ namespace Juego.Games
         public byte CellSize { get; private set; }
 
         DateTime gameStart;
+        UserInput lastInput;
+
+        enum UserInput
+        {
+            None,
+            Up,
+            Down,
+            Left,
+            Right,
+        }
 
         public FroggerGame(byte cellsize = 8)
         {
@@ -48,6 +58,8 @@ namespace Juego.Games
             Lives = 3;
 
             FrogsHome = 0;
+
+            lastInput = UserInput.None;
         }
 
         void ResetFrog()
@@ -61,9 +73,49 @@ namespace Juego.Games
         {
             lastTime = GameTime;
             GameTime = (DateTime.Now - gameStart).TotalSeconds;
+
+            switch(lastInput)
+            {
+                case UserInput.Up:
+                    MoveFrogUp();
+                    break;
+                case UserInput.Down:
+                    MoveFrogDown();
+                    break;
+                case UserInput.Left:
+                    MoveFrogLeft();
+                    break;
+                case UserInput.Right:
+                    MoveFrogRight();
+                    break;
+            }
+            //clear for next frame
+            lastInput = UserInput.None;
         }
 
         public void Up()
+        {
+            lastInput = UserInput.Up;
+        }
+
+        public void Down()
+        {
+            lastInput = UserInput.Down;
+        }
+
+        public void Left()
+        {
+            lastInput = UserInput.Left;
+        }
+
+        public void Right()
+        {
+            lastInput = UserInput.Right;
+        }
+
+
+
+        void MoveFrogUp()
         {
             if (FrogY >= CellSize) { FrogY -= CellSize; }
 
@@ -75,26 +127,24 @@ namespace Juego.Games
             }
         }
 
-        public void Down()
+        void MoveFrogDown()
         {
             if (FrogY < Rows * CellSize - CellSize) { FrogY += CellSize; }
         }
 
-        public void Left()
+        void MoveFrogLeft()
         {
             if (FrogX > CellSize) { FrogX -= CellSize; }
         }
 
-        public void Right()
+        void MoveFrogRight()
         {
             if (FrogX <= Columns * CellSize - CellSize) { FrogX += CellSize; }
         }
 
-        public void KillFrog()
+        void KillFrog()
         {
             ResetFrog();
         }
-
-
     }
 }

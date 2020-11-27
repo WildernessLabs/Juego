@@ -76,7 +76,7 @@ namespace Juego
 
             graphics.Clear();
             graphics.DrawRectangle(0, 0, 128, 64);
-            graphics.DrawText(64, 26, "Juego v0.1", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
+            graphics.DrawText(64, 26, "Juego v0.2", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
             graphics.Show();
 
             Console.WriteLine("Create buttons...");
