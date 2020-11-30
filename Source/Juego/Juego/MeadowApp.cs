@@ -66,6 +66,7 @@ namespace Juego
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00
             );
+            ssd1309.IgnoreOutOfBoundsPixels = true;
 
             Console.WriteLine("Create GraphicsLibrary...");
 
