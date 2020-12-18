@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
-using Juego.Games;
+﻿using Juego.Games;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
@@ -14,6 +10,10 @@ using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
 using Meadow.Peripherals.Displays;
 using Meadow.Peripherals.Sensors.Buttons;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Juego
 {
@@ -30,6 +30,7 @@ namespace Juego
         IButton down = null;
         IButton left = null;
         IButton right = null;
+        IButton select = null;
 
         IGame currentGame;
 
@@ -37,7 +38,7 @@ namespace Juego
         {
             Initialize();
 
-            onboardLed.SetColor(Color.Green);
+            
             InitMenu();
         }
 
@@ -51,6 +52,7 @@ namespace Juego
                 bluePwmPin: Device.Pins.OnboardLedBlue,
                 3.3f, 3.3f, 3.3f,
                 Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+            onboardLed.SetColor(Color.Red);
 
             Console.WriteLine("Create display...");
 
@@ -58,6 +60,7 @@ namespace Juego
 
             var bus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
 
+            // If display is SPI
             ssd1309 = new Ssd1309
             (
                 device: Device,
@@ -66,6 +69,14 @@ namespace Juego
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00
             );
+
+            // If display is I2C
+            //ssd1309 = new Ssd1309
+            //(
+            //    i2cBus: Device.CreateI2cBus(),
+            //    address: 60
+            //);
+
             ssd1309.IgnoreOutOfBoundsPixels = true;
 
             Console.WriteLine("Create GraphicsLibrary...");
@@ -82,17 +93,22 @@ namespace Juego
 
             Console.WriteLine("Create buttons...");
 
-            up = new PushButton(Device, Device.Pins.D14);
+            up = new PushButton(Device, Device.Pins.D03, ResistorMode.PullUp);
             up.Clicked += Up_Clicked;
 
-            left = new PushButton(Device, Device.Pins.D11);
+            left = new PushButton(Device, Device.Pins.D06, ResistorMode.PullUp);
             left.Clicked += Left_Clicked;
 
-            right = new PushButton(Device, Device.Pins.D10);
+            right = new PushButton(Device, Device.Pins.D04, ResistorMode.PullUp);
             right.Clicked += Right_Clicked;
 
-            down = new PushButton(Device, Device.Pins.D12);
+            down = new PushButton(Device, Device.Pins.D02, ResistorMode.PullUp);
             down.Clicked += Down_Clicked;
+
+            select = new PushButton(Device, Device.Pins.D05, ResistorMode.PullUp);
+            select.Clicked += Select_Clicked; ;
+
+            onboardLed.SetColor(Color.Green);
         }
 
         void InitMenu()
@@ -102,33 +118,7 @@ namespace Juego
             menu.Enable();
         }
 
-        private void Down_Clicked(object sender, EventArgs e)
-        {
-            if (menu.IsEnabled) { menu.Next(); }
-            else
-            {
-                currentGame?.Down();
-            }
-        }
-
-        private void Right_Clicked(object sender, EventArgs e)
-        {
-            if (menu.IsEnabled)
-            {
-                menu.Select();
-            }
-            else
-            {
-                currentGame?.Right();
-            }
-        }
-
-        private void Left_Clicked(object sender, EventArgs e)
-        {
-            currentGame?.Left();
-        }
-
-        private void Up_Clicked(object sender, EventArgs e)
+        void Up_Clicked(object sender, EventArgs e)
         {
             if (menu.IsEnabled)
             {
@@ -138,6 +128,40 @@ namespace Juego
             {
                 currentGame?.Up();
             }
+        }
+
+        void Left_Clicked(object sender, EventArgs e)
+        {
+            currentGame?.Left();
+        }
+
+        void Right_Clicked(object sender, EventArgs e)
+        {
+            currentGame?.Right();
+        }
+
+        void Down_Clicked(object sender, EventArgs e)
+        {
+            if (menu.IsEnabled)
+            {
+                menu.Next();
+            }
+            else
+            {
+                currentGame?.Down();
+            }
+        }
+
+        void Select_Clicked(object sender, EventArgs e)
+        {
+            menu.Select();
+        }
+
+        void Menu_Selected(object sender, MenuSelectedEventArgs e)
+        {
+            DisableMenu();
+
+            var t = StartGame(e.Command);
         }
 
         bool playGame = false;
@@ -209,13 +233,6 @@ namespace Juego
             menu = new Menu(display, menuItems);
 
             menu.Selected += Menu_Selected;
-        }
-
-        private void Menu_Selected(object sender, MenuSelectedEventArgs e)
-        {
-            DisableMenu();
-
-            var t = StartGame(e.Command);
         }
 
         byte[] LoadResource(string filename)
