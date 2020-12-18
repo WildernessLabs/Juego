@@ -93,19 +93,19 @@ namespace Juego
 
             Console.WriteLine("Create buttons...");
 
-            up = new PushButton(Device, Device.Pins.D03, ResistorMode.PullUp);
+            up = new PushButton(Device, Device.Pins.D09, ResistorMode.PullUp);
             up.Clicked += Up_Clicked;
 
-            left = new PushButton(Device, Device.Pins.D06, ResistorMode.PullUp);
+            left = new PushButton(Device, Device.Pins.D10, ResistorMode.PullUp);
             left.Clicked += Left_Clicked;
 
             right = new PushButton(Device, Device.Pins.D04, ResistorMode.PullUp);
             right.Clicked += Right_Clicked;
 
-            down = new PushButton(Device, Device.Pins.D02, ResistorMode.PullUp);
+            down = new PushButton(Device, Device.Pins.D03, ResistorMode.PullUp);
             down.Clicked += Down_Clicked;
 
-            select = new PushButton(Device, Device.Pins.D05, ResistorMode.PullUp);
+            select = new PushButton(Device, Device.Pins.D06, ResistorMode.PullUp);
             select.Clicked += Select_Clicked; ;
 
             onboardLed.SetColor(Color.Green);
