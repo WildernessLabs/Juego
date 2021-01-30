@@ -8,6 +8,7 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Displays.TextDisplayMenu;
+using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -24,7 +25,10 @@ namespace Juego
         Menu menu;
 
         GraphicsLibrary graphics;
-        Ssd1309 ssd1309;
+        St7789 display;
+
+        int dW = 240;
+        int dH = 240;
 
         IButton up = null;
         IButton down = null;
@@ -54,25 +58,29 @@ namespace Juego
 
             Console.WriteLine("Create display...");
 
-            var config = new SpiClockConfiguration(12000, SpiClockConfiguration.Mode.Mode0);
+            var config = new SpiClockConfiguration(48000, SpiClockConfiguration.Mode.Mode3);
 
-            var bus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
+            var bus = Device.CreateSpiBus(
+                IODeviceMap.Display.CipoPin, IODeviceMap.Display.CopiPin,
+                IODeviceMap.Display.ClockPin, config);
 
-            ssd1309 = new Ssd1309
-            (
+            display = new St7789(
                 device: Device,
                 spiBus: bus,
-                chipSelectPin: Device.Pins.D02,
-                dcPin: Device.Pins.D01,
-                resetPin: Device.Pins.D00
+                chipSelectPin: IODeviceMap.Display.CSPin,
+                dcPin: IODeviceMap.Display.DCPin,
+                resetPin: IODeviceMap.Display.ResetPin,
+                width: (uint)dW,
+                height: (uint)dH,
+                displayColorMode: DisplayBase.DisplayColorMode.Format12bppRgb444
             );
-            ssd1309.IgnoreOutOfBoundsPixels = true;
+            display.IgnoreOutOfBoundsPixels = true;
 
             Console.WriteLine("Create GraphicsLibrary...");
 
-            graphics = new GraphicsLibrary(ssd1309)
-            {
+            graphics = new GraphicsLibrary(display) {
                 CurrentFont = new Font8x12(),
+                Rotation = GraphicsLibrary.RotationType._90Degrees,
             };
 
             graphics.Clear();
@@ -82,16 +90,16 @@ namespace Juego
 
             Console.WriteLine("Create buttons...");
 
-            up = new PushButton(Device, Device.Pins.D14);
+            up = new PushButton(Device, IODeviceMap.Buttons.UpPin);
             up.Clicked += Up_Clicked;
 
-            left = new PushButton(Device, Device.Pins.D11);
+            left = new PushButton(Device, IODeviceMap.Buttons.LeftPin);
             left.Clicked += Left_Clicked;
 
-            right = new PushButton(Device, Device.Pins.D10);
+            right = new PushButton(Device, IODeviceMap.Buttons.RightPin);
             right.Clicked += Right_Clicked;
 
-            down = new PushButton(Device, Device.Pins.D12);
+            down = new PushButton(Device, IODeviceMap.Buttons.DownPin);
             down.Clicked += Down_Clicked;
         }
 
@@ -232,5 +240,5 @@ namespace Juego
                 }
             }
         }
-    }
 }
+    }
