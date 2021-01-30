@@ -4,17 +4,40 @@ namespace Juego.Games
 {
     public partial class Span4Game
     {
-        int CellSize = 9;
-        int yStart = 9;
+        int cellSize;
+        int chipRadius;
+        int yStart;
         int xStart = 0;
+
+        int boardWidth;
+        int boardHeight;
 
         public void Init(GraphicsLibrary gl)
         {
-            gl.CurrentFont = new Font4x8();
+            if(gl.Width == 240)
+            {
+                yStart = 20;
+                cellSize = 18;
+                chipRadius = 7;
+                boardWidth = 128;
+                boardHeight = 110;
+
+                gl.CurrentFont = new Font12x16();
+            }
+            else
+            {
+                yStart = 9;
+                cellSize = 9;
+                chipRadius = 3;
+                boardWidth = 64;
+                boardHeight = 55;
+
+                gl.CurrentFont = new Font4x8();
+            }
 
             gl.Clear();
             gl.DrawText(0, 0, "Meadow Span4");
-            gl.DrawText(0, 10, "v0.1.0");
+            gl.DrawText(0, 16, "v0.2.0");
             gl.Show();
         }
 
@@ -29,23 +52,23 @@ namespace Juego.Games
         void DrawGame(GraphicsLibrary graphics)
         {
             //draw gameboard
-            graphics.DrawRectangle(0, 9, 64, 55, true, false);
+            graphics.DrawRectangle(0, yStart, boardWidth, boardHeight, true, false);
 
             for (int i = 1; i < 7; i++)
             {
-                graphics.DrawLine(CellSize * i,
+                graphics.DrawLine(cellSize * i,
                     yStart,
-                    CellSize * i,
-                    yStart + CellSize * 6 + 1,
+                    cellSize * i,
+                    yStart + cellSize * 6 + 1,
                     true);
             }
 
             for (int j = 1; j < 6; j++)
             {
                 graphics.DrawLine(xStart,
-                    yStart + j * CellSize,
-                    63 + xStart,
-                    yStart + j * CellSize,
+                    yStart + j * cellSize,
+                    boardWidth + xStart - 1,
+                    yStart + j * cellSize,
                     true);
             }
 
@@ -79,36 +102,41 @@ namespace Juego.Games
             }
 
             //Draw side display
-            int xText = 75;
-            graphics.DrawText(xText, 0, "Span4!");
+            int xText = boardWidth + 11;
+            int yText = 0;
+            graphics.DrawText(xText, yText, "Span4!");
+            yText += graphics.CurrentFont.Height * 2;
 
-            graphics.DrawText(xText, 18, "Player 1");
-            DrawChip(115, 21, true, graphics);
+            graphics.DrawText(xText, yText, "Player 1");
+            yText += graphics.CurrentFont.Height + 1;
+         //   DrawChip(115, 21, true, graphics);
 
-            graphics.DrawText(xText, 27, "Player 2");
-            DrawChip(115, 30, false, graphics);
+            graphics.DrawText(xText, yText, "Player 2");
+            yText += graphics.CurrentFont.Height * 2;
+            //   DrawChip(115, 30, false, graphics);
 
-            graphics.DrawText(xText, 45, "Score:");
-            graphics.DrawText(xText, 54, $"{Player1Wins} to {Player2Wins}");
+            graphics.DrawText(xText, yText, "Score:");
+            yText += graphics.CurrentFont.Height + 1;
+            graphics.DrawText(xText, yText, $"{Player1Wins} to {Player2Wins}");
         }
 
         void DrawPreviewChip(int column, bool isFilled, GraphicsLibrary graphics)
         {
-            DrawChip(xStart + column * CellSize + 5,
-                5,
+            DrawChip(xStart + column * cellSize + (cellSize + 1) / 2,
+                (cellSize + 1) / 2,
                 isFilled,
                 graphics);
         }
 
         void DrawChipOnBoard(int column, int row, bool isFilled, GraphicsLibrary graphics)
         {
-            DrawChip(xStart + column * CellSize + 5,
-                yStart + (Height - row - 1) * CellSize + 5,
+            DrawChip(xStart + column * cellSize + (cellSize + 1)/2,
+                yStart + (Height - row - 1) * cellSize + (cellSize + 1) / 2,
                 isFilled, graphics);
         }
         void DrawChip(int xCenter, int yCenter, bool isFilled, GraphicsLibrary graphics)
         {
-            graphics.DrawCircle(xCenter, yCenter, 3,
+            graphics.DrawCircle(xCenter, yCenter, chipRadius,
                             true, isFilled, true);
         }
     }

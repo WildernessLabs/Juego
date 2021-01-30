@@ -46,7 +46,7 @@ namespace Juego
             onboardLed.SetColor(Color.Green);
             InitMenu();
 
-            StartGame("startSnake");
+            StartGame("startSpan4");
         }
 
         void Initialize()
@@ -166,7 +166,6 @@ namespace Juego
                 menu.Select();
             }
         }
-
 
         bool playGame = false;
         async Task StartGame(string command)

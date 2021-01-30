@@ -1,6 +1,4 @@
-﻿using Meadow.Foundation.Graphics;
-
-namespace Juego.Games
+﻿namespace Juego.Games
 {
     public partial class Span4Game : IGame
     {
