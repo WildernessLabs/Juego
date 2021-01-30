@@ -34,6 +34,8 @@ namespace Juego
         IButton down = null;
         IButton left = null;
         IButton right = null;
+        IButton select = null;
+        IButton start = null;
 
         IGame currentGame;
 
@@ -98,6 +100,12 @@ namespace Juego
 
             down = new PushButton(Device, IODeviceMap.Buttons.DownPin);
             down.Clicked += Down_Clicked;
+
+            //select = new PushButton(Device, IODeviceMap.Buttons.SelectPin);
+            //select.Clicked += Select_Clicked;
+
+            //start = new PushButton(Device, IODeviceMap.Buttons.StartPin);
+            //start.Clicked += Start_Clicked;
         }
 
         void InitMenu()
@@ -144,6 +152,19 @@ namespace Juego
                 currentGame?.Up();
             }
         }
+
+        private void Select_Clicked(object sender, EventArgs e)
+        {
+            if (menu.IsEnabled) { menu.Next(); }
+        }
+
+        private void Start_Clicked(object sender, EventArgs e)
+        {
+            if (menu.IsEnabled) {
+                menu.Select();
+            }
+        }
+
 
         bool playGame = false;
         async Task StartGame(string command)
