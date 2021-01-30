@@ -175,7 +175,7 @@ namespace Juego
                     currentGame = new FroggerGame();
                     break;
                 case "startPong":
-                    currentGame = new PongGame();
+                    currentGame = new PongGame(dW, dH);
                     break;
                 case "startSpan4":
                     currentGame = new Span4Game();
