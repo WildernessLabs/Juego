@@ -59,14 +59,11 @@ namespace Juego
             Console.WriteLine("Create display...");
 
             var config = new SpiClockConfiguration(48000, SpiClockConfiguration.Mode.Mode3);
-
-            var bus = Device.CreateSpiBus(
-                IODeviceMap.Display.CipoPin, IODeviceMap.Display.CopiPin,
-                IODeviceMap.Display.ClockPin, config);
+            var bus = Device.CreateSpiBus(IODeviceMap.Display.ClockPin, IODeviceMap.Display.CopiPin,
+                IODeviceMap.Display.CipoPin, config);
 
             display = new St7789(
-                device: Device,
-                spiBus: bus,
+                device: Device, spiBus: bus,
                 chipSelectPin: IODeviceMap.Display.CSPin,
                 dcPin: IODeviceMap.Display.DCPin,
                 resetPin: IODeviceMap.Display.ResetPin,
