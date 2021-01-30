@@ -6,17 +6,18 @@ namespace Juego.Games
 {
     public partial class TetraminosGame
     {
-        int BLOCK_SIZE = 6;
+        int blockSize = 6;
 
         public void Init(GraphicsLibrary graphics)
         {
             graphics.CurrentFont = new Font4x8();
-            graphics.Rotation = GraphicsLibrary.RotationType._270Degrees;
 
             graphics.Clear();
             graphics.DrawText(0, 0, "Meadow Tetraminoes");
             graphics.DrawText(0, 10, "v0.1.0");
             graphics.Show();
+
+            blockSize = graphics.Height / 21; // for now
 
             Thread.Sleep(1000);
         }
@@ -64,9 +65,9 @@ namespace Juego.Games
                     if (IsPieceLocationSet(i, j, CurrentPiece))
                     {
                         //  graphics.DrawPixel(i, j);
-                        graphics.DrawRectangle((CurrentPiece.X + i) * BLOCK_SIZE + xIndent,
-                            (CurrentPiece.Y + j) * BLOCK_SIZE + yIndent,
-                            BLOCK_SIZE, BLOCK_SIZE, true, true);
+                        graphics.DrawRectangle((CurrentPiece.X + i) * blockSize + xIndent,
+                            (CurrentPiece.Y + j) * blockSize + yIndent,
+                            blockSize, blockSize, true, true);
                     }
                 }
             }
@@ -78,9 +79,9 @@ namespace Juego.Games
                 {
                     if (IsGameFieldSet(i, j))
                     {
-                        graphics.DrawRectangle((i) * BLOCK_SIZE + xIndent,
-                            (j) * BLOCK_SIZE + yIndent,
-                            BLOCK_SIZE, BLOCK_SIZE, true, true);
+                        graphics.DrawRectangle((i) * blockSize + xIndent,
+                            (j) * blockSize + yIndent,
+                            blockSize, blockSize, true, true);
                     }
                 }
             }

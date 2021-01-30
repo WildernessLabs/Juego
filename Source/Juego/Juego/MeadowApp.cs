@@ -46,7 +46,7 @@ namespace Juego
             onboardLed.SetColor(Color.Green);
             InitMenu();
 
-            StartGame("startSpan4");
+            StartGame("startTetraminoes");
         }
 
         void Initialize()
@@ -80,13 +80,13 @@ namespace Juego
             Console.WriteLine("Create GraphicsLibrary...");
 
             graphics = new GraphicsLibrary(display) {
-                CurrentFont = new Font8x12(),
+                CurrentFont = new Font12x20(),
                 Rotation = GraphicsLibrary.RotationType._90Degrees,
             };
 
             graphics.Clear();
-            graphics.DrawRectangle(0, 0, 128, 64);
-            graphics.DrawText(64, 26, "Juego v0.2", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
+            graphics.DrawRectangle(0, 0, dW, dH);
+            graphics.DrawText(dW/2, dH/3, "Juego v0.3", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
             graphics.Show();
 
             Console.WriteLine("Create buttons...");
