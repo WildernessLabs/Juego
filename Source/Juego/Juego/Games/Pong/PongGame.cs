@@ -9,15 +9,15 @@ namespace Juego.Games
         int ballXSpeed;
         int ballYSpeed;
 
-        static int GameWidth = 128;
-        static int GameHeight = 64;
+        int GameWidth;
+        int GameHeight;
 
-        static int ballRadius = 2;
-        static int paddleWidth = 2;
-        static int paddleHeight = 16;
+        int ballRadius;
+        int paddleWidth;
+        int paddleHeight;
 
-        static int playerX = 4;
-        static int cpuX = GameWidth - paddleWidth - 4;
+        int playerX;
+        int cpuX;
 
         int playerY;
         int cpuY;
@@ -25,10 +25,24 @@ namespace Juego.Games
         int playerScore;
         int cpuScore;
 
+        int movementDistance;
+
         Random random;
 
-        public PongGame()
+        public PongGame(int width, int height)
         {
+            GameWidth = width;
+            GameHeight = height;
+
+            ballRadius = width / 64;
+            paddleWidth = width / 64;
+            paddleHeight = width / 8;
+
+            playerX = width / 32;
+            cpuX = GameWidth - paddleWidth - playerX;
+
+            movementDistance = height / 8;
+
             random = new Random();
         }
 
@@ -96,7 +110,7 @@ namespace Juego.Games
                 ballXSpeed *= -1;
                 ballX += ballXSpeed;
             }
-            else if (ballX + ballRadius > 128)
+            else if (ballX + ballRadius > GameWidth)
             {
                 playerScore++;
                 ballXSpeed *= -1;
@@ -110,7 +124,7 @@ namespace Juego.Games
                 ballYSpeed *= -1;
                 ballY += ballYSpeed;
             }
-            else if (ballY + ballRadius > 64)
+            else if (ballY + ballRadius > GameHeight)
             {
                 ballYSpeed *= -1;
                 ballY += ballYSpeed;
@@ -119,9 +133,9 @@ namespace Juego.Games
 
         public void Down()
         {
-            if(playerY < 64 - paddleHeight)
+            if(playerY < GameHeight - paddleHeight)
             {
-                playerY += 8;
+                playerY += movementDistance;
             }
         }
 
@@ -137,9 +151,9 @@ namespace Juego.Games
 
         public void Up()
         {
-            if(playerY > 8)
+            if(playerY > movementDistance)
             {
-                playerY -= 8;
+                playerY -= movementDistance;
             }
         }
     }

@@ -7,11 +7,18 @@ namespace Juego.Games
     {
         public void Init(GraphicsLibrary gl)
         {
-            gl.CurrentFont = new Font8x12();
-
+            if(gl.Height <= 64)
+            {
+                gl.CurrentFont = new Font8x12();
+            }
+            else
+            {
+                gl.CurrentFont = new Font12x16();
+            }
+            
             gl.Clear();
             gl.DrawText(0, 0, "Meadow Pong");
-            gl.DrawText(0, 12, "v0.1.0");
+            gl.DrawText(0, 16, "v0.2.0");
             gl.Show();
 
             Thread.Sleep(1000);
@@ -28,7 +35,7 @@ namespace Juego.Games
             graphics.DrawRectangle(cpuX, cpuY, paddleWidth, paddleHeight, true, true);
 
             graphics.DrawText(0, 0, $"{playerScore}");
-            graphics.DrawText(128, 0, $"{cpuScore}",
+            graphics.DrawText((int)(graphics.Width), 0, $"{cpuScore}",
                 alignment: GraphicsLibrary.TextAlignment.Right);
 
             graphics.Show();
