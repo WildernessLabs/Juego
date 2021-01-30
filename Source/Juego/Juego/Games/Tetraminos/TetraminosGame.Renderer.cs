@@ -6,18 +6,32 @@ namespace Juego.Games
 {
     public partial class TetraminosGame
     {
-        int blockSize = 6;
+        int blockSize = 1;
+        int topIndent;
+        int leftIndent;
 
         public void Init(GraphicsLibrary graphics)
         {
-            graphics.CurrentFont = new Font4x8();
-
             graphics.Clear();
             graphics.DrawText(0, 0, "Meadow Tetraminoes");
-            graphics.DrawText(0, 10, "v0.1.0");
+            graphics.DrawText(0, 10, "v0.2.0");
             graphics.Show();
 
-            blockSize = graphics.Height / 21; // for now
+            leftIndent = 3;
+
+            if (graphics.Height > 128)
+            {
+                graphics.CurrentFont = new Font8x12();
+            }
+            else
+            {
+                graphics.CurrentFont = new Font4x8();
+            }
+
+            topIndent = graphics.CurrentFont.Height + 2;
+
+            //little hacky but works out nicely for the low res displays
+            blockSize = (graphics.Height - topIndent - 4) / 19;
 
             Thread.Sleep(1000);
         }
@@ -33,6 +47,7 @@ namespace Juego.Games
             Thread.Sleep(Math.Max(50 - Level, 0));
         }
 
+        //ToDo - scale
         void DrawPreview(GraphicsLibrary graphics)
         {
             //draw next piece
@@ -50,12 +65,15 @@ namespace Juego.Games
 
         void DrawGameField(GraphicsLibrary graphics)
         {
-            int xIndent = 5;
-            int yIndent = 12;
+            int xIndent = leftIndent + 2;
+            int yIndent = topIndent + 2;
 
             graphics.DrawText(xIndent, 0, $"Lines: {LinesCleared}");
 
-            graphics.DrawRectangle(3, 10, 58, 118);
+            graphics.DrawRectangle(leftIndent,
+                topIndent,
+                4 + blockSize * 9,
+                4 + 19 * blockSize);
 
             //draw current piece
             for (int i = 0; i < 4; i++)

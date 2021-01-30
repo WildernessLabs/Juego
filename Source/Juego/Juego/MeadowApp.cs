@@ -46,7 +46,7 @@ namespace Juego
             onboardLed.SetColor(Color.Green);
             InitMenu();
 
-            StartGame("startTetraminoes");
+            //StartGame("startTetraminos");
         }
 
         void Initialize()
