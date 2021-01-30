@@ -22,6 +22,8 @@ namespace Juego.Games
             gl.Show();
 
             Thread.Sleep(1000);
+
+            PongSetup(gl.Width, gl.Height);
         }
 
         public void Update(GraphicsLibrary graphics)

@@ -29,7 +29,12 @@ namespace Juego.Games
 
         Random random;
 
-        public PongGame(int width, int height)
+        public PongGame()
+        {
+            random = new Random();
+        }
+
+        void PongSetup(int width, int height)
         {
             GameWidth = width;
             GameHeight = height;
@@ -42,8 +47,6 @@ namespace Juego.Games
             cpuX = GameWidth - paddleWidth - playerX;
 
             movementDistance = height / 8;
-
-            random = new Random();
         }
 
         public void Reset()

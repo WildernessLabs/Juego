@@ -54,14 +54,9 @@ namespace Juego.Games
             Food,
         }
 
-        public SnakeGame(int width, int height)
+        public SnakeGame()
         {
-            BoardWidth = width;
-            BoardHeight = height;
 
-            SnakePosition = new ArrayList();
-
-            Reset();
         }
 
         public void Update()

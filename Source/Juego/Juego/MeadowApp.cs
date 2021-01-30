@@ -45,6 +45,8 @@ namespace Juego
 
             onboardLed.SetColor(Color.Green);
             InitMenu();
+
+            StartGame("startSnake");
         }
 
         void Initialize()
@@ -69,8 +71,8 @@ namespace Juego
                 chipSelectPin: IODeviceMap.Display.CSPin,
                 dcPin: IODeviceMap.Display.DCPin,
                 resetPin: IODeviceMap.Display.ResetPin,
-                width: (uint)dW,
-                height: (uint)dH,
+                width: dW,
+                height: dH,
                 displayColorMode: DisplayBase.DisplayColorMode.Format12bppRgb444
             );
             display.IgnoreOutOfBoundsPixels = true;
@@ -175,13 +177,13 @@ namespace Juego
                     currentGame = new FroggerGame();
                     break;
                 case "startPong":
-                    currentGame = new PongGame(dW, dH);
+                    currentGame = new PongGame();
                     break;
                 case "startSpan4":
                     currentGame = new Span4Game();
                     break;
                 case "startSnake":
-                    currentGame = new SnakeGame(42, 18);
+                    currentGame = new SnakeGame();
                     break;
                 case "startTetraminos":
                     currentGame = new TetraminosGame();

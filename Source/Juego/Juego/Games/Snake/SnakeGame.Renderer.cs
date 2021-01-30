@@ -6,19 +6,36 @@ namespace Juego.Games
 {
     public partial class SnakeGame
     {
-        static int topOffset = 8; //pixels
-        static int pixelScale = 3;
+        int topOffset = 8; //pixels
+        int pixelScale = 1;
 
         public void Init(GraphicsLibrary gl)
         {
-            gl.CurrentFont = new Font4x8();
+            if(gl.Height <= 64)
+            {
+                gl.CurrentFont = new Font4x8();
+                topOffset = 8; //pixels
+                pixelScale = 3;
+            }
+            else
+            {
+                gl.CurrentFont = new Font8x12();
+                topOffset = 12; //pixels
+                pixelScale = 4;
+            }
 
             gl.Clear();
             gl.DrawText(0, 0, "Meadow Snake");
-            gl.DrawText(0, 10, "v0.1.0");
+            gl.DrawText(0, 10, "v0.2.0");
             gl.Show();
 
             Thread.Sleep(1000);
+
+
+            BoardWidth = gl.Width / pixelScale;
+            BoardHeight = (gl.Height - topOffset) / pixelScale;
+
+            Reset();
         }
 
         public void Update(GraphicsLibrary graphics)
@@ -31,7 +48,7 @@ namespace Juego.Games
             graphics.DrawText(0, 0, $"Score: {Level}");
 
             //draw border
-            graphics.DrawRectangle(0, topOffset, 128, 64 - topOffset);
+            graphics.DrawRectangle(0, topOffset, graphics.Width, graphics.Height - topOffset);
 
             //draw food
             graphics.DrawRectangle(FoodPosition.X * pixelScale + 1,
