@@ -21,17 +21,17 @@ namespace Juego.Games
         public double GameTime { get; private set; }
         public double TimeDelta => GameTime - lastTime;
 
-        public byte LaneLength => 32;
-        public byte Columns => 16;
-        public byte Rows => 8;
+        public int LaneLength => 32;
+        public int Columns { get; private set; } = 16;
+        public int Rows => 8;
 
         public double FrogX { get; set; }
         public double FrogY { get; private set; }
 
-        public byte Lives { get; private set; }
-        public byte FrogsHome { get; private set; }
+        public int Lives { get; private set; }
+        public int FrogsHome { get; private set; }
 
-        public byte CellSize { get; private set; }
+        public int CellSize { get; private set; }
 
         DateTime gameStart;
         UserInput lastInput;
@@ -45,9 +45,10 @@ namespace Juego.Games
             Right,
         }
 
-        public FroggerGame(byte cellsize = 8)
+        public FroggerGame(int cellSize = 8, int width = 128)
         {
-            CellSize = cellsize;
+            CellSize = cellSize;
+            Columns = width / cellSize;
             Reset();
         }
 
@@ -64,8 +65,8 @@ namespace Juego.Games
 
         void ResetFrog()
         {
-            FrogX = (byte)(Columns * CellSize / 2);
-            FrogY = (byte)((Rows - 1) * CellSize);
+            FrogX = Columns * CellSize / 2;
+            FrogY = (Rows - 1) * CellSize;
         }
 
         double lastTime;
@@ -112,8 +113,6 @@ namespace Juego.Games
         {
             lastInput = UserInput.Right;
         }
-
-
 
         void MoveFrogUp()
         {

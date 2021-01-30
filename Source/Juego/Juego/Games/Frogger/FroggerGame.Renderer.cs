@@ -7,12 +7,24 @@ namespace Juego.Games
     {
         readonly byte cellSize = 8;
 
+        DrawPixelDel DrawPixel;
+
         public void Init(GraphicsLibrary gl)
         {
             gl.Clear();
             gl.DrawText(0, 0, "Meadow Frogger");
-            gl.DrawText(0, 16, "v0.1.0");
+            gl.DrawText(0, 16, "v0.2.0");
             gl.Show();
+
+            //hacky scale for now
+            if(gl.Width >= 160 && gl.Height >= 128)
+            {
+                DrawPixel = DrawPixel2x;
+            }
+            else
+            {
+                DrawPixel = DrawPixel1x;
+            }
         }
 
         public void Update(GraphicsLibrary gl)
@@ -30,7 +42,7 @@ namespace Juego.Games
         void DrawBackground(GraphicsLibrary graphics)
         {
             //draw docks
-            for (int i = 0; i < 5; i++)
+          /*  for (int i = 0; i < 5; i++)
             {
                 graphics.DrawRectangle(10 + 24 * i, 0, 12, 8, true, false);
 
@@ -38,7 +50,7 @@ namespace Juego.Games
                 {
                     DrawFrog(12 + 24 * i, 0, 1, graphics);
                 }
-            }
+            } */
 
             //draw water
             //graphics.DrawRectangle(0, cellSize, 128, cellSize * 3, true, true);
@@ -165,6 +177,24 @@ namespace Juego.Games
             else if (index == 2) DrawBitmap(x, y, 1, 8, carRight, graphics);
         }
 
+        delegate void DrawPixelDel(int x, int y, bool colored, GraphicsLibrary graphics);
+
+        void DrawPixel1x(int x, int y, bool colored, GraphicsLibrary graphics)
+        {
+            graphics.DrawPixel(x, y, colored);
+        }
+
+        void DrawPixel2x(int x, int y, bool colored, GraphicsLibrary graphics)
+        {
+            x *= 2;
+            y *= 2;
+
+            graphics.DrawPixel(x, y, colored);
+            graphics.DrawPixel(x + 1, y, colored);
+            graphics.DrawPixel(x, y + 1, colored);
+            graphics.DrawPixel(x + 1, y + 1, colored);
+        }
+
         void DrawBitmap(int x, int y, int width, int height, byte[] bitmap, GraphicsLibrary graphics)
         {
             for (var ordinate = 0; ordinate < height; ordinate++) //y
@@ -176,14 +206,8 @@ namespace Juego.Games
 
                     for (var pixel = 0; pixel < 8; pixel++)
                     {
-                        if ((b & mask) > 0)
-                        {
-                            graphics.DrawPixel(x + (8 * abscissa) + 7 - pixel, y + ordinate);
-                        }
-                        else
-                        {
-                            graphics.DrawPixel(x + (8 * abscissa) + 7 - pixel, y + ordinate, false);
-                        }
+                        DrawPixel(x + (8 * abscissa) + 7 - pixel, y + ordinate, (b & mask) > 0, graphics);
+
                         mask <<= 1;
                     }
                 }
