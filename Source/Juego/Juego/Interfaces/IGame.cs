@@ -5,11 +5,8 @@ namespace Juego.Games
     public interface IGame
     {
         void Left();
-
         void Right();
-
         void Up();
-
         void Down();
 
         void Update(GraphicsLibrary gl);

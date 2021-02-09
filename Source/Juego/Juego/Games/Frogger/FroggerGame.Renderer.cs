@@ -42,15 +42,15 @@ namespace Juego.Games
         void DrawBackground(GraphicsLibrary graphics)
         {
             //draw docks
-          /*  for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
-                graphics.DrawRectangle(10 + 24 * i, 0, 12, 8, true, false);
+              //  graphics.DrawRectangle(10 + 24 * i, 0, 12, 8, true, false);
 
                 if (i < FrogsHome)
                 {
                     DrawFrog(12 + 24 * i, 0, 1, graphics);
                 }
-            } */
+            } 
 
             //draw water
             //graphics.DrawRectangle(0, cellSize, 128, cellSize * 3, true, true);

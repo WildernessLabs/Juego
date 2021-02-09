@@ -6,15 +6,10 @@ using Juego.Games;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays;
 using Meadow.Foundation.Displays.TextDisplayMenu;
-using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
-using Meadow.Foundation.Sensors.Buttons;
-using Meadow.Hardware;
 using Meadow.Peripherals.Displays;
-using Meadow.Peripherals.Sensors.Buttons;
 
 namespace Juego
 {
@@ -24,18 +19,7 @@ namespace Juego
 
         Menu menu;
 
-        GraphicsLibrary graphics;
-        St7789 display;
-
-        int dW = 240;
-        int dH = 240;
-
-        IButton up = null;
-        IButton down = null;
-        IButton left = null;
-        IButton right = null;
-        IButton select = null;
-        IButton start = null;
+        IIOConfig hardware;
 
         IGame currentGame;
 
@@ -60,59 +44,31 @@ namespace Juego
                 3.3f, 3.3f, 3.3f,
                 Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
 
-            Console.WriteLine("Create display...");
+            hardware = new Config_1c_Ssd130x_I2c();
 
-            var config = new SpiClockConfiguration(48000, SpiClockConfiguration.Mode.Mode3);
-            var bus = Device.CreateSpiBus(IODeviceMap.Display.ClockPin, IODeviceMap.Display.CopiPin,
-                IODeviceMap.Display.CipoPin, config);
-
-            display = new St7789(
-                device: Device, spiBus: bus,
-                chipSelectPin: IODeviceMap.Display.CSPin,
-                dcPin: IODeviceMap.Display.DCPin,
-                resetPin: IODeviceMap.Display.ResetPin,
-                width: dW,
-                height: dH,
-                displayColorMode: DisplayBase.DisplayColorMode.Format12bppRgb444
-            );
-            display.IgnoreOutOfBoundsPixels = true;
-
-            Console.WriteLine("Create GraphicsLibrary...");
-
-            graphics = new GraphicsLibrary(display) {
-                CurrentFont = new Font12x20(),
-                Rotation = GraphicsLibrary.RotationType._90Degrees,
-            };
-
-            graphics.Clear();
-            graphics.DrawRectangle(0, 0, dW, dH);
-            graphics.DrawText(dW/2, dH/3, "Juego v0.3", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
-            graphics.Show();
+            DrawSplashScreen(hardware.Graphics);
 
             Console.WriteLine("Create buttons...");
 
-            up = new PushButton(Device, IODeviceMap.Buttons.UpPin);
-            up.Clicked += Up_Clicked;
+            hardware.Up.Clicked += Up_Clicked;
+            hardware.Left.Clicked += Left_Clicked;
+            hardware.Right.Clicked += Right_Clicked;
+            hardware.Down.Clicked += Down_Clicked;
+            hardware.Select.Clicked += Select_Clicked;
+            hardware.Start.Clicked += Start_Clicked;
+        }
 
-            left = new PushButton(Device, IODeviceMap.Buttons.LeftPin);
-            left.Clicked += Left_Clicked;
-
-            right = new PushButton(Device, IODeviceMap.Buttons.RightPin);
-            right.Clicked += Right_Clicked;
-
-            down = new PushButton(Device, IODeviceMap.Buttons.DownPin);
-            down.Clicked += Down_Clicked;
-
-            //select = new PushButton(Device, IODeviceMap.Buttons.SelectPin);
-            //select.Clicked += Select_Clicked;
-
-            //start = new PushButton(Device, IODeviceMap.Buttons.StartPin);
-            //start.Clicked += Start_Clicked;
+        void DrawSplashScreen(GraphicsLibrary graphics)
+        {
+            graphics.Clear();
+            graphics.DrawRectangle(0, 0, hardware.Graphics.Width, hardware.Graphics.Height);
+            graphics.DrawText(hardware.Graphics.Width / 2, hardware.Graphics.Height / 3, "Juego v0.4", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
+            graphics.Show();
         }
 
         void InitMenu()
         { 
-            CreateMenu(graphics);
+            CreateMenu(hardware.Graphics);
 
             menu.Enable();
         }
@@ -157,7 +113,12 @@ namespace Juego
 
         private void Select_Clicked(object sender, EventArgs e)
         {
-            if (menu.IsEnabled) { menu.Next(); }
+            playGame = false;
+
+            if(menu.IsEnabled == false)
+            {
+                menu.Enable();
+            }
         }
 
         private void Start_Clicked(object sender, EventArgs e)
@@ -193,14 +154,14 @@ namespace Juego
             }
 
             playGame = true;
-            currentGame.Init(graphics);
+            currentGame.Init(hardware.Graphics);
             currentGame.Reset();
 
             await Task.Run(() =>
             {   //full speed today
                 while (playGame == true)
                 {
-                    currentGame.Update(graphics);
+                    currentGame.Update(hardware.Graphics);
                 }
             });
         }
@@ -259,5 +220,5 @@ namespace Juego
                 }
             }
         }
-}
     }
+}
