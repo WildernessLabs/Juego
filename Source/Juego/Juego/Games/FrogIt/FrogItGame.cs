@@ -2,8 +2,18 @@
 
 namespace Juego.Games
 {
-    public partial class FroggerGame : IGame
+    public partial class FrogItGame : IGame
     {
+        enum FrogState
+        {
+            Forward,
+            Left,
+            Right,
+            Dead
+        }
+
+        FrogState frogState;
+
         //each lane has a velocity (float)
         public float[] LaneSpeeds { get; private set; } = new float[6] { 1.0f, -2.0f, 1.5f, -1.0f, 1.5f, -2.0f };
         public byte[,] LaneData { get; private set; } = new byte[6, 32]
@@ -45,7 +55,7 @@ namespace Juego.Games
             Right,
         }
 
-        public FroggerGame(int cellSize = 8, int width = 128)
+        public FrogItGame(int cellSize = 8, int width = 128)
         {
             CellSize = cellSize;
             Columns = width / cellSize;
@@ -67,6 +77,7 @@ namespace Juego.Games
         {
             FrogX = Columns * CellSize / 2;
             FrogY = (Rows - 1) * CellSize;
+            frogState = FrogState.Forward;
         }
 
         double lastTime;
@@ -116,6 +127,7 @@ namespace Juego.Games
 
         void MoveFrogUp()
         {
+            frogState = FrogState.Forward;
             if (FrogY >= CellSize) { FrogY -= CellSize; }
 
             if (FrogY == 0)
@@ -128,21 +140,25 @@ namespace Juego.Games
 
         void MoveFrogDown()
         {
+            frogState = FrogState.Forward;
             if (FrogY < Rows * CellSize - CellSize) { FrogY += CellSize; }
         }
 
         void MoveFrogLeft()
         {
+            frogState = FrogState.Left;
             if (FrogX > CellSize) { FrogX -= CellSize; }
         }
 
         void MoveFrogRight()
         {
+            frogState = FrogState.Right;
             if (FrogX <= Columns * CellSize - CellSize) { FrogX += CellSize; }
         }
 
         void KillFrog()
         {
+            frogState = FrogState.Dead;
             ResetFrog();
         }
     }

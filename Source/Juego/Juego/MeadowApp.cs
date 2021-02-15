@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Juego.Games;
 using Meadow;
@@ -23,7 +24,7 @@ namespace Juego
 
         IGame currentGame;
 
-        const string version = "0.4.1";
+        const string version = "0.4.2";
 
         public MeadowApp()
         {
@@ -145,8 +146,8 @@ namespace Juego
         {
             switch (command)
             {
-                case "startFrogger":
-                    currentGame = new FroggerGame();
+                case "startFrogIt":
+                    currentGame = new FrogItGame();
                     break;
                 case "startPong":
                     currentGame = new PongGame();
@@ -174,6 +175,8 @@ namespace Juego
                 while (playGame == true)
                 {
                     currentGame.Update(hardware.Graphics);
+
+                    Thread.Sleep(3);
                 }
             });
         }
@@ -199,7 +202,7 @@ namespace Juego
 
             var menuItems = new MenuItem[]
             {
-                new MenuItem("Frogger", command: "startFrogger"),
+                new MenuItem("FrogIt", command: "startFrogIt"),
                 new MenuItem("Pong", command: "startPong"),
                 new MenuItem("Span4", command: "startSpan4"),
                 new MenuItem("Snake", command: "startSnake"),

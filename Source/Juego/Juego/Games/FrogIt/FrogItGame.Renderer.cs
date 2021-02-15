@@ -3,7 +3,7 @@ using Meadow.Foundation.Graphics;
 
 namespace Juego.Games
 {
-    public partial class FroggerGame
+    public partial class FrogItGame
     {
         readonly byte cellSize = 8;
 
@@ -12,8 +12,8 @@ namespace Juego.Games
         public void Init(GraphicsLibrary gl)
         {
             gl.Clear();
-            gl.DrawText(0, 0, "Meadow Frogger");
-            gl.DrawText(0, 16, "v0.2.0");
+            gl.DrawText(0, 0, "Meadow FrogIt");
+            gl.DrawText(0, 16, "v0.2.2");
             gl.Show();
 
             //hacky scale for now
@@ -34,7 +34,7 @@ namespace Juego.Games
             gl.Clear();
             DrawBackground(gl);
             DrawLanesAndCheckCollisions(gl);
-            DrawFrog(gl);
+            DrawFrog(gl, frogState);
             // DrawLives();
             gl.Show();
         }
@@ -48,7 +48,7 @@ namespace Juego.Games
 
                 if (i < FrogsHome)
                 {
-                    DrawFrog(12 + 24 * i, 0, 1, graphics);
+                    DrawFrog(12 + 24 * i, 0, FrogState.Forward, graphics);
                 }
             } 
 
@@ -132,28 +132,32 @@ namespace Juego.Games
         {
             for (int i = 1; i < Lives; i++)
             {
-                DrawFrog(cellSize * (Columns - i), cellSize * (Rows - 1), 1, graphics);
+                DrawFrog(cellSize * (Columns - i), cellSize * (Rows - 1), FrogState.Forward, graphics);
             }
         }
 
-        void DrawFrog(GraphicsLibrary graphics)
+        void DrawFrog(GraphicsLibrary graphics, FrogState state = FrogState.Forward)
         {
-            DrawFrog((int)FrogX, (int)FrogY, 1, graphics);
+            DrawFrog((int)FrogX, (int)FrogY, state, graphics);
         }
 
-        void DrawFrog(int x, int y, int frame, GraphicsLibrary graphics)
+        void DrawFrog(int x, int y, FrogState state, GraphicsLibrary graphics)
         {
-            if (frame == 0)
+            if (state == FrogState.Left)
             {
                 DrawBitmap(x, y, 1, 8, frogLeft, graphics);
             }
-            else if (frame == 1)
+            else if (state == FrogState.Forward)
             {
                 DrawBitmap(x, y, 1, 8, frogUp, graphics);
             }
-            else
+            else if(state == FrogState.Right)
             {
                 DrawBitmap(x, y, 1, 8, frogRight, graphics);
+            }
+            else
+            {
+                graphics.DrawText(x, y, "X");
             }
         }
 

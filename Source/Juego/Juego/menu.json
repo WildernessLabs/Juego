@@ -1,8 +1,8 @@
-[
+﻿[
   {
-    "text": "Frogger",
-    "id": "frogger",
-    "command": "startFrogger"
+    "text": "FrogIt",
+    "id": "FrogIt",
+    "command": "startFrogIt"
   },
   {
     "text": "Pong",

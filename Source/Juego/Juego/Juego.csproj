@@ -7,7 +7,7 @@
   <ItemGroup>
     <Folder Include="Games\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Games\Frogger\" />
+    <Folder Include="Games\FrogIt\" />
     <Folder Include="Games\Span4\" />
     <Folder Include="Games\Snake\" />
     <Folder Include="Games\Pong\" />
