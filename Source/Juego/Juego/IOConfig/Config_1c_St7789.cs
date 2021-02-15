@@ -5,7 +5,7 @@ using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
 
-namespace Juego.HardwareConfig
+namespace Juego
 {
     public class Config_1c_St7789 : IIOConfig
     {

@@ -46,7 +46,9 @@ namespace Juego
                 3.3f, 3.3f, 3.3f,
                 Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
 
-            hardware = new Config_1c_Ssd130x_I2c();
+            hardware = new Config_proto_Ssd130x_Spi();
+            //hardware = new Config_1c_Ssd130x_I2c();
+            //hardware = new Config_1c_St7789();
 
             DrawSplashScreen(hardware.Graphics);
 

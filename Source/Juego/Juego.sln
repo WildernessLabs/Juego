@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Displays.TftSpi", "..\..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuegoTester", "JuegoTester\JuegoTester.csproj", "{915E2329-66BB-4B24-9F44-CA7505300029}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Displays.Ssd130x", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Ssd130x\Driver\Displays.Ssd130x\Displays.Ssd130x.csproj", "{F5C7D095-6358-4A06-B284-7CF297FA3752}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Displays.Ssd130x", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Ssd130x\Driver\Displays.Ssd130x\Displays.Ssd130x.csproj", "{E31A385D-82AB-40FA-8167-AF6C0023F623}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,10 +55,10 @@ Global
 		{915E2329-66BB-4B24-9F44-CA7505300029}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{915E2329-66BB-4B24-9F44-CA7505300029}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{915E2329-66BB-4B24-9F44-CA7505300029}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5C7D095-6358-4A06-B284-7CF297FA3752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5C7D095-6358-4A06-B284-7CF297FA3752}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5C7D095-6358-4A06-B284-7CF297FA3752}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5C7D095-6358-4A06-B284-7CF297FA3752}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +72,6 @@ Global
 		{88A4604C-2D33-493C-934A-0D2C38D84E0A} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{A40BBA71-8A71-49D8-9D1F-581EF3938420} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{25B3B7BE-28C4-46EA-B0F3-AD653DD0E841} = {FF570CB7-3F54-4049-A167-304A90098DB6}
-		{F5C7D095-6358-4A06-B284-7CF297FA3752} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{E31A385D-82AB-40FA-8167-AF6C0023F623} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 	EndGlobalSection
 EndGlobal
