@@ -1,17 +1,12 @@
-<Project Sdk="Meadow.Sdk/1.1.0">
+﻿<Project Sdk="Meadow.Sdk/1.1.0">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <OutputType>Exe</OutputType>
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Games\" />
+    <Folder Include="Apps\Games\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Games\FrogIt\" />
-    <Folder Include="Games\Span4\" />
-    <Folder Include="Games\Snake\" />
-    <Folder Include="Games\Pong\" />
-    <Folder Include="Games\Tetraminos\" />
     <Folder Include="IOConfig\" />
   </ItemGroup>
   <ItemGroup>

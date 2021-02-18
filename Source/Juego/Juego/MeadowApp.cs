@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Juego.Apps;
 using Juego.Games;
 using Meadow;
 using Meadow.Devices;
@@ -33,7 +34,7 @@ namespace Juego
             onboardLed.SetColor(Color.Green);
             InitMenu();
 
-            //StartGame("startTetraminos");
+           //StartGame("startClock");
         }
 
         void Initialize()
@@ -146,6 +147,9 @@ namespace Juego
         {
             switch (command)
             {
+                case "startClock":
+                    currentGame = new Clock();
+                    break;
                 case "startFrogIt":
                     currentGame = new FrogItGame();
                     break;
@@ -202,6 +206,7 @@ namespace Juego
 
             var menuItems = new MenuItem[]
             {
+                new MenuItem("Clock", command: "startClock"),
                 new MenuItem("FrogIt", command: "startFrogIt"),
                 new MenuItem("Pong", command: "startPong"),
                 new MenuItem("Span4", command: "startSpan4"),

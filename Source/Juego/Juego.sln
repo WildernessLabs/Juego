@@ -3,23 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.808.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Juego", "Juego\Juego.csproj", "{3408707B-D8C4-465F-93C3-A88F7F2F8887}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juego", "Juego\Juego.csproj", "{3408707B-D8C4-465F-93C3-A88F7F2F8887}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Foundation.Core", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj", "{7358C01B-AC25-40C1-AF41-037250804495}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Foundation.Core", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj", "{7358C01B-AC25-40C1-AF41-037250804495}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Core", "..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj", "{5CFDB583-B897-4B98-B603-D51094F8D7B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Core", "..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj", "{5CFDB583-B897-4B98-B603-D51094F8D7B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MeadowLibs", "MeadowLibs", "{FF570CB7-3F54-4049-A167-304A90098DB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextDisplayMenu", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Graphics\TextDisplayMenu\Driver\Graphics.TextDisplayMenu\TextDisplayMenu.csproj", "{88A4604C-2D33-493C-934A-0D2C38D84E0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextDisplayMenu", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Graphics\TextDisplayMenu\Driver\Graphics.TextDisplayMenu\TextDisplayMenu.csproj", "{88A4604C-2D33-493C-934A-0D2C38D84E0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroGraphics", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Graphics\MicroGraphics\Driver\Graphics.MicroGraphics\MicroGraphics.csproj", "{A40BBA71-8A71-49D8-9D1F-581EF3938420}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroGraphics", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Graphics\MicroGraphics\Driver\Graphics.MicroGraphics\MicroGraphics.csproj", "{A40BBA71-8A71-49D8-9D1F-581EF3938420}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Displays.TftSpi", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.TftSpi\Driver\Displays.TftSpi\Displays.TftSpi.csproj", "{25B3B7BE-28C4-46EA-B0F3-AD653DD0E841}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.TftSpi", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.TftSpi\Driver\Displays.TftSpi\Displays.TftSpi.csproj", "{25B3B7BE-28C4-46EA-B0F3-AD653DD0E841}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuegoTester", "JuegoTester\JuegoTester.csproj", "{915E2329-66BB-4B24-9F44-CA7505300029}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuegoTester", "JuegoTester\JuegoTester.csproj", "{915E2329-66BB-4B24-9F44-CA7505300029}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Displays.Ssd130x", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Ssd130x\Driver\Displays.Ssd130x\Displays.Ssd130x.csproj", "{E31A385D-82AB-40FA-8167-AF6C0023F623}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.Ssd130x", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Ssd130x\Driver\Displays.Ssd130x\Displays.Ssd130x.csproj", "{E31A385D-82AB-40FA-8167-AF6C0023F623}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Units", "..\..\..\meadow.core\source\Meadow.Units\Meadow.Units.csproj", "{C61F6302-A90E-49C9-9E51-6803556A97B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,19 +61,24 @@ Global
 		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C61F6302-A90E-49C9-9E51-6803556A97B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C61F6302-A90E-49C9-9E51-6803556A97B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C61F6302-A90E-49C9-9E51-6803556A97B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C61F6302-A90E-49C9-9E51-6803556A97B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {CB582CC6-C626-484E-9742-43FD65FE8158}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5CFDB583-B897-4B98-B603-D51094F8D7B5} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{7358C01B-AC25-40C1-AF41-037250804495} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{5CFDB583-B897-4B98-B603-D51094F8D7B5} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{88A4604C-2D33-493C-934A-0D2C38D84E0A} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{A40BBA71-8A71-49D8-9D1F-581EF3938420} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{25B3B7BE-28C4-46EA-B0F3-AD653DD0E841} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{E31A385D-82AB-40FA-8167-AF6C0023F623} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{C61F6302-A90E-49C9-9E51-6803556A97B6} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB582CC6-C626-484E-9742-43FD65FE8158}
 	EndGlobalSection
 EndGlobal
