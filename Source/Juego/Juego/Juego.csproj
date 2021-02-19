@@ -5,7 +5,7 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Apps\Games\" />
+    <Folder Include="Games\" />
     <Folder Include="Interfaces\" />
     <Folder Include="IOConfig\" />
   </ItemGroup>

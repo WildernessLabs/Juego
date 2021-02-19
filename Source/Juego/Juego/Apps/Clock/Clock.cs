@@ -1,7 +1,6 @@
 ﻿using Juego.Games;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Juego.Apps
 {
@@ -21,44 +20,73 @@ namespace Juego.Apps
             Pause
         }
 
+        enum IntervalTimerState
+        {
+            Stop,
+            Start
+        }
+
         ClockState state = ClockState.Clock;
         StopWatchState swState = StopWatchState.Stop;
+        IntervalTimerState itState = IntervalTimerState.Stop;
 
         DateTime stopWatchStart = DateTime.MinValue;
+        DateTime intervalStart = DateTime.MinValue;
 
         List<long> splits = new List<long>();
         long stopwatchOffset;
         long lastSplit;
 
-        int interval1 = 180;
-        int interval2 = 60;
-        int intervalCount = 1;
+        int interval1 = 20;
+        int interval2 = 10;
 
         public void Up()
         {
-            if (swState == StopWatchState.Stop)
-            {  
-            }
-            else if (swState == StopWatchState.Start)
-            {   //split
-                stopwatchOffset += DateTime.Now.Ticks - stopWatchStart.Ticks;
-                stopWatchStart = DateTime.Now;
-                splits.Add(stopwatchOffset - lastSplit);
-                lastSplit = stopwatchOffset;
-            }
-            else //we're paused so stop
+            if (menu.IsEnabled)
             {
-                //reset 
-                splits = new List<long>();
-                stopwatchOffset = 0;
-                lastSplit = 0;
-                swState = StopWatchState.Stop;
+                menu.Previous();
+                return;
+            }
+
+            if(state == ClockState.StopWatch)
+            {
+                if (swState == StopWatchState.Stop)
+                {
+                }
+                else if (swState == StopWatchState.Start)
+                {   //split
+                    stopwatchOffset += DateTime.Now.Ticks - stopWatchStart.Ticks;
+                    stopWatchStart = DateTime.Now;
+                    splits.Add(stopwatchOffset - lastSplit);
+                    lastSplit = stopwatchOffset;
+                }
+                else //we're paused so stop
+                {
+                    //reset 
+                    splits = new List<long>();
+                    stopwatchOffset = 0;
+                    lastSplit = 0;
+                    swState = StopWatchState.Stop;
+                }
+            }
+            else if(state == ClockState.IntervalTimer)
+            {
+                if(itState == IntervalTimerState.Start)
+                {
+                    itState = IntervalTimerState.Stop;
+                }
             }
         }
 
         public void Down()
         {
-            if(state == ClockState.StopWatch)
+            if (menu.IsEnabled)
+            {
+                menu.Next();
+                return;
+            }
+
+            if (state == ClockState.StopWatch)
             {
                 if(swState == StopWatchState.Stop)
                 {
@@ -78,11 +106,26 @@ namespace Juego.Apps
                     swState = StopWatchState.Start;
                 }
             }
+            else if (state == ClockState.IntervalTimer)
+            {
+                if (itState == IntervalTimerState.Stop)
+                {
+                    itState = IntervalTimerState.Start;
+                    intervalStart = DateTime.Now;
+                }
+            }
         }
 
         public void Left()
         {
-
+            if(menu.IsEnabled == false)
+            {
+                menu.Enable();
+            }
+            else if(menu.IsEnabled)
+            {
+                menu.Back();
+            }
         }
 
         public void Reset()
@@ -92,7 +135,13 @@ namespace Juego.Apps
 
         public void Right()
         {
-            switch(state)
+            if (menu.IsEnabled)
+            {
+                menu.Select();
+                return;
+            }
+
+            switch (state)
             {
                 case ClockState.Clock:
                     state = ClockState.StopWatch;

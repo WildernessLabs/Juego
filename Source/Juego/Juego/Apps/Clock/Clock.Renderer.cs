@@ -1,4 +1,5 @@
-﻿using Meadow.Foundation.Graphics;
+﻿using Meadow.Foundation.Displays.TextDisplayMenu;
+using Meadow.Foundation.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace Juego.Apps
         FontBase fontDate;
         FontBase FontText;
 
+        Menu menu;
+
+        const string ActiveID = "active";
+        const string RestId = "rest";
+
         public void Init(GraphicsLibrary gl)
         {
             gl.CurrentFont = fontClock = new Font12x16();
@@ -20,11 +26,13 @@ namespace Juego.Apps
 
             MeadowApp.Device.SetClock(new DateTime(2021, 3, 1));
 
+            InitMenu(gl);
+
             return; 
 
             gl.Clear();
             gl.DrawText(0, 0, "Meadow Clock");
-            gl.DrawText(0, 16, "v0.0.1");
+            gl.DrawText(0, 16, "v0.1.0");
             gl.Show();
 
             Thread.Sleep(500);
@@ -32,6 +40,11 @@ namespace Juego.Apps
 
         public void Update(GraphicsLibrary gl)
         {
+            if(menu != null && menu.IsEnabled)
+            {
+                return;
+            }
+
             if(state == ClockState.Clock)
             {
                 UpdateClock(gl);
@@ -68,15 +81,77 @@ namespace Juego.Apps
 
             gl.CurrentFont = fontClock;
 
-            long seconds = ((DateTime.Now - stopWatchStart).Ticks + stopwatchOffset) / 10000000;
+            long seconds = ((DateTime.Now - intervalStart).Ticks) / 10000000;
+            if(itState == IntervalTimerState.Stop) { seconds = 0; }
 
-            gl.DrawText(0, 0, $"Round {intervalCount}", alignment: GraphicsLibrary.TextAlignment.Left);
+            gl.DrawText(gl.Width - 2, 0, GetTotalTime(seconds), alignment: GraphicsLibrary.TextAlignment.Right);
 
-            gl.DrawText(gl.Width, 20, "3:00", alignment: GraphicsLibrary.TextAlignment.Right);
+            gl.DrawText(gl.Width - 2, 24, GetActiveTime(seconds), alignment: GraphicsLibrary.TextAlignment.Right);
 
-            gl.DrawText(gl.Width, 40, "1:00", alignment: GraphicsLibrary.TextAlignment.Right);
+            gl.DrawText(gl.Width - 2, 48, GetRestTime(seconds), alignment: GraphicsLibrary.TextAlignment.Right);
+
+            gl.CurrentFont = fontDate;
+
+            gl.DrawText(4, 02, $"SET { seconds / (interval1 + interval2) + 1}");
+            gl.DrawText(4, 26, "ACTIVE");
+            gl.DrawText(4, 50, "REST");
+
+            if(seconds % (interval1 + interval2) < interval1)
+            {
+                gl.DrawRectangle(0, 22, gl.Width, 18);
+            }
+            else
+            {
+                gl.DrawRectangle(0, 46, gl.Width, 18);
+            }
+            
 
             gl.Show();
+        }
+
+        string GetTotalTime(long seconds)
+        {
+            return $"{seconds / 60}:{seconds % 60:00}";
+        }
+
+        string GetActiveTime(long seconds)
+        {
+            int cycleTotal = interval1 + interval2;
+
+            var cycleTime = seconds % cycleTotal;
+
+            int activeTime = 0;
+
+            if(cycleTime >=interval1)
+            {
+                activeTime = 0;
+            }
+            else
+            {
+                activeTime = interval1 - (int)cycleTime;
+            }
+
+            return $"{activeTime / 60}:{activeTime % 60:00}";
+        }
+
+        string GetRestTime(long seconds)
+        {
+            int cycleTotal = interval1 + interval2;
+
+            var cycleTime = seconds % cycleTotal;
+
+            int restTime = 0;
+
+            if (cycleTime < interval1)
+            {
+                restTime = interval2;
+            }
+            else
+            {
+                restTime = interval2 - (int)cycleTime + interval1;
+            }
+
+            return $"{restTime / 60}:{restTime % 60:00}";
         }
 
         void UpdateStopWatch(GraphicsLibrary gl)
@@ -137,5 +212,32 @@ namespace Juego.Apps
                 Thread.Sleep(100);
             }
         }   
+
+        void InitMenu(GraphicsLibrary gl)
+        {
+            var menuItems = new MenuItem[]
+            {
+                new MenuItem("Intervals",
+                    subItems: new MenuItem[]{new MenuItem("Active duration", id: ActiveID, type: "TimeShort", value: new TimeSpan(0, 3, 0)),
+                                             new MenuItem("Rest duration", id: RestId, type: "TimeShort", value: new TimeSpan(0, 1, 0)) })
+                                           
+             };
+
+            menu = new Menu(gl, menuItems);
+
+            menu.ValueChanged += Menu_ValueChanged;
+        }
+
+        private void Menu_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            if(e.ItemID == ActiveID)
+            {
+                interval1 = (int)((TimeSpan)e.Value).TotalSeconds;
+            }
+            else if(e.ItemID == RestId)
+            {
+                interval2 = (int)((TimeSpan)e.Value).TotalSeconds;
+            }
+        }
     }
 }
