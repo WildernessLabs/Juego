@@ -29,6 +29,33 @@ namespace Juego
 
         public MeadowApp()
         {
+            //settings test
+            /*
+            Console.WriteLine("Settings test");
+
+            int hiscore = Settings.GetInteger("HiScore", 0);
+            byte volume = Settings.GetByte("Volume", 5);
+            bool playSound = Settings.GetBoolean("PlaySound", false);
+
+            Console.WriteLine($"HiScore: {hiscore}");
+            Console.WriteLine($"Volume: {volume}");
+            Console.WriteLine($"PlaySound: {playSound}");
+
+            Settings.SetInteger("HiScore", 10000);
+            Settings.SetByte("Volume", 9);
+            Settings.SetBoolean("PlaySound", true);
+            Settings.SaveSettings();
+
+            hiscore = Settings.GetInteger("HiScore", 0);
+            volume = Settings.GetByte("Volume", 5);
+            playSound = Settings.GetBoolean("PlaySound", false);
+
+            Console.WriteLine($"HiScore: {hiscore}");
+            Console.WriteLine($"Volume: {volume}");
+            Console.WriteLine($"PlaySound: {playSound}");
+
+            */
+
             Initialize();
 
             onboardLed.SetColor(Color.Green);

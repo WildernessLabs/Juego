@@ -1,7 +1,6 @@
 ﻿using Meadow.Foundation.Displays.TextDisplayMenu;
 using Meadow.Foundation.Graphics;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -17,6 +16,8 @@ namespace Juego.Apps
 
         const string ActiveID = "active";
         const string RestId = "rest";
+        const string SetTime = "setTime";
+        const string SetDate = "setDate";
 
         public void Init(GraphicsLibrary gl)
         {
@@ -85,9 +86,7 @@ namespace Juego.Apps
             if(itState == IntervalTimerState.Stop) { seconds = 0; }
 
             gl.DrawText(gl.Width - 2, 0, GetTotalTime(seconds), alignment: GraphicsLibrary.TextAlignment.Right);
-
             gl.DrawText(gl.Width - 2, 24, GetActiveTime(seconds), alignment: GraphicsLibrary.TextAlignment.Right);
-
             gl.DrawText(gl.Width - 2, 48, GetRestTime(seconds), alignment: GraphicsLibrary.TextAlignment.Right);
 
             gl.CurrentFont = fontDate;
@@ -104,7 +103,6 @@ namespace Juego.Apps
             {
                 gl.DrawRectangle(0, 46, gl.Width, 18);
             }
-            
 
             gl.Show();
         }
@@ -203,7 +201,7 @@ namespace Juego.Apps
 
             gl.CurrentFont = fontDate;
             gl.DrawText(gl.Width / 2, 30, DateTime.Now.ToString("dddd"), alignment: GraphicsLibrary.TextAlignment.Center);
-            gl.DrawText(gl.Width / 2, 46, DateTime.Now.ToString("MMMM d, yyyy"), alignment: GraphicsLibrary.TextAlignment.Center);
+            gl.DrawText(gl.Width / 2, 46, DateTime.Now.ToString("MMM d, yyyy"), alignment: GraphicsLibrary.TextAlignment.Center);
 
             gl.Show();
 
@@ -215,12 +213,18 @@ namespace Juego.Apps
 
         void InitMenu(GraphicsLibrary gl)
         {
+            Console.WriteLine("InitMenu");
+
             var menuItems = new MenuItem[]
             {
+                new MenuItem("Clock",
+                    subItems: new MenuItem[]{new MenuItem("Date", id: SetDate, type: "Date", value: new DateTime(2021, 2, 20)),
+                                             new MenuItem("Time", id: SetTime, type: "Time", value: new TimeSpan(12, 45, 30))
+                    }),
                 new MenuItem("Intervals",
-                    subItems: new MenuItem[]{new MenuItem("Active duration", id: ActiveID, type: "TimeShort", value: new TimeSpan(0, 3, 0)),
-                                             new MenuItem("Rest duration", id: RestId, type: "TimeShort", value: new TimeSpan(0, 1, 0)) })
-                                           
+                    subItems: new MenuItem[]{new MenuItem("Active duration", id: ActiveID, type: "TimeShort", value: new TimeSpan(0, 0, interval1)),
+                                             new MenuItem("Rest duration", id: RestId, type: "TimeShort", value: new TimeSpan(0, 0, interval2)) 
+                    })
              };
 
             menu = new Menu(gl, menuItems);
@@ -230,13 +234,28 @@ namespace Juego.Apps
 
         private void Menu_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            if(e.ItemID == ActiveID)
+            switch (e.ItemID)
             {
-                interval1 = (int)((TimeSpan)e.Value).TotalSeconds;
-            }
-            else if(e.ItemID == RestId)
-            {
-                interval2 = (int)((TimeSpan)e.Value).TotalSeconds;
+                case ActiveID:
+                    interval1 = (int)((TimeSpan)e.Value).TotalSeconds;
+                    break;
+                case RestId:
+                    interval2 = (int)((TimeSpan)e.Value).TotalSeconds;
+                    break;
+                case SetTime:
+                    { 
+                        var now = DateTime.Now;
+                        var time = (TimeSpan)e.Value;
+                        MeadowApp.Device.SetClock(new DateTime(now.Year, now.Month, now.Day, time.Hours, time.Minutes, time.Seconds));
+                    }
+                    break;
+                case SetDate:
+                    {
+                        var now = DateTime.Now;
+                        var date = (DateTime)e.Value;
+                        MeadowApp.Device.SetClock(new DateTime(date.Year, date.Month, date.Day, now.Hour, now.Minute, now.Second));
+                    }
+                    break;
             }
         }
     }
