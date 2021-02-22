@@ -38,8 +38,10 @@ namespace Juego.Games
             Reset();
         }
 
-        public void Update(GraphicsLibrary graphics)
+        public void Update(IIOConfig ioConfig)
         {
+            var graphics = ioConfig.Graphics;
+
             graphics.Clear();
 
             Update();

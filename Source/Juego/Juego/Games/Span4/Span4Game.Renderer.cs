@@ -41,8 +41,10 @@ namespace Juego.Games
             gl.Show();
         }
 
-        public void Update(GraphicsLibrary gl)
+        public void Update(IIOConfig ioConfig)
         {
+            var gl = ioConfig.Graphics;
+
             gl.Clear(false);
             Update();
             DrawGame(gl);

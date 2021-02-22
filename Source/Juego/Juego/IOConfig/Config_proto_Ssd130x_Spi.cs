@@ -1,6 +1,8 @@
 ﻿using System;
+using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
@@ -19,6 +21,11 @@ namespace Juego
         public PushButton Right { get; protected set; }
         public PushButton Start { get; protected set; }
         public PushButton Select { get; protected set; }
+
+        public PiezoSpeaker speakerLeft { get; protected set; }
+        public PiezoSpeaker speakerRight { get; protected set; }
+
+        public RgbPwmLed rgbLed { get; protected set; }
 
         public Config_proto_Ssd130x_Spi()
         {
@@ -47,6 +54,14 @@ namespace Juego
             Right = new PushButton(device, device.Pins.D10, ResistorMode.ExternalPullUp);
             Down = new PushButton(device, device.Pins.D12, ResistorMode.ExternalPullUp);
             Up = new PushButton(device, device.Pins.D14, ResistorMode.ExternalPullUp);
+
+
+            rgbLed = new RgbPwmLed(device: device,
+                redPwmPin: device.Pins.OnboardLedRed,
+                greenPwmPin: device.Pins.OnboardLedGreen,
+                bluePwmPin: device.Pins.OnboardLedBlue,
+                3.3f, 3.3f, 3.3f,
+                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
         }
     }
 }

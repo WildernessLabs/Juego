@@ -1,6 +1,6 @@
-﻿using System;
-using Meadow.Foundation.Audio;
+﻿using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
+using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -9,7 +9,7 @@ using Meadow.Hardware;
 
 namespace Juego
 {
-    public class Config_1c_Ssd130x_I2c : IIOConfig
+    public class Config_1a_St7789 : IIOConfig
     {
         public GraphicsLibrary Graphics { get; protected set; }
 
@@ -28,17 +28,29 @@ namespace Juego
         public RgbPwmLed rgbLed { get; protected set; }
 
 
-        public Config_1c_Ssd130x_I2c()
+        public Config_1a_St7789()
         {
             var device = MeadowApp.Device;
 
-            var display = new Ssd1306(device.CreateI2cBus(), 60, Ssd1306.DisplayType.OLED128x64)
-            {
-                IgnoreOutOfBoundsPixels = true
-            };
+            var config = new SpiClockConfiguration(48000, SpiClockConfiguration.Mode.Mode3);
+            var bus = device.CreateSpiBus(IODeviceMap.Display.ClockPin, IODeviceMap.Display.CopiPin,
+                IODeviceMap.Display.CipoPin, config);
+
+            var display = new St7789(
+                device: device, spiBus: bus,
+                chipSelectPin: IODeviceMap.Display.CSPin,
+                dcPin: IODeviceMap.Display.DCPin,
+                resetPin: IODeviceMap.Display.ResetPin,
+                width: 240,
+                height: 240,
+                displayColorMode: DisplayBase.DisplayColorMode.Format12bppRgb444
+            );
+            display.IgnoreOutOfBoundsPixels = true;
+
             Graphics = new GraphicsLibrary(display)
             {
-                CurrentFont = new Font8x12(),
+                CurrentFont = new Font12x20(),
+                Rotation = GraphicsLibrary.RotationType._180Degrees,
             };
 
             Up = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);
@@ -47,9 +59,6 @@ namespace Juego
             Right = new PushButton(device, device.Pins.D11, ResistorMode.InternalPullDown);
             Start = new PushButton(device, device.Pins.D13, ResistorMode.InternalPullDown);
             Select = new PushButton(device, device.Pins.D15, ResistorMode.InternalPullDown);
-
-            Joystick = new AnalogJoystick(device.CreateAnalogInputPort(device.Pins.A00),
-                                          device.CreateAnalogInputPort(device.Pins.A01));
 
             rgbLed = new RgbPwmLed(device: device,
                 redPwmPin: device.Pins.OnboardLedRed,

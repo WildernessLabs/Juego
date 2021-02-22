@@ -35,9 +35,11 @@ namespace Juego.Games
 
             Thread.Sleep(1000);
         }
-        
-        public void Update(GraphicsLibrary graphics)
+
+        public void Update(IIOConfig ioConfig)
         {
+            var graphics = ioConfig.Graphics;
+
             Update();
             graphics.Clear();
             DrawGameField(graphics);

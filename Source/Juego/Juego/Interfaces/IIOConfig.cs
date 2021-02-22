@@ -1,4 +1,6 @@
-﻿using Meadow.Foundation.Graphics;
+﻿using Meadow.Foundation.Audio;
+using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 
@@ -16,5 +18,10 @@ namespace Juego
         PushButton Right { get; }
         PushButton Start { get; }
         PushButton Select { get; }
+
+        PiezoSpeaker speakerLeft { get; } 
+        PiezoSpeaker speakerRight { get; }
+
+        RgbPwmLed rgbLed { get; }
     }
 }

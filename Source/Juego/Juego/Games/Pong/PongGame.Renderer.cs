@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using Meadow.Foundation.Audio;
 using Meadow.Foundation.Graphics;
 
 namespace Juego.Games
@@ -26,21 +27,23 @@ namespace Juego.Games
             PongSetup(gl.Width, gl.Height);
         }
 
-        public void Update(GraphicsLibrary graphics)
+        public void Update(IIOConfig ioConfig)
         {
+            var gl = ioConfig.Graphics;
+
             Update();
 
-            graphics.Clear();
+            gl.Clear();
 
-            graphics.DrawCircle(ballX, ballY, ballRadius, true, true);
-            graphics.DrawRectangle(playerX, playerY, paddleWidth, paddleHeight, true, true);
-            graphics.DrawRectangle(cpuX, cpuY, paddleWidth, paddleHeight, true, true);
+            gl.DrawCircle(ballX, ballY, ballRadius, true, true);
+            gl.DrawRectangle(playerX, playerY, paddleWidth, paddleHeight, true, true);
+            gl.DrawRectangle(cpuX, cpuY, paddleWidth, paddleHeight, true, true);
 
-            graphics.DrawText(0, 0, $"{playerScore}");
-            graphics.DrawText((int)(graphics.Width), 0, $"{cpuScore}",
+            gl.DrawText(0, 0, $"{playerScore}");
+            gl.DrawText((int)(gl.Width), 0, $"{cpuScore}",
                 alignment: GraphicsLibrary.TextAlignment.Right);
 
-            graphics.Show();
+            gl.Show();
         }
     }
 }

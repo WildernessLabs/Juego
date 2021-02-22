@@ -1,4 +1,5 @@
-﻿using Meadow.Foundation.Displays.TextDisplayMenu;
+﻿using Meadow.Foundation;
+using Meadow.Foundation.Displays.TextDisplayMenu;
 using Meadow.Foundation.Graphics;
 using System;
 using System.Linq;
@@ -39,24 +40,26 @@ namespace Juego.Apps
             Thread.Sleep(500);
         }
 
-        public void Update(GraphicsLibrary gl)
+        public void Update(IIOConfig ioConfig)
         {
-            if(menu != null && menu.IsEnabled)
+            var gl = ioConfig.Graphics;
+
+            if (menu != null && menu.IsEnabled)
             {
                 return;
             }
 
             if(state == ClockState.Clock)
             {
-                UpdateClock(gl);
+                UpdateClock(ioConfig);
             }
             else if(state == ClockState.StopWatch)
             {
-                UpdateStopWatch(gl);
+                UpdateStopWatch(ioConfig);
             }
             else
             {
-                UpdateIntervalTimer(gl);
+                UpdateIntervalTimer(ioConfig);
             }
         }
 
@@ -76,8 +79,10 @@ namespace Juego.Apps
             return $"{h}:{m:00}:{s:00}.{ms:0}";
         }
 
-        void UpdateIntervalTimer(GraphicsLibrary gl)
+        void UpdateIntervalTimer(IIOConfig ioConfig)
         {
+            var gl = ioConfig.Graphics;
+
             gl.Clear();
 
             gl.CurrentFont = fontClock;
@@ -98,10 +103,12 @@ namespace Juego.Apps
             if(seconds % (interval1 + interval2) < interval1)
             {
                 gl.DrawRectangle(0, 22, gl.Width, 18);
+                ioConfig.rgbLed.SetColor(Color.Green);
             }
             else
             {
                 gl.DrawRectangle(0, 46, gl.Width, 18);
+                ioConfig.rgbLed.SetColor(Color.Red);
             }
 
             gl.Show();
@@ -152,8 +159,10 @@ namespace Juego.Apps
             return $"{restTime / 60}:{restTime % 60:00}";
         }
 
-        void UpdateStopWatch(GraphicsLibrary gl)
+        void UpdateStopWatch(IIOConfig ioConfig)
         {
+            var gl = ioConfig.Graphics;
+
             gl.Clear();
             gl.CurrentFont = FontText;
             gl.DrawText(0, 0, "Total");
@@ -192,8 +201,11 @@ namespace Juego.Apps
             gl.Show();
         }
 
-        void UpdateClock(GraphicsLibrary gl)
-        { 
+        void UpdateClock(IIOConfig ioConfig)
+        {
+            ioConfig.rgbLed.SetColor(Color.Black);
+            var gl = ioConfig.Graphics;
+
             gl.Clear();
 
             gl.CurrentFont = fontClock;
@@ -201,7 +213,7 @@ namespace Juego.Apps
 
             gl.CurrentFont = fontDate;
             gl.DrawText(gl.Width / 2, 30, DateTime.Now.ToString("dddd"), alignment: GraphicsLibrary.TextAlignment.Center);
-            gl.DrawText(gl.Width / 2, 46, DateTime.Now.ToString("MMM d, yyyy"), alignment: GraphicsLibrary.TextAlignment.Center);
+            gl.DrawText(gl.Width / 2, 46, DateTime.Now.ToString("MMMM d, yyyy"), alignment: GraphicsLibrary.TextAlignment.Center);
 
             gl.Show();
 

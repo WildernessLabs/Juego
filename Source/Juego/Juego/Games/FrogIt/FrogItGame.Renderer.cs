@@ -1,4 +1,5 @@
 ﻿using System;
+using Meadow.Foundation.Audio;
 using Meadow.Foundation.Graphics;
 
 namespace Juego.Games
@@ -27,8 +28,10 @@ namespace Juego.Games
             }
         }
 
-        public void Update(GraphicsLibrary gl)
+        public void Update(IIOConfig ioConfig)
         {
+            var gl = ioConfig.Graphics;
+
             Update();
 
             gl.Clear();

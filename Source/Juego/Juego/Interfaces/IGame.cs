@@ -1,4 +1,5 @@
-﻿using Meadow.Foundation.Graphics;
+﻿using Meadow.Foundation.Audio;
+using Meadow.Foundation.Graphics;
 
 namespace Juego.Games
 {
@@ -9,7 +10,7 @@ namespace Juego.Games
         void Up();
         void Down();
 
-        void Update(GraphicsLibrary gl);
+        void Update(IIOConfig ioConfig);
 
         void Init(GraphicsLibrary gl);
 

@@ -17,15 +17,13 @@ namespace Juego
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        RgbPwmLed onboardLed;
-
         Menu menu;
 
         IIOConfig hardware;
 
         IGame currentGame;
 
-        const string version = "0.4.2";
+        const string version = "0.5.0";
 
         public MeadowApp()
         {
@@ -58,7 +56,7 @@ namespace Juego
 
             Initialize();
 
-            onboardLed.SetColor(Color.Green);
+            hardware.rgbLed.SetColor(Color.Green);
             InitMenu();
 
            //StartGame("startClock");
@@ -68,16 +66,13 @@ namespace Juego
         {
             Console.WriteLine("Initialize hardware...");
 
-            onboardLed = new RgbPwmLed(device: Device,
-                redPwmPin: Device.Pins.OnboardLedRed,
-                greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
 
-            hardware = new Config_proto_Ssd130x_Spi();
+            //hardware = new Config_proto_Ssd130x_Spi();
             //hardware = new Config_1c_Ssd130x_I2c();
             //hardware = new Config_1c_St7789();
+
+            Console.WriteLine("Initialize Ssd1351...");
+            hardware = new Config_1c_Ssd1351();
 
             DrawSplashScreen(hardware.Graphics);
 
@@ -177,6 +172,9 @@ namespace Juego
                 case "startClock":
                     currentGame = new Clock();
                     break;
+                case "startSpace":
+                    currentGame = new SpaceRaid();
+                    break;
                 case "startFrogIt":
                     currentGame = new FrogItGame();
                     break;
@@ -205,7 +203,7 @@ namespace Juego
             {   //full speed today
                 while (playGame == true)
                 {
-                    currentGame.Update(hardware.Graphics);
+                    currentGame.Update(hardware);
 
                     Thread.Sleep(3);
                 }
@@ -233,6 +231,7 @@ namespace Juego
 
             var menuItems = new MenuItem[]
             {
+                new MenuItem("SpaceRaid", command: "startSpace"),
                 new MenuItem("Clock", command: "startClock"),
                 new MenuItem("FrogIt", command: "startFrogIt"),
                 new MenuItem("Pong", command: "startPong"),
