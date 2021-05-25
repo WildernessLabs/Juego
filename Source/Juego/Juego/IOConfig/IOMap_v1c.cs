@@ -1,4 +1,5 @@
 ﻿using System;
+using Meadow.Devices;
 using Meadow.Hardware;
 
 namespace Juego
@@ -6,7 +7,7 @@ namespace Juego
     public static class IODeviceMap
     {
         // Display
-        public static (IIODevice IODevice,
+        public static (IMeadowDevice IODevice,
                        IPin ClockPin,
                        IPin CopiPin,
                        IPin CipoPin,
@@ -22,7 +23,7 @@ namespace Juego
             MeadowApp.Device.Pins.D14);
 
         // Buttons
-        public static (IIODevice Device,
+        public static (IMeadowDevice Device,
                         IPin UpPin,
                         IPin DownPin,
                         IPin LeftPin,

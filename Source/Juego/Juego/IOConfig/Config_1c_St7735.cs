@@ -9,7 +9,7 @@ using Meadow.Hardware;
 
 namespace Juego
 {
-    public class Config_1c_St7789 : IIOConfig
+    public class Config_1c_St7735 : IIOConfig
     {
         public GraphicsLibrary Graphics { get; protected set; }
 
@@ -27,30 +27,30 @@ namespace Juego
 
         public RgbPwmLed rgbLed { get; protected set; }
 
-
-        public Config_1c_St7789()
+        public Config_1c_St7735()
         {
             var device = MeadowApp.Device;
 
-            var config = new SpiClockConfiguration(48000, SpiClockConfiguration.Mode.Mode3);
+            var config = new SpiClockConfiguration(48000, SpiClockConfiguration.Mode.Mode0);
             var bus = device.CreateSpiBus(IODeviceMap.Display.ClockPin, IODeviceMap.Display.CopiPin,
                 IODeviceMap.Display.CipoPin, config);
 
-            var display = new St7789(
+            var display = new St7735(
                 device: device, spiBus: bus,
                 chipSelectPin: IODeviceMap.Display.CSPin,
                 dcPin: IODeviceMap.Display.DCPin,
                 resetPin: IODeviceMap.Display.ResetPin,
-                width: 240,
-                height: 240,
+                width: 128,
+                height: 128,
+                displayType: St7735.DisplayType.ST7735R_144x144,
                 displayColorMode: DisplayBase.DisplayColorMode.Format12bppRgb444
             );
             display.IgnoreOutOfBoundsPixels = true;
 
             Graphics = new GraphicsLibrary(display)
             {
-                CurrentFont = new Font12x20(),
-                Rotation = GraphicsLibrary.RotationType._180Degrees,
+                CurrentFont = new Font8x12(),
+                Rotation = GraphicsLibrary.RotationType._90Degrees,
             };
 
             Up = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);

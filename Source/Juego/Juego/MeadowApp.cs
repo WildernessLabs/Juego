@@ -10,7 +10,6 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.TextDisplayMenu;
 using Meadow.Foundation.Graphics;
-using Meadow.Foundation.Leds;
 using Meadow.Peripherals.Displays;
 
 namespace Juego
@@ -66,13 +65,12 @@ namespace Juego
         {
             Console.WriteLine("Initialize hardware...");
 
-
+            //hardware = new Config_1c_St7735();
             //hardware = new Config_proto_Ssd130x_Spi();
-            //hardware = new Config_1c_Ssd130x_I2c();
+            hardware = new Config_1c_Ssd130x_I2c();
             //hardware = new Config_1c_St7789();
 
-            Console.WriteLine("Initialize Ssd1351...");
-            hardware = new Config_1c_Ssd1351();
+            //hardware = new Config_1c_Ssd1351();
 
             DrawSplashScreen(hardware.Graphics);
 

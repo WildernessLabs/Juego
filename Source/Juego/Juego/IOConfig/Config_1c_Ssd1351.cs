@@ -1,6 +1,6 @@
 ﻿using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
-using Meadow.Foundation.Displays.Tft;
+using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -35,7 +35,7 @@ namespace Juego
 
             var device = MeadowApp.Device;
 
-            var bus = device.CreateSpiBus(3000);
+            var bus = device.CreateSpiBus(300);
 
             var display = new Ssd1351(
                 device: device, 

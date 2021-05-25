@@ -1,4 +1,5 @@
 ﻿using System;
+using Meadow.Foundation;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Graphics;
 
@@ -14,15 +15,15 @@ namespace Juego.Games
         {
             gl.Clear();
             gl.DrawText(0, 0, "Meadow FrogIt");
-            gl.DrawText(0, 16, "v0.2.2");
+            gl.DrawText(0, 16, "v0.2.3");
             gl.Show();
 
             //hacky scale for now
-            if(gl.Width >= 160 && gl.Height >= 128)
-            {
-                DrawPixel = DrawPixel2x;
-            }
-            else
+         //   if(gl.Width >= 160 && gl.Height >= 128)
+        //    {
+            //    DrawPixel = DrawPixel2x;
+        //    }
+          //  else
             {
                 DrawPixel = DrawPixel1x;
             }
@@ -148,15 +149,15 @@ namespace Juego.Games
         {
             if (state == FrogState.Left)
             {
-                DrawBitmap(x, y, 1, 8, frogLeft, graphics);
+                DrawBitmap(x, y, 1, 8, frogLeft, graphics, Color.LawnGreen);
             }
             else if (state == FrogState.Forward)
             {
-                DrawBitmap(x, y, 1, 8, frogUp, graphics);
+                DrawBitmap(x, y, 1, 8, frogUp, graphics, Color.LawnGreen);
             }
             else if(state == FrogState.Right)
             {
-                DrawBitmap(x, y, 1, 8, frogRight, graphics);
+                DrawBitmap(x, y, 1, 8, frogRight, graphics, Color.LawnGreen);
             }
             else
             {
@@ -166,29 +167,29 @@ namespace Juego.Games
 
         void DrawTruck(int x, int y, int index, GraphicsLibrary graphics)
         {
-            if (index == 1) DrawBitmap(x, y, 1, 8, truckLeft, graphics);
-            else if (index == 2) DrawBitmap(x, y, 1, 8, truckCenter, graphics);
-            else if (index == 3) DrawBitmap(x, y, 1, 8, truckRight, graphics);
+            if (index == 1) DrawBitmap(x, y, 1, 8, truckLeft, graphics, Color.LightGray);
+            else if (index == 2) DrawBitmap(x, y, 1, 8, truckCenter, graphics, Color.LightGray);
+            else if (index == 3) DrawBitmap(x, y, 1, 8, truckRight, graphics, Color.LightGray);
         }
 
         void DrawLog(int x, int y, int index, GraphicsLibrary graphics)
         {
-            if (index == 1) DrawBitmap(x, y, 1, 8, logDarkLeft, graphics);
-            else if (index == 2) DrawBitmap(x, y, 1, 8, logDarkCenter, graphics);
-            else if (index == 3) DrawBitmap(x, y, 1, 8, logDarkRight, graphics);
+            if (index == 1) DrawBitmap(x, y, 1, 8, logDarkLeft, graphics, Color.Beige);
+            else if (index == 2) DrawBitmap(x, y, 1, 8, logDarkCenter, graphics, Color.Beige);
+            else if (index == 3) DrawBitmap(x, y, 1, 8, logDarkRight, graphics, Color.Beige);
         }
 
         void DrawCar(int x, int y, int index, GraphicsLibrary graphics)
         {
-            if (index == 1) DrawBitmap(x, y, 1, 8, carLeft, graphics);
-            else if (index == 2) DrawBitmap(x, y, 1, 8, carRight, graphics);
+            if (index == 1) DrawBitmap(x, y, 1, 8, carLeft, graphics, Color.Red);
+            else if (index == 2) DrawBitmap(x, y, 1, 8, carRight, graphics, Color.Red);
         }
 
-        delegate void DrawPixelDel(int x, int y, bool colored, GraphicsLibrary graphics);
+        delegate void DrawPixelDel(int x, int y, bool colored, GraphicsLibrary graphics, Color color);
 
-        void DrawPixel1x(int x, int y, bool colored, GraphicsLibrary graphics)
+        void DrawPixel1x(int x, int y, bool colored, GraphicsLibrary graphics, Color color)
         {
-            graphics.DrawPixel(x, y, colored);
+            graphics.DrawPixel(x, y, colored?color:Color.Black);
         }
 
         void DrawPixel2x(int x, int y, bool colored, GraphicsLibrary graphics)
@@ -202,7 +203,7 @@ namespace Juego.Games
             graphics.DrawPixel(x + 1, y + 1, colored);
         }
 
-        void DrawBitmap(int x, int y, int width, int height, byte[] bitmap, GraphicsLibrary graphics)
+        void DrawBitmap(int x, int y, int width, int height, byte[] bitmap, GraphicsLibrary graphics, Color color)
         {
             for (var ordinate = 0; ordinate < height; ordinate++) //y
             {
@@ -213,7 +214,7 @@ namespace Juego.Games
 
                     for (var pixel = 0; pixel < 8; pixel++)
                     {
-                        DrawPixel(x + (8 * abscissa) + 7 - pixel, y + ordinate, (b & mask) > 0, graphics);
+                        DrawPixel(x + (8 * abscissa) + 7 - pixel, y + ordinate, (b & mask) > 0, graphics, color);
 
                         mask <<= 1;
                     }
