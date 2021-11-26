@@ -10,7 +10,7 @@ namespace Juego.Games
 
         DrawPixelDel DrawPixel;
 
-        public void Init(GraphicsLibrary gl)
+        public void Init(MicroGraphics gl)
         {
             InitBuffers();
 
@@ -44,7 +44,7 @@ namespace Juego.Games
             gl.Show();
         }
 
-        void DrawBackground(GraphicsLibrary graphics)
+        void DrawBackground(MicroGraphics graphics)
         {
             //draw docks
             for (int i = 0; i < 5; i++)
@@ -61,7 +61,7 @@ namespace Juego.Games
             //graphics.DrawRectangle(0, cellSize, 128, cellSize * 3, true, true);
         }
 
-        void DrawLanesAndCheckCollisions(GraphicsLibrary graphics)
+        void DrawLanesAndCheckCollisions(MicroGraphics graphics)
         {
             int startPos, index, x, y;
             int cellOffset;
@@ -136,7 +136,7 @@ namespace Juego.Games
             return false;
         }
 
-        void DrawLives(GraphicsLibrary graphics)
+        void DrawLives(MicroGraphics graphics)
         {
             for (int i = 1; i < Lives; i++)
             {
@@ -144,12 +144,12 @@ namespace Juego.Games
             }
         }
 
-        void DrawFrog(GraphicsLibrary graphics, FrogState state = FrogState.Forward)
+        void DrawFrog(MicroGraphics graphics, FrogState state = FrogState.Forward)
         {
             DrawFrog((int)FrogX, (int)FrogY, state, graphics);
         }
 
-        void DrawFrog(int x, int y, FrogState state, GraphicsLibrary graphics)
+        void DrawFrog(int x, int y, FrogState state, MicroGraphics graphics)
         {
             if (state == FrogState.Left)
             {
@@ -169,34 +169,34 @@ namespace Juego.Games
             }
         }
 
-        void DrawTruck(int x, int y, int index, GraphicsLibrary graphics)
+        void DrawTruck(int x, int y, int index, MicroGraphics graphics)
         {
             if (index == 1) graphics.DrawBuffer(x, y, truckLeft);
             else if (index == 2) graphics.DrawBuffer(x, y, truckCenter);
             else if (index == 3) graphics.DrawBuffer(x, y, truckRight);
         }
 
-        void DrawLog(int x, int y, int index, GraphicsLibrary graphics)
+        void DrawLog(int x, int y, int index, MicroGraphics graphics)
         {
             if (index == 1) graphics.DrawBuffer(x, y, logDarkLeft);
             else if (index == 2) graphics.DrawBuffer(x, y, logDarkCenter);
             else if (index == 3) graphics.DrawBuffer(x, y, logDarkRight);
         }
 
-        void DrawCar(int x, int y, int index, GraphicsLibrary graphics)
+        void DrawCar(int x, int y, int index, MicroGraphics graphics)
         {
             if (index == 1) graphics.DrawBuffer(x, y, carLeft);
             else if (index == 2) graphics.DrawBuffer(x, y, carRight);
         }
 
-        delegate void DrawPixelDel(int x, int y, bool colored, GraphicsLibrary graphics);
+        delegate void DrawPixelDel(int x, int y, bool colored, MicroGraphics graphics);
 
-        void DrawPixel1x(int x, int y, bool colored, GraphicsLibrary graphics)
+        void DrawPixel1x(int x, int y, bool colored, MicroGraphics graphics)
         {
             graphics.DrawPixel(x, y, colored);
         }
 
-        void DrawPixel2x(int x, int y, bool colored, GraphicsLibrary graphics)
+        void DrawPixel2x(int x, int y, bool colored, MicroGraphics graphics)
         {
             x *= 2;
             y *= 2;

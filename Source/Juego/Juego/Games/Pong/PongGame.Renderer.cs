@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Threading;
-using Meadow.Foundation.Audio;
 using Meadow.Foundation.Graphics;
 
 namespace Juego.Games
 {
     public partial class PongGame
     {
-        public void Init(GraphicsLibrary gl)
+        public void Init(MicroGraphics gl)
         {
             if(gl.Height <= 64)
             {
@@ -48,7 +47,7 @@ namespace Juego.Games
 
             gl.DrawText(0, 0, $"{playerScore}");
             gl.DrawText(gl.Width, 0, $"{cpuScore}",
-                alignment: GraphicsLibrary.TextAlignment.Right);
+                alignment: TextAlignment.Right);
 
             gl.Show();
 

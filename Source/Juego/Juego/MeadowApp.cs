@@ -86,11 +86,11 @@ namespace Juego
             if (hardware.Start != null) hardware.Start.Clicked += Start_Clicked;
         }
 
-        void DrawSplashScreen(GraphicsLibrary graphics)
+        void DrawSplashScreen(MicroGraphics graphics)
         {
             graphics.Clear();
             graphics.DrawRectangle(0, 0, hardware.Graphics.Width, hardware.Graphics.Height);
-            graphics.DrawText(hardware.Graphics.Width / 2, hardware.Graphics.Height / 3, $"Juego v{version}", GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
+            graphics.DrawText(hardware.Graphics.Width / 2, hardware.Graphics.Height / 3, $"Juego v{version}", ScaleFactor.X1, TextAlignment.Center);
             graphics.Show();
         }
 

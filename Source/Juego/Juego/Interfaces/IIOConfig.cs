@@ -8,7 +8,7 @@ namespace Juego
 {
     public interface IIOConfig
     {
-        GraphicsLibrary Graphics { get; }
+        MicroGraphics Graphics { get; }
 
         AnalogJoystick Joystick { get; }
 

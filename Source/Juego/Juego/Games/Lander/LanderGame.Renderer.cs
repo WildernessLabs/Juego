@@ -11,7 +11,7 @@ namespace Juego.Games
 
         DrawPixelDel DrawPixel;
 
-        public void Init(GraphicsLibrary gl)
+        public void Init(MicroGraphics gl)
         {
             gl.Clear();
             gl.DrawText(0, 0, "Meadow Lander");
@@ -32,24 +32,24 @@ namespace Juego.Games
             gl.Show();
         }
 
-        void DrawBackground(GraphicsLibrary graphics)
+        void DrawBackground(MicroGraphics graphics)
         {
           
         }
 
-        void DrawLives(GraphicsLibrary graphics)
+        void DrawLives(MicroGraphics graphics)
         {
 
         }
 
-        delegate void DrawPixelDel(int x, int y, bool colored, GraphicsLibrary graphics, Color color);
+        delegate void DrawPixelDel(int x, int y, bool colored, MicroGraphics graphics, Color color);
 
-        void DrawPixel1x(int x, int y, bool colored, GraphicsLibrary graphics, Color color)
+        void DrawPixel1x(int x, int y, bool colored, MicroGraphics graphics, Color color)
         {
             graphics.DrawPixel(x, y, colored?color:Color.Black);
         }
 
-        void DrawPixel2x(int x, int y, bool colored, GraphicsLibrary graphics)
+        void DrawPixel2x(int x, int y, bool colored, MicroGraphics graphics)
         {
             x *= 2;
             y *= 2;
@@ -60,7 +60,7 @@ namespace Juego.Games
             graphics.DrawPixel(x + 1, y + 1, colored);
         }
 
-        void DrawBitmap(int x, int y, int width, int height, byte[] bitmap, GraphicsLibrary graphics, Color color)
+        void DrawBitmap(int x, int y, int width, int height, byte[] bitmap, MicroGraphics graphics, Color color)
         {
             for (var ordinate = 0; ordinate < height; ordinate++) //y
             {

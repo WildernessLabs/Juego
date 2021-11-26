@@ -12,7 +12,7 @@ namespace Juego.Games
 
         void Update(IIOConfig ioConfig);
 
-        void Init(GraphicsLibrary gl);
+        void Init(MicroGraphics gl);
 
         void Reset();
     }

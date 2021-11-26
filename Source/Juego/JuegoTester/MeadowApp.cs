@@ -24,7 +24,7 @@ namespace MeadowApp
         IButton select = null;
         IButton start = null;
 
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
 
         public MeadowApp()
         {
@@ -70,16 +70,16 @@ namespace MeadowApp
                 resetPin: Device.Pins.D04,
                 width: 240,
                 height: 240,
-                displayColorMode: DisplayBase.DisplayColorMode.Format12bppRgb444
+                displayColorMode: ColorType.Format12bppRgb444
             );
             display.IgnoreOutOfBoundsPixels = true;
 
             Console.WriteLine("Create GraphicsLibrary...");
 
-            graphics = new GraphicsLibrary(display)
+            graphics = new MicroGraphics(display)
             {
                 CurrentFont = new Font12x20(),
-                Rotation = GraphicsLibrary.RotationType._90Degrees,
+                Rotation = RotationType._90Degrees,
             };
         }
 

@@ -12,7 +12,7 @@ namespace Juego.Games
         int boardWidth;
         int boardHeight;
 
-        public void Init(GraphicsLibrary gl)
+        public void Init(MicroGraphics gl)
         {
             if(gl.Width == 240)
             {
@@ -51,7 +51,7 @@ namespace Juego.Games
             gl.Show();
         }
 
-        void DrawGame(GraphicsLibrary graphics)
+        void DrawGame(MicroGraphics graphics)
         {
             //draw gameboard
             graphics.DrawRectangle(0, yStart, boardWidth, boardHeight, true, false);
@@ -122,7 +122,7 @@ namespace Juego.Games
             graphics.DrawText(xText, yText, $"{Player1Wins} to {Player2Wins}");
         }
 
-        void DrawPreviewChip(int column, bool isFilled, GraphicsLibrary graphics)
+        void DrawPreviewChip(int column, bool isFilled, MicroGraphics graphics)
         {
             DrawChip(xStart + column * cellSize + (cellSize + 1) / 2,
                 (cellSize + 1) / 2,
@@ -130,13 +130,13 @@ namespace Juego.Games
                 graphics);
         }
 
-        void DrawChipOnBoard(int column, int row, bool isFilled, GraphicsLibrary graphics)
+        void DrawChipOnBoard(int column, int row, bool isFilled, MicroGraphics graphics)
         {
             DrawChip(xStart + column * cellSize + (cellSize + 1)/2,
                 yStart + (Height - row - 1) * cellSize + (cellSize + 1) / 2,
                 isFilled, graphics);
         }
-        void DrawChip(int xCenter, int yCenter, bool isFilled, GraphicsLibrary graphics)
+        void DrawChip(int xCenter, int yCenter, bool isFilled, MicroGraphics graphics)
         {
             graphics.DrawCircle(xCenter, yCenter, chipRadius,
                             true, isFilled, true);

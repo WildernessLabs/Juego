@@ -12,7 +12,7 @@ namespace Juego
 {
     public class Config_1c_Ssd1351 : IIOConfig
     {
-        public GraphicsLibrary Graphics { get; protected set; }
+        public MicroGraphics Graphics { get; protected set; }
 
         public AnalogJoystick Joystick { get; protected set; }
 
@@ -50,7 +50,7 @@ namespace Juego
 
             display.Clear(true);
 
-            Graphics = new GraphicsLibrary(display)
+            Graphics = new MicroGraphics(display)
             {
                 CurrentFont = new Font12x20(),
                 Rotation = RotationType._180Degrees,

@@ -10,7 +10,7 @@ namespace Juego.Games
         int topIndent;
         int leftIndent;
 
-        public void Init(GraphicsLibrary graphics)
+        public void Init(MicroGraphics graphics)
         {
             graphics.Clear();
             graphics.DrawText(0, 0, "Meadow Tetraminoes");
@@ -50,7 +50,7 @@ namespace Juego.Games
         }
 
         //ToDo - scale
-        void DrawPreview(GraphicsLibrary graphics)
+        void DrawPreview(MicroGraphics graphics)
         {
             //draw next piece
             for (int i = 0; i < 4; i++)
@@ -65,7 +65,7 @@ namespace Juego.Games
             }
         }
 
-        void DrawGameField(GraphicsLibrary graphics)
+        void DrawGameField(MicroGraphics graphics)
         {
             int xIndent = leftIndent + 2;
             int yIndent = topIndent + 2;

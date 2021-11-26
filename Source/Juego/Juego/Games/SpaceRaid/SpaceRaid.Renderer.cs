@@ -11,7 +11,7 @@ namespace Juego.Games
         int offset = 0;
 
 
-        public void Init(GraphicsLibrary gl)
+        public void Init(MicroGraphics gl)
         {
 
         }

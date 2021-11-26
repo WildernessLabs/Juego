@@ -9,7 +9,7 @@ namespace Juego.Games
         int topOffset = 8; //pixels
         int pixelScale = 1;
 
-        public void Init(GraphicsLibrary gl)
+        public void Init(MicroGraphics gl)
         {
             if(gl.Height <= 64)
             {

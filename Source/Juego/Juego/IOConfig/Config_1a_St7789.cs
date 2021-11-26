@@ -11,7 +11,7 @@ namespace Juego
 {
     public class Config_1a_St7789 : IIOConfig
     {
-        public GraphicsLibrary Graphics { get; protected set; }
+        public MicroGraphics Graphics { get; protected set; }
 
         public AnalogJoystick Joystick { get; protected set; }
 
@@ -47,7 +47,7 @@ namespace Juego
             );
             display.IgnoreOutOfBoundsPixels = true;
 
-            Graphics = new GraphicsLibrary(display)
+            Graphics = new MicroGraphics(display)
             {
                 CurrentFont = new Font12x20(),
                 Rotation = RotationType._180Degrees,

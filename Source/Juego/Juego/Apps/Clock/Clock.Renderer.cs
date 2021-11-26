@@ -20,7 +20,7 @@ namespace Juego.Apps
         const string SetTime = "setTime";
         const string SetDate = "setDate";
 
-        public void Init(GraphicsLibrary gl)
+        public void Init(MicroGraphics gl)
         {
             gl.CurrentFont = fontClock = new Font12x16();
             fontDate = new Font8x12();
@@ -90,9 +90,9 @@ namespace Juego.Apps
             long seconds = ((DateTime.Now - intervalStart).Ticks) / 10000000;
             if(itState == IntervalTimerState.Stop) { seconds = 0; }
 
-            gl.DrawText(gl.Width - 2, 0, GetTotalTime(seconds), alignment: GraphicsLibrary.TextAlignment.Right);
-            gl.DrawText(gl.Width - 2, 24, GetActiveTime(seconds), alignment: GraphicsLibrary.TextAlignment.Right);
-            gl.DrawText(gl.Width - 2, 48, GetRestTime(seconds), alignment: GraphicsLibrary.TextAlignment.Right);
+            gl.DrawText(gl.Width - 2, 0, GetTotalTime(seconds), alignment: TextAlignment.Right);
+            gl.DrawText(gl.Width - 2, 24, GetActiveTime(seconds), alignment: TextAlignment.Right);
+            gl.DrawText(gl.Width - 2, 48, GetRestTime(seconds), alignment: TextAlignment.Right);
 
             gl.CurrentFont = fontDate;
 
@@ -209,11 +209,11 @@ namespace Juego.Apps
             gl.Clear();
 
             gl.CurrentFont = fontClock;
-            gl.DrawText(gl.Width / 2, 10, DateTime.Now.ToString("h:mm:sstt"), alignment: GraphicsLibrary.TextAlignment.Center);
+            gl.DrawText(gl.Width / 2, 10, DateTime.Now.ToString("h:mm:sstt"), alignment: TextAlignment.Center);
 
             gl.CurrentFont = fontDate;
-            gl.DrawText(gl.Width / 2, 30, DateTime.Now.ToString("dddd"), alignment: GraphicsLibrary.TextAlignment.Center);
-            gl.DrawText(gl.Width / 2, 46, DateTime.Now.ToString("MMMM d, yyyy"), alignment: GraphicsLibrary.TextAlignment.Center);
+            gl.DrawText(gl.Width / 2, 30, DateTime.Now.ToString("dddd"), alignment: TextAlignment.Center);
+            gl.DrawText(gl.Width / 2, 46, DateTime.Now.ToString("MMMM d, yyyy"), alignment: TextAlignment.Center);
 
             gl.Show();
 
@@ -223,7 +223,7 @@ namespace Juego.Apps
             }
         }   
 
-        void InitMenu(GraphicsLibrary gl)
+        void InitMenu(MicroGraphics gl)
         {
             Console.WriteLine("InitMenu");
 
