@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Graphics;
 
@@ -31,7 +32,11 @@ namespace Juego.Games
         {
             var gl = ioConfig.Graphics;
 
+            Console.WriteLine("Show start");
+
             Update();
+
+            //Console.WriteLine($"CPU {cpuX}, {cpuY}, {paddleWidth}, {paddleHeight}");
 
             gl.Clear();
 
@@ -39,11 +44,15 @@ namespace Juego.Games
             gl.DrawRectangle(playerX, playerY, paddleWidth, paddleHeight, true, true);
             gl.DrawRectangle(cpuX, cpuY, paddleWidth, paddleHeight, true, true);
 
+            Console.WriteLine("Assets drawn");
+
             gl.DrawText(0, 0, $"{playerScore}");
-            gl.DrawText((int)(gl.Width), 0, $"{cpuScore}",
+            gl.DrawText(gl.Width, 0, $"{cpuScore}",
                 alignment: GraphicsLibrary.TextAlignment.Right);
 
             gl.Show();
+
+            Console.WriteLine("Show complete");
         }
     }
 }

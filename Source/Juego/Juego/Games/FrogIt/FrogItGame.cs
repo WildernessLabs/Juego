@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Juego.Games
 {
@@ -81,8 +82,23 @@ namespace Juego.Games
         }
 
         double lastTime;
+        int count = 0;
+        Stopwatch sw = new Stopwatch();
         public void Update()
         {
+            if(count == 0)
+            {
+                sw.Start();
+            }
+            else if(count == 100)
+            {
+                sw.Stop();
+                Console.WriteLine($"100 frames took {sw.Elapsed}");
+                Console.WriteLine($"FPS: {100 / sw.Elapsed.TotalSeconds}");
+            }
+
+            count++;
+
             lastTime = GameTime;
             GameTime = (DateTime.Now - gameStart).TotalSeconds;
 

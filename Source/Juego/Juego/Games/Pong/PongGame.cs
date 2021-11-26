@@ -72,8 +72,18 @@ namespace Juego.Games
         void UpdateCpuPlayer()
         {
             //very simple logic for now
-            if (cpuY < ballY) { cpuY++; }
-            else if (cpuY > ballY) { cpuY--; }
+            if (cpuY + paddleHeight < GameHeight - 2
+                && cpuY < ballY)
+            {
+                cpuY++;
+                Console.WriteLine($"cpuY: {cpuY}, paddleWidth: {paddleWidth}, GameHeight: {GameHeight} ++");
+            }
+            else if (cpuY > 0
+                && cpuY > ballY)
+            {
+                cpuY--;
+                Console.WriteLine($"cpuY: {cpuY}, paddleWidth: {paddleWidth}, GameHeight: {GameHeight} --");
+            }
         }
 
         void Update()

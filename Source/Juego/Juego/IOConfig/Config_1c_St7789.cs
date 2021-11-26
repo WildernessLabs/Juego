@@ -43,14 +43,14 @@ namespace Juego
                 resetPin: IODeviceMap.Display.ResetPin,
                 width: 240,
                 height: 240,
-                displayColorMode: DisplayBase.DisplayColorMode.Format12bppRgb444
+                displayColorMode: ColorType.Format12bppRgb444
             );
             display.IgnoreOutOfBoundsPixels = true;
 
             Graphics = new GraphicsLibrary(display)
             {
                 CurrentFont = new Font12x20(),
-                Rotation = GraphicsLibrary.RotationType._180Degrees,
+                Rotation = RotationType._180Degrees,
             };
 
             Up = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);

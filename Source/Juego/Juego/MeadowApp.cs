@@ -22,7 +22,7 @@ namespace Juego
 
         IGame currentGame;
 
-        const string version = "0.5.0";
+        const string version = "0.5.3";
 
         public MeadowApp()
         {
@@ -63,11 +63,12 @@ namespace Juego
 
         void Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
+            Console.WriteLine("Initialize game hardware...");
 
             //hardware = new Config_1c_St7735();
-            //hardware = new Config_proto_Ssd130x_Spi();
-            hardware = new Config_1c_Ssd130x_I2c();
+            hardware = new Config_proto_Ssd130x_Spi(); //SSD1309 proto 
+            //hardware = new Config_1c_Ssd130x_I2c();
+            //hardware = new Config_1c_Ssd130x_Spi();
             //hardware = new Config_1c_St7789();
 
             //hardware = new Config_1c_Ssd1351();
@@ -222,11 +223,15 @@ namespace Juego
         {
             Console.WriteLine("Load menu data...");
 
-            /*   var menuData = LoadResource("menu.json");
-               Console.WriteLine($"Data length: {menuData.Length}...");
-               Console.WriteLine("Create menu..."); 
-               menu = new Menu(display, menuData, false); */
-
+            /*
+            
+            var menuData = LoadResource("menu.json");
+            Console.WriteLine($"Data length: {menuData.Length}...");
+            Console.WriteLine("Create menu..."); 
+            menu = new Menu(display, menuData, false);
+            
+            */
+            
             var menuItems = new MenuItem[]
             {
                 new MenuItem("SpaceRaid", command: "startSpace"),
@@ -242,8 +247,10 @@ namespace Juego
                                              new MenuItem("Clear scores", command: "clearScores"),
                                              new MenuItem($"Version {version}") }),
             };
+            
 
             menu = new Menu(display, menuItems);
+            
 
             menu.Selected += Menu_Selected;
             menu.Exited += Menu_Exited;

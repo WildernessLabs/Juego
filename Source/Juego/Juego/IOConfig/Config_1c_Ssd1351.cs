@@ -53,7 +53,7 @@ namespace Juego
             Graphics = new GraphicsLibrary(display)
             {
                 CurrentFont = new Font12x20(),
-                Rotation = GraphicsLibrary.RotationType._180Degrees,
+                Rotation = RotationType._180Degrees,
             };
 
             Console.WriteLine("Draw line");

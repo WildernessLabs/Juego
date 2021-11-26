@@ -43,14 +43,14 @@ namespace Juego
                 width: 128,
                 height: 128,
                 displayType: St7735.DisplayType.ST7735R_144x144,
-                displayColorMode: DisplayBase.DisplayColorMode.Format12bppRgb444
+                displayColorMode: ColorType.Format12bppRgb444
             );
             display.IgnoreOutOfBoundsPixels = true;
 
             Graphics = new GraphicsLibrary(display)
             {
                 CurrentFont = new Font8x12(),
-                Rotation = GraphicsLibrary.RotationType._90Degrees,
+                Rotation = RotationType._90Degrees,
             };
 
             Up = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);

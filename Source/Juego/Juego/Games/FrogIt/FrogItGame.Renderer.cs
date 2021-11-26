@@ -1,5 +1,4 @@
 ﻿using System;
-using Meadow.Foundation;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Graphics;
 
@@ -13,17 +12,19 @@ namespace Juego.Games
 
         public void Init(GraphicsLibrary gl)
         {
+            InitBuffers();
+
             gl.Clear();
             gl.DrawText(0, 0, "Meadow FrogIt");
-            gl.DrawText(0, 16, "v0.2.3");
+            gl.DrawText(0, 16, "v0.3.0");
             gl.Show();
 
             //hacky scale for now
-         //   if(gl.Width >= 160 && gl.Height >= 128)
-        //    {
-            //    DrawPixel = DrawPixel2x;
-        //    }
-          //  else
+            if (gl.Width >= 160 && gl.Height >= 128)
+            {
+                DrawPixel = DrawPixel2x;
+            }
+            else
             {
                 DrawPixel = DrawPixel1x;
             }
@@ -48,13 +49,13 @@ namespace Juego.Games
             //draw docks
             for (int i = 0; i < 5; i++)
             {
-              //  graphics.DrawRectangle(10 + 24 * i, 0, 12, 8, true, false);
+                //  graphics.DrawRectangle(10 + 24 * i, 0, 12, 8, true, false);
 
                 if (i < FrogsHome)
                 {
                     DrawFrog(12 + 24 * i, 0, FrogState.Forward, graphics);
                 }
-            } 
+            }
 
             //draw water
             //graphics.DrawRectangle(0, cellSize, 128, cellSize * 3, true, true);
@@ -99,6 +100,9 @@ namespace Juego.Games
                         }
                         continue;
                     }
+
+                    if (x < 0 || x >= graphics.Width - 8)
+                        continue;
 
                     switch (row)
                     {
@@ -149,15 +153,15 @@ namespace Juego.Games
         {
             if (state == FrogState.Left)
             {
-                DrawBitmap(x, y, 1, 8, frogLeft, graphics, Color.LawnGreen);
+                graphics.DrawBuffer(x, y, frogLeft);   
             }
             else if (state == FrogState.Forward)
             {
-                DrawBitmap(x, y, 1, 8, frogUp, graphics, Color.LawnGreen);
+                graphics.DrawBuffer(x, y, frogUp);
             }
-            else if(state == FrogState.Right)
+            else if (state == FrogState.Right)
             {
-                DrawBitmap(x, y, 1, 8, frogRight, graphics, Color.LawnGreen);
+                graphics.DrawBuffer(x, y, frogRight);
             }
             else
             {
@@ -167,29 +171,29 @@ namespace Juego.Games
 
         void DrawTruck(int x, int y, int index, GraphicsLibrary graphics)
         {
-            if (index == 1) DrawBitmap(x, y, 1, 8, truckLeft, graphics, Color.LightGray);
-            else if (index == 2) DrawBitmap(x, y, 1, 8, truckCenter, graphics, Color.LightGray);
-            else if (index == 3) DrawBitmap(x, y, 1, 8, truckRight, graphics, Color.LightGray);
+            if (index == 1) graphics.DrawBuffer(x, y, truckLeft);
+            else if (index == 2) graphics.DrawBuffer(x, y, truckCenter);
+            else if (index == 3) graphics.DrawBuffer(x, y, truckRight);
         }
 
         void DrawLog(int x, int y, int index, GraphicsLibrary graphics)
         {
-            if (index == 1) DrawBitmap(x, y, 1, 8, logDarkLeft, graphics, Color.Beige);
-            else if (index == 2) DrawBitmap(x, y, 1, 8, logDarkCenter, graphics, Color.Beige);
-            else if (index == 3) DrawBitmap(x, y, 1, 8, logDarkRight, graphics, Color.Beige);
+            if (index == 1) graphics.DrawBuffer(x, y, logDarkLeft);
+            else if (index == 2) graphics.DrawBuffer(x, y, logDarkCenter);
+            else if (index == 3) graphics.DrawBuffer(x, y, logDarkRight);
         }
 
         void DrawCar(int x, int y, int index, GraphicsLibrary graphics)
         {
-            if (index == 1) DrawBitmap(x, y, 1, 8, carLeft, graphics, Color.Red);
-            else if (index == 2) DrawBitmap(x, y, 1, 8, carRight, graphics, Color.Red);
+            if (index == 1) graphics.DrawBuffer(x, y, carLeft);
+            else if (index == 2) graphics.DrawBuffer(x, y, carRight);
         }
 
-        delegate void DrawPixelDel(int x, int y, bool colored, GraphicsLibrary graphics, Color color);
+        delegate void DrawPixelDel(int x, int y, bool colored, GraphicsLibrary graphics);
 
-        void DrawPixel1x(int x, int y, bool colored, GraphicsLibrary graphics, Color color)
+        void DrawPixel1x(int x, int y, bool colored, GraphicsLibrary graphics)
         {
-            graphics.DrawPixel(x, y, colored?color:Color.Black);
+            graphics.DrawPixel(x, y, colored);
         }
 
         void DrawPixel2x(int x, int y, bool colored, GraphicsLibrary graphics)
@@ -203,7 +207,8 @@ namespace Juego.Games
             graphics.DrawPixel(x + 1, y + 1, colored);
         }
 
-        void DrawBitmap(int x, int y, int width, int height, byte[] bitmap, GraphicsLibrary graphics, Color color)
+        /*
+        void DrawBitmap(int x, int y, int width, int height, byte[] bitmap, GraphicsLibrary graphics)
         {
             for (var ordinate = 0; ordinate < height; ordinate++) //y
             {
@@ -214,12 +219,12 @@ namespace Juego.Games
 
                     for (var pixel = 0; pixel < 8; pixel++)
                     {
-                        DrawPixel(x + (8 * abscissa) + 7 - pixel, y + ordinate, (b & mask) > 0, graphics, color);
+                        DrawPixel(x + (8 * abscissa) + 7 - pixel, y + ordinate, (b & mask) > 0, graphics);
 
                         mask <<= 1;
                     }
                 }
             }
-        }
+        }*/
     }
 }

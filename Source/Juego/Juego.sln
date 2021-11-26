@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.808.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juego", "Juego\Juego.csproj", "{3408707B-D8C4-465F-93C3-A88F7F2F8887}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Juego", "Juego\Juego.csproj", "{3408707B-D8C4-465F-93C3-A88F7F2F8887}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Foundation.Core", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj", "{7358C01B-AC25-40C1-AF41-037250804495}"
 EndProject
@@ -20,6 +20,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuegoTester", "JuegoTester\JuegoTester.csproj", "{915E2329-66BB-4B24-9F44-CA7505300029}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.Ssd130x", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Ssd130x\Driver\Displays.Ssd130x\Displays.Ssd130x.csproj", "{E31A385D-82AB-40FA-8167-AF6C0023F623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.F7", "..\..\..\Meadow.Core\source\Meadow.F7\Meadow.F7.csproj", "{E5554170-E21B-4CC3-92D7-0B16FE5EC668}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Units", "..\..\..\Meadow.Core\source\Meadow.Units\Meadow.Units.csproj", "{DBE09936-CB0E-41F4-9479-924EF491EEA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Contracts", "..\..\..\Meadow.Core\source\Meadow.Contracts\Meadow.Contracts.csproj", "{1DA9791D-62CB-46C8-A798-FE7AC9C0FE05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +65,18 @@ Global
 		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E31A385D-82AB-40FA-8167-AF6C0023F623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5554170-E21B-4CC3-92D7-0B16FE5EC668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5554170-E21B-4CC3-92D7-0B16FE5EC668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5554170-E21B-4CC3-92D7-0B16FE5EC668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5554170-E21B-4CC3-92D7-0B16FE5EC668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBE09936-CB0E-41F4-9479-924EF491EEA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBE09936-CB0E-41F4-9479-924EF491EEA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBE09936-CB0E-41F4-9479-924EF491EEA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBE09936-CB0E-41F4-9479-924EF491EEA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA9791D-62CB-46C8-A798-FE7AC9C0FE05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA9791D-62CB-46C8-A798-FE7AC9C0FE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA9791D-62CB-46C8-A798-FE7AC9C0FE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA9791D-62CB-46C8-A798-FE7AC9C0FE05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +88,9 @@ Global
 		{A40BBA71-8A71-49D8-9D1F-581EF3938420} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{25B3B7BE-28C4-46EA-B0F3-AD653DD0E841} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{E31A385D-82AB-40FA-8167-AF6C0023F623} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{E5554170-E21B-4CC3-92D7-0B16FE5EC668} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{DBE09936-CB0E-41F4-9479-924EF491EEA0} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{1DA9791D-62CB-46C8-A798-FE7AC9C0FE05} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB582CC6-C626-484E-9742-43FD65FE8158}

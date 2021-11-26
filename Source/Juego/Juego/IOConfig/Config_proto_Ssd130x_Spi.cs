@@ -54,7 +54,7 @@ namespace Juego
             Left = new PushButton(device, device.Pins.D11, ResistorMode.ExternalPullUp);
             Right = new PushButton(device, device.Pins.D10, ResistorMode.ExternalPullUp);
             Down = new PushButton(device, device.Pins.D12, ResistorMode.ExternalPullUp);
-            Up = new PushButton(device, device.Pins.D14, ResistorMode.ExternalPullUp);
+            Up = new PushButton(device, device.Pins.D09, ResistorMode.ExternalPullUp);
 
 
             rgbLed = new RgbPwmLed(device: device,
