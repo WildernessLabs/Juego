@@ -32,7 +32,7 @@ namespace Juego
         {
             var device = MeadowApp.Device;
 
-            var config = new SpiClockConfiguration(9000, SpiClockConfiguration.Mode.Mode0);
+            var config = new SpiClockConfiguration(new Meadow.Units.Frequency(12000, Meadow.Units.Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
 
             var bus = device.CreateSpiBus(device.Pins.SCK, device.Pins.MOSI, device.Pins.MISO, config);
 

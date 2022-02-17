@@ -9,9 +9,9 @@ namespace Juego.Apps
 {
     public partial class Clock
     {
-        FontBase fontClock;
-        FontBase fontDate;
-        FontBase FontText;
+        IFont fontClock;
+        IFont fontDate;
+        IFont FontText;
 
         Menu menu;
 

@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\..\..\Meadow.Core\source\Meadow.F7\Meadow.F7.csproj" />
     <ProjectReference Include="..\..\..\..\Meadow.Core\source\Meadow.Contracts\Meadow.Contracts.csproj" />
     <ProjectReference Include="..\..\..\..\Meadow.Core\source\Meadow.Units\Meadow.Units.csproj" />
+    <ProjectReference Include="..\..\..\..\Meadow.Contracts\Source\Meadow.Contracts\Meadow.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Games\Lander\" />

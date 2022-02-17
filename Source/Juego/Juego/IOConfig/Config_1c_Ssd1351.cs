@@ -35,7 +35,7 @@ namespace Juego
 
             var device = MeadowApp.Device;
 
-            var bus = device.CreateSpiBus(300);
+            var bus = device.CreateSpiBus();
 
             var display = new Ssd1351(
                 device: device, 
