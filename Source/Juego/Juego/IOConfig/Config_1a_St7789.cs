@@ -1,11 +1,11 @@
 ﻿using Meadow.Foundation.Audio;
-using Meadow.Foundation.Displays;
 using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
+using Meadow.Peripherals.Leds;
 
 namespace Juego
 {
@@ -43,14 +43,14 @@ namespace Juego
                 resetPin: IODeviceMap.Display.ResetPin,
                 width: 240,
                 height: 240,
-                displayColorMode: ColorType.Format12bppRgb444
+                displayColorMode: ColorType.Format16bppRgb565
             );
-            display.IgnoreOutOfBoundsPixels = true;
 
             Graphics = new MicroGraphics(display)
             {
                 CurrentFont = new Font12x20(),
                 Rotation = RotationType._180Degrees,
+                IgnoreOutOfBoundsPixels = true,
             };
 
             Up = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);
@@ -64,8 +64,7 @@ namespace Juego
                 redPwmPin: device.Pins.OnboardLedRed,
                 greenPwmPin: device.Pins.OnboardLedGreen,
                 bluePwmPin: device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+                CommonType.CommonAnode);
         }
     }
 }

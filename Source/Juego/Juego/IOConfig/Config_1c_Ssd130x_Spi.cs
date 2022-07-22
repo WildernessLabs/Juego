@@ -7,6 +7,7 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
+using Meadow.Peripherals.Leds;
 
 namespace Juego
 {
@@ -44,11 +45,11 @@ namespace Juego
 
             display.Contrast = 255;
 
-            display.IgnoreOutOfBoundsPixels = true;
 
             Graphics = new MicroGraphics(display)
             {
-                CurrentFont = new Font8x12()
+                CurrentFont = new Font8x12(),
+                IgnoreOutOfBoundsPixels = true,
             };
 
             Up = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);
@@ -62,8 +63,7 @@ namespace Juego
                 redPwmPin: device.Pins.OnboardLedRed,
                 greenPwmPin: device.Pins.OnboardLedGreen,
                 bluePwmPin: device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+                CommonType.CommonAnode);
         }
     }
 }

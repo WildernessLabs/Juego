@@ -7,6 +7,7 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
+using Meadow.Peripherals.Leds;
 
 namespace Juego
 {
@@ -33,13 +34,12 @@ namespace Juego
         {
             var device = MeadowApp.Device;
 
-            var display = new Ssd1306(device.CreateI2cBus(I2cBusSpeed.FastPlus), 60, Ssd1306.DisplayType.OLED128x64)
-            {
-                IgnoreOutOfBoundsPixels = true
-            };
+            var display = new Ssd1306(device.CreateI2cBus(I2cBusSpeed.FastPlus), 60, Ssd1306.DisplayType.OLED128x64);
+
             Graphics = new MicroGraphics(display)
             {
                 CurrentFont = new Font8x12(),
+                IgnoreOutOfBoundsPixels = true
             };
 
             Up = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);
@@ -56,8 +56,7 @@ namespace Juego
                 redPwmPin: device.Pins.OnboardLedRed,
                 greenPwmPin: device.Pins.OnboardLedGreen,
                 bluePwmPin: device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+                CommonType.CommonAnode);
         }
     }
 }

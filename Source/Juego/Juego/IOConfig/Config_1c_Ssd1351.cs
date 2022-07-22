@@ -6,6 +6,7 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
+using Meadow.Peripherals.Leds;
 using System;
 
 namespace Juego
@@ -35,7 +36,7 @@ namespace Juego
 
             var device = MeadowApp.Device;
 
-            var bus = device.CreateSpiBus();
+            var bus = device.CreateSpiBus(new Meadow.Units.Frequency(12000, Meadow.Units.Frequency.UnitType.Kilohertz));
 
             var display = new Ssd1351(
                 device: device, 
@@ -73,8 +74,7 @@ namespace Juego
                 redPwmPin: device.Pins.OnboardLedRed,
                 greenPwmPin: device.Pins.OnboardLedGreen,
                 bluePwmPin: device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+                CommonType.CommonAnode);
         }
     }
 }

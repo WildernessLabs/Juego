@@ -66,21 +66,25 @@ namespace Juego.Games
             int startPos, index, x, y;
             int cellOffset;
 
+            double offsetD;
+
             for (byte row = 0; row < 6; row++)
             {
-                startPos = (int)(GameTime * LaneSpeeds[row]) % LaneLength;
-                cellOffset = (int)(8.0f * GameTime * LaneSpeeds[row]) % cellSize;
+                startPos = (int)Math.Truncate(GameTime * LaneSpeeds[row]) % LaneLength;
+                offsetD = 8.0 * GameTime * LaneSpeeds[row];
+
+                cellOffset = ((int)Math.Truncate(offsetD)) % cellSize;
 
                 if (startPos < 0)
                 {
-                    startPos = LaneLength - (Math.Abs(startPos) % 32);
+                    startPos = LaneLength - ((0 - startPos)%32);//     (Math.Abs(startPos) % 32);
                 }
 
                 y = cellSize * (row + 1);
 
                 if (row < 3 && y == FrogY)
                 {
-                    FrogX -= (TimeDelta * LaneSpeeds[row] * 8f);
+                    FrogX -= TimeDelta * LaneSpeeds[row] * 8;
                 }
 
                 for (byte i = 0; i < Columns + 2; i++)
@@ -146,7 +150,7 @@ namespace Juego.Games
 
         void DrawFrog(MicroGraphics graphics, FrogState state = FrogState.Forward)
         {
-            DrawFrog((int)FrogX, (int)FrogY, state, graphics);
+            DrawFrog((int)Math.Truncate(FrogX), (int)Math.Truncate(FrogY), state, graphics);
         }
 
         void DrawFrog(int x, int y, FrogState state, MicroGraphics graphics)

@@ -20,9 +20,9 @@ namespace Juego.Games
             byte[] frogL = { 0xe3, 0x3a, 0x5e, 0xfc, 0xfc, 0x5e, 0x3a, 0xe3 };
             byte[] frogR = { 0xc7, 0x5c, 0x7a, 0x3f, 0x3f, 0x7a, 0x5c, 0xc7 };
 
-            frogUp = (new Buffer1bpp(8, 8, frogU)).Rotate(RotationType._90Degrees);
-            frogLeft = (new Buffer1bpp(8, 8, frogL)).Rotate(RotationType._90Degrees);
-            frogRight = (new Buffer1bpp(8, 8, frogR)).Rotate(RotationType._90Degrees);
+            frogUp = (new Buffer1bpp(8, 8, frogU)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
+            frogLeft = (new Buffer1bpp(8, 8, frogL)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
+            frogRight = (new Buffer1bpp(8, 8, frogR)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
 
             // byte[] logL = { 0xc0, 0x99, 0x00, 0x30, 0x09, 0x20, 0x9c, 0xc0 }; //log left
             // byte[] logC = { 0x00, 0xc9, 0x00, 0x1a, 0xc1, 0x00, 0xd7, 0x00 };
@@ -32,31 +32,31 @@ namespace Juego.Games
             byte[] logDarkC = { 0xff, 0x36, 0xff, 0xe5, 0x3e, 0xff, 0x28, 0xff };
             byte[] logDarkR = { 0xfc, 0x22, 0xdd, 0xd5, 0x55, 0xdd, 0xa2, 0xfc };
 
-            logDarkLeft = (new Buffer1bpp(8, 8, logDarkL)).Rotate(RotationType._90Degrees);
-            logDarkCenter = (new Buffer1bpp(8, 8, logDarkC)).Rotate(RotationType._90Degrees);
-            logDarkRight = (new Buffer1bpp(8, 8, logDarkR)).Rotate(RotationType._90Degrees);
+            logDarkLeft = (new Buffer1bpp(8, 8, logDarkL)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
+            logDarkCenter = (new Buffer1bpp(8, 8, logDarkC)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
+            logDarkRight = (new Buffer1bpp(8, 8, logDarkR)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
 
             byte[] crocL= { 0x3f, 0x88, 0xc2, 0xe0, 0xf0, 0xa0, 0x01, 0xff }; //log left
             byte[] crocC = { 0xff, 0x83, 0x00, 0x00, 0x00, 0x00, 0x9c, 0x31 };
             byte[] crocR = { 0xff, 0xff, 0xff, 0x0f, 0x07, 0x01, 0x70, 0xff };
 
-            crocLeft = (new Buffer1bpp(8, 8, crocL)).Rotate(RotationType._90Degrees);
-            crocCenter = (new Buffer1bpp(8, 8, crocC)).Rotate(RotationType._90Degrees);
-            crocRight = (new Buffer1bpp(8, 8, crocR)).Rotate(RotationType._90Degrees);
+            crocLeft = (new Buffer1bpp(8, 8, crocL)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
+            crocCenter = (new Buffer1bpp(8, 8, crocC)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
+            crocRight = (new Buffer1bpp(8, 8, crocR)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
 
             byte[] truckL = { 0x7f, 0x40, 0x5f, 0x40, 0x5f, 0x40, 0x7f, 0x00 }; //log left
             byte[] truckC = { 0xff, 0x00, 0xff, 0x00, 0xff, 0x00, 0xff, 0x00 };
             byte[] truckR = { 0xdc, 0x7e, 0x59, 0x59, 0x59, 0x7e, 0xdc, 0x00 };
 
-            truckLeft = (new Buffer1bpp(8, 8, truckL)).Rotate(RotationType._90Degrees);
-            truckCenter = (new Buffer1bpp(8, 8, truckC)).Rotate(RotationType._90Degrees);
-            truckRight = (new Buffer1bpp(8, 8, truckR)).Rotate(RotationType._90Degrees);
+            truckLeft = (new Buffer1bpp(8, 8, truckL)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
+            truckCenter = (new Buffer1bpp(8, 8, truckC)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
+            truckRight = (new Buffer1bpp(8, 8, truckR)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
 
             byte[] carL = { 0x1c, 0x3f, 0x4c, 0x4c, 0x4c, 0x3f, 0x1c, 0x00 };
             byte[] carR = { 0x1c, 0xfe, 0x71, 0x71, 0x71, 0xfe, 0x1c, 0x00 };
 
-            carLeft = (new Buffer1bpp(8, 8, carL)).Rotate(RotationType._90Degrees);
-            carRight = (new Buffer1bpp(8, 8, carR)).Rotate(RotationType._90Degrees);
+            carLeft = (new Buffer1bpp(8, 8, carL)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
+            carRight = (new Buffer1bpp(8, 8, carR)).RotateAndConvert<Buffer1bpp>(RotationType._90Degrees);
         }
 
         // Bitmaps created by @senkunmusahi using https://www.riyas.org/2013/12/online-led-matrix-font-generator-with.html

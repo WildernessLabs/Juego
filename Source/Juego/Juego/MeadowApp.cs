@@ -14,7 +14,7 @@ using Meadow.Peripherals.Displays;
 
 namespace Juego
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV1>
     {
         Menu menu;
 
@@ -22,7 +22,7 @@ namespace Juego
 
         IGame currentGame;
 
-        const string version = "0.5.3";
+        const string version = "0.5.4";
 
         public MeadowApp()
         {
@@ -69,6 +69,7 @@ namespace Juego
             hardware = new Config_proto_Ssd130x_Spi(); //SSD1309 proto 
             //hardware = new Config_1c_Ssd130x_I2c();
             //hardware = new Config_1c_Ssd130x_Spi();
+            //hardware = new Config_1a_St7789();
             //hardware = new Config_1c_St7789();
 
             //hardware = new Config_1c_Ssd1351();

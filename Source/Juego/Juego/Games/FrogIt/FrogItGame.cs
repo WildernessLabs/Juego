@@ -15,8 +15,8 @@ namespace Juego.Games
 
         FrogState frogState;
 
-        //each lane has a velocity (float)
-        public float[] LaneSpeeds { get; private set; } = new float[6] { 1.0f, -2.0f, 1.5f, -1.0f, 1.5f, -2.0f };
+        //each lane has a velocity
+        public double[] LaneSpeeds { get; private set; } = new double[6] { 1.0f, -2.0f, 1.5f, -1.0f, 1.5f, -2.0f };
         public byte[,] LaneData { get; private set; } = new byte[6, 32]
         {
             //no data for docks
@@ -102,7 +102,7 @@ namespace Juego.Games
             lastTime = GameTime;
             GameTime = (DateTime.Now - gameStart).TotalSeconds;
 
-            switch(lastInput)
+            switch (lastInput)
             {
                 case UserInput.Up:
                     MoveFrogUp();
