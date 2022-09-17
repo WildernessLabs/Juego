@@ -68,15 +68,12 @@ namespace Juego.Games
 
             double offsetD;
 
-            //    for (byte row = 0; row < 6; row++)
-            byte row = 1;
+            for (byte row = 0; row < 6; row++)
             {
                 startPos = (int)(GameTime * LaneSpeeds[row]) % LaneLength;
                 offsetD = 8.0 * GameTime * LaneSpeeds[row];
 
                 cellOffset = ((int)(offsetD)) % cellSize;
-
-                Console.WriteLine($"{offsetD}, {cellOffset}");
 
                 if (startPos < 0)
                 {
