@@ -1,5 +1,5 @@
 ﻿using Meadow.Foundation.Audio;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -44,7 +44,7 @@ namespace Juego
                 width: 128,
                 height: 128,
                 displayType: St7735.DisplayType.ST7735R_144x144,
-                displayColorMode: ColorType.Format12bppRgb444
+                colorMode: ColorType.Format12bppRgb444
             );
 
             Graphics = new MicroGraphics(display)

@@ -4,16 +4,16 @@ using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays;
-using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
+using Meadow.Peripherals.Leds;
 using Meadow.Peripherals.Sensors.Buttons;
 
 namespace MeadowApp
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV1>
     {
         RgbPwmLed onboardLed;
 
@@ -40,8 +40,7 @@ namespace MeadowApp
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+                CommonType.CommonAnode);
 
             up = new PushButton(Device, Device.Pins.D06, ResistorMode.InternalPullDown);
             up.Clicked += Up_Clicked;
@@ -58,7 +57,7 @@ namespace MeadowApp
 
             Console.WriteLine("Create display...");
 
-            var config = new SpiClockConfiguration(48000, SpiClockConfiguration.Mode.Mode3);
+            var config = new SpiClockConfiguration(new Meadow.Units.Frequency(48000, Meadow.Units.Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode3);
             var bus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
 
               //  (IODeviceMap.Display.ClockPin, IODeviceMap.Display.CopiPin, IODeviceMap.Display.CipoPin, config);
@@ -70,9 +69,8 @@ namespace MeadowApp
                 resetPin: Device.Pins.D04,
                 width: 240,
                 height: 240,
-                displayColorMode: ColorType.Format12bppRgb444
+                colorMode: ColorType.Format12bppRgb444
             );
-            display.IgnoreOutOfBoundsPixels = true;
 
             Console.WriteLine("Create GraphicsLibrary...");
 
@@ -80,6 +78,7 @@ namespace MeadowApp
             {
                 CurrentFont = new Font12x20(),
                 Rotation = RotationType._90Degrees,
+                IgnoreOutOfBoundsPixels = true,
             };
         }
 
