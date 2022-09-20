@@ -24,7 +24,7 @@ namespace JuegoTester
 
         public PiezoSpeaker RightSpeaker { get; protected set; }
 
-        public IAnalogJoystick AnalogJoystick { get; protected set; }
+        public AnalogJoystick AnalogJoystick { get; protected set; }
 
         public PushButton UpButton { get; protected set; }
         public PushButton DownButton { get; protected set; }

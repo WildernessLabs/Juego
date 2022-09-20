@@ -3,6 +3,7 @@ using Meadow.Foundation.Audio;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
+using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
 using Meadow.Peripherals.Sensors.Hid;
 
@@ -17,7 +18,7 @@ namespace JuegoTester
         ISpiBus SpiBus { get; }
         II2cBus I2cBus { get; }
 
-        IAnalogJoystick AnalogJoystick { get; }
+        AnalogJoystick AnalogJoystick { get; }
 
         PushButton UpButton { get; }
         PushButton DownButton { get; }
