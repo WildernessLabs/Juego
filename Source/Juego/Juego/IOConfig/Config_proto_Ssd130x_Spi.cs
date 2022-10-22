@@ -1,7 +1,6 @@
 ﻿using System;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
-using Meadow.Foundation.Displays.Ssd130x;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -54,9 +53,9 @@ namespace Juego
                 IgnoreOutOfBoundsPixels = true
             };
 
-            Left = new PushButton(device, device.Pins.D11, ResistorMode.ExternalPullUp);
-            Right = new PushButton(device, device.Pins.D10, ResistorMode.ExternalPullUp);
-            Down = new PushButton(device, device.Pins.D12, ResistorMode.ExternalPullUp);
+            Left = new PushButton(device, device.Pins.D12, ResistorMode.ExternalPullUp);
+            Right = new PushButton(device, device.Pins.D11, ResistorMode.ExternalPullUp);
+            Down = new PushButton(device, device.Pins.D13, ResistorMode.ExternalPullUp);
             Up = new PushButton(device, device.Pins.D09, ResistorMode.ExternalPullUp);
 
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Meadow.Devices;
+﻿using Meadow;
 using Meadow.Hardware;
 
 namespace Juego

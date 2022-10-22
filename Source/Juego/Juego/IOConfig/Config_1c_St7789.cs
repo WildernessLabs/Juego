@@ -1,6 +1,5 @@
 ﻿using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
-using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -44,7 +43,7 @@ namespace Juego
                 resetPin: IODeviceMap.Display.ResetPin,
                 width: 240,
                 height: 240,
-                displayColorMode: ColorType.Format12bppRgb444
+                colorMode: ColorType.Format12bppRgb444
             );
 
             Graphics = new MicroGraphics(display)
