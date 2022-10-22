@@ -9,3 +9,11 @@ Currently includes five working games:
 - Tetraminos (inspired by Tetris)
 
 !["Image of Juego Meadow prototype hardware"](./juego.png)
+
+## Fritzing Diagram with SSD1309 (SPI Connection)
+
+!["Image of Juego Meadow prototype hardware"](./juego_spi_fritzing.png)
+
+## Fritzing Diagram with SSD1309 (I2C Connection)
+
+!["Image of Juego Meadow prototype hardware"](./juego_i2c_fritzing.png)
