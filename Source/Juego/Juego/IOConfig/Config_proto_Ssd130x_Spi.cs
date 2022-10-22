@@ -40,7 +40,7 @@ namespace Juego
             (
                 device: device,
                 spiBus: bus,
-                chipSelectPin: device.Pins.D02,
+                chipSelectPin: device.Pins.D03,
                 dcPin: device.Pins.D01,
                 resetPin: device.Pins.D00
             );
@@ -57,7 +57,6 @@ namespace Juego
             Right = new PushButton(device, device.Pins.D11, ResistorMode.ExternalPullUp);
             Down = new PushButton(device, device.Pins.D13, ResistorMode.ExternalPullUp);
             Up = new PushButton(device, device.Pins.D09, ResistorMode.ExternalPullUp);
-
 
             rgbLed = new RgbPwmLed(device: device,
                 redPwmPin: device.Pins.OnboardLedRed,
