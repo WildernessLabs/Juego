@@ -1,150 +1,108 @@
-﻿using System;
-using System.Threading;
+﻿using JuegoTester;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays;
-using Meadow.Foundation.Displays.TftSpi;
-using Meadow.Foundation.Graphics;
-using Meadow.Foundation.Leds;
-using Meadow.Foundation.Sensors.Buttons;
-using Meadow.Hardware;
-using Meadow.Peripherals.Sensors.Buttons;
+using Meadow.Units;
+using System;
+using System.Threading.Tasks;
 
-namespace MeadowApp
+namespace JuegoTester
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // Change F7FeatherV2 to F7FeatherV1 for V1.x boards
+    public class MeadowApp : App<F7FeatherV1>
     {
-        RgbPwmLed onboardLed;
+        DisplayController displayController;
+        IHardwareConfig hardware;
 
-        IButton up = null;
-        IButton down = null;
-        IButton left = null;
-        IButton right = null;
-        IButton select = null;
-        IButton start = null;
-
-        MicroGraphics graphics;
-
-        public MeadowApp()
-        {
-            Initialize();
-         //   CycleColors(1000);
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             Console.WriteLine("Initialize hardware...");
 
-            onboardLed = new RgbPwmLed(device: Device,
-                redPwmPin: Device.Pins.OnboardLedRed,
-                greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+            // get the correct hardware config depending on board version
+            hardware = new JuegoV1a_Hardware();
+      
+            // Initialize the board specific hardware
+            hardware.Initialize(Device);
 
-            up = new PushButton(Device, Device.Pins.D06, ResistorMode.InternalPullDown);
-            up.Clicked += Up_Clicked;
+            displayController = new DisplayController(hardware.Display);
 
-            left = new PushButton(Device, Device.Pins.D12, ResistorMode.InternalPullDown);
-            left.Clicked += Left_Clicked;
-
-            right = new PushButton(Device, Device.Pins.D11, ResistorMode.InternalPullDown);
-            right.Clicked += Right_Clicked;
-
-            down = new PushButton(Device, Device.Pins.D05, ResistorMode.InternalPullDown);
-            down.Clicked += Down_Clicked;
-
-
-            Console.WriteLine("Create display...");
-
-            var config = new SpiClockConfiguration(48000, SpiClockConfiguration.Mode.Mode3);
-            var bus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
-
-              //  (IODeviceMap.Display.ClockPin, IODeviceMap.Display.CopiPin, IODeviceMap.Display.CipoPin, config);
-
-            var display = new St7789(
-                device: Device, spiBus: bus,
-                chipSelectPin: Device.Pins.D14,
-                dcPin: Device.Pins.D03,
-                resetPin: Device.Pins.D04,
-                width: 240,
-                height: 240,
-                displayColorMode: ColorType.Format12bppRgb444
-            );
-            display.IgnoreOutOfBoundsPixels = true;
-
-            Console.WriteLine("Create GraphicsLibrary...");
-
-            graphics = new MicroGraphics(display)
+            //---- Joystick
+            if (hardware.AnalogJoystick is { } joystick)
             {
-                CurrentFont = new Font12x20(),
-                Rotation = RotationType._90Degrees,
-            };
-        }
-
-        void Update(string msg)
-        {
-            Console.WriteLine(msg);
-            graphics.Clear();
-            graphics.DrawText(0, 0, msg, Color.AliceBlue);
-            graphics.Show();
-        }
-
-        private void Down_Clicked(object sender, EventArgs e)
-        {
-            Update("down");
-        }
-
-        private void Right_Clicked(object sender, EventArgs e)
-        {
-            Update("right");
-        }
-
-        private void Left_Clicked(object sender, EventArgs e)
-        {
-            Update("left");
-        }
-
-        private void Up_Clicked(object sender, EventArgs e)
-        {
-            Update("up");
-        }
-
-        void CycleColors(int duration)
-        {
-            Console.WriteLine("Cycle colors...");
-
-            while (true)
-            {
-                ShowColorPulse(Color.Blue, duration);
-                ShowColorPulse(Color.Cyan, duration);
-                ShowColorPulse(Color.Green, duration);
-                ShowColorPulse(Color.GreenYellow, duration);
-                ShowColorPulse(Color.Yellow, duration);
-                ShowColorPulse(Color.Orange, duration);
-                ShowColorPulse(Color.OrangeRed, duration);
-                ShowColorPulse(Color.Red, duration);
-                ShowColorPulse(Color.MediumVioletRed, duration);
-                ShowColorPulse(Color.Purple, duration);
-                ShowColorPulse(Color.Magenta, duration);
-                ShowColorPulse(Color.Pink, duration);
+                joystick.Updated += JoystickUpdated;
+                joystick.StartUpdating(TimeSpan.FromSeconds(0.25));
             }
+
+            //---- buttons
+            hardware.StartButton.PressStarted += (s, e) => {
+
+                Console.WriteLine("Start Button press started");
+                displayController.StartButtonState = true;
+            };
+
+            hardware.SelectButton.PressStarted += (s, e) => {
+
+                Console.WriteLine("Select Button press started");
+                displayController.SelectButtonState = true;
+            };
+
+            hardware.LeftButton.PressStarted += (s, e) => {
+
+                Console.WriteLine("Left Button press started");
+                displayController.LeftButtonState = true;
+            };
+
+            hardware.LeftButton.PressEnded += (s, e) =>
+            {
+                Console.WriteLine("Left Button press ended");
+                displayController.LeftButtonState = false;
+            };
+
+            hardware.StartButton.PressStarted += (s, e) => displayController.StartButtonState = true;
+            hardware.StartButton.PressEnded += (s, e) => displayController.StartButtonState = false;
+
+            hardware.SelectButton.PressStarted += (s, e) => displayController.SelectButtonState = true;
+            hardware.SelectButton.PressEnded += (s, e) => displayController.SelectButtonState = false;
+
+            hardware.LeftButton.PressStarted += (s, e) => displayController.LeftButtonState = true;
+            hardware.LeftButton.PressEnded += (s, e) => displayController.LeftButtonState = false;
+
+            hardware.RightButton.PressStarted += (s, e) => displayController.RightButtonState = true;
+            hardware.RightButton.PressEnded += (s, e) => displayController.RightButtonState = false;
+
+            hardware.UpButton.PressStarted += (s, e) => displayController.UpButtonState = true;
+            hardware.UpButton.PressEnded += (s, e) => displayController.UpButtonState = false;
+
+            hardware.DownButton.PressStarted += (s, e) => displayController.DownButtonState = true;
+            hardware.DownButton.PressEnded += (s, e) => displayController.DownButtonState = false;
+ 
+            //---- heartbeat
+            hardware.OnboardLed.StartPulse(WildernessLabsColors.PearGreen);
+
+            Console.WriteLine("Initialization complete");
+
+            return base.Initialize();
         }
 
-        void ShowColorPulse(Color color, int duration = 1000)
+        private void JoystickUpdated(object sender, IChangeResult<Meadow.Peripherals.Sensors.Hid.AnalogJoystickPosition> e)
         {
-            onboardLed.StartPulse(color, duration / 2);
-            Thread.Sleep(duration);
-            onboardLed.Stop();
+
+            Console.WriteLine($"Joystick: {e.New.Horizontal:0.0},{e.New.Vertical:0.0}");
+
+            displayController.AnalogJoystickPosition = e.New;
+            displayController.DigitalJoystickPosition = hardware.AnalogJoystick.DigitalPosition.Value;
         }
 
-        void ShowColor(Color color, int duration = 1000)
+        public override Task Run()
         {
-            Console.WriteLine($"Color: {color}");
-            onboardLed.SetColor(color);
-            Thread.Sleep(duration);
-            onboardLed.Stop();
+            Console.WriteLine("Run...");
+
+            displayController.Update();
+
+            Console.WriteLine("starting blink");
+            hardware.OnboardLed.StartBlink(WildernessLabsColors.PearGreen, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(2000), 0.5f);
+
+            return base.Run();
         }
     }
 }

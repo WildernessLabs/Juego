@@ -1,5 +1,4 @@
-﻿using System;
-using Meadow.Foundation.Audio;
+﻿using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
