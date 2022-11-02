@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.TftSpi", "..\..\..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.Ssd130x", "..\..\..\meadow.foundation\Source\Meadow.Foundation.Peripherals\Displays.Ssd130x\Driver\Displays.Ssd130x.csproj", "{1C95888A-A427-4247-B901-2F12AAC63A3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Juego_Demo", "Juego_Demo\Juego_Demo.csproj", "{37C9BF80-5004-4F2B-82E4-B36C2153C43D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Juego.Core", "Juego.Core\Juego.Core.csproj", "{C7AD2C93-1A3E-425E-9430-0E9E79F63DDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +93,14 @@ Global
 		{1C95888A-A427-4247-B901-2F12AAC63A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C95888A-A427-4247-B901-2F12AAC63A3E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1C95888A-A427-4247-B901-2F12AAC63A3E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{37C9BF80-5004-4F2B-82E4-B36C2153C43D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37C9BF80-5004-4F2B-82E4-B36C2153C43D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37C9BF80-5004-4F2B-82E4-B36C2153C43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37C9BF80-5004-4F2B-82E4-B36C2153C43D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7AD2C93-1A3E-425E-9430-0E9E79F63DDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7AD2C93-1A3E-425E-9430-0E9E79F63DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7AD2C93-1A3E-425E-9430-0E9E79F63DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7AD2C93-1A3E-425E-9430-0E9E79F63DDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
