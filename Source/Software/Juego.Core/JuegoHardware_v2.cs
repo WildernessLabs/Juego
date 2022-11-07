@@ -1,14 +1,13 @@
 ﻿using System;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Graphics;
-using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
-using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
 using Meadow.Foundation.ICs.IOExpanders;
-using Meadow.Gateways.Bluetooth;
 using Meadow.Devices;
 using Meadow.Units;
+using System.Threading;
+using Meadow.Foundation.Displays;
 
 namespace Juego.Core
 {
@@ -17,10 +16,16 @@ namespace Juego.Core
         protected F7CoreComputeV2 Device { get; }
         protected IDigitalInputPort McpInterrupt_1 { get; }
 
-        IGraphicsDisplay Display { get; }
+        protected IDigitalInputPort McpInterrupt_2 { get; }
+
+        protected IDigitalOutputPort Mcp_Reset { get; }
+
+        public IGraphicsDisplay Display { get; }
+
+        public IDigitalOutputPort DisplayBacklightPort { get; }
 
         //==== Comms Busses
-        protected II2cBus? I2c { get; }
+        protected II2cBus I2c { get; }
         protected ISpiBus Spi { get; }
 
         //==== MCP IO Expanders
@@ -57,7 +62,7 @@ namespace Juego.Core
             Console.WriteLine("Initialize hardware...");
 
             //==== I2C Bus
-            Console.WriteLine("Initializing I2C Bus.");
+            Console.WriteLine("Initializing I2C Bus");
             try
             {
                 I2c = Device.CreateI2cBus();
@@ -66,32 +71,36 @@ namespace Juego.Core
             {
                 Console.WriteLine($"Err initializing I2C Bus: {e.Message}");
             }
-            Console.WriteLine("I2C initialized.");
+            Console.WriteLine("I2C initialized");
 
             //==== MCPs
             try
             {
-                //McpInterrupt_1 = Device.CreateDigitalInputPort(Device.Pins.D09, InterruptMode.EdgeRising);
-                //Mcp_1 = new Mcp23008(I2c, 0x20, McpInterrupt_1);
-                Mcp_1 = new Mcp23008(I2c, 0x20);
+                Mcp_Reset = Device.CreateDigitalOutputPort(Device.Pins.D11, true);
+                McpInterrupt_1 = Device.CreateDigitalInputPort(Device.Pins.D09, InterruptMode.EdgeRising);
+                Mcp_1 = new Mcp23008(I2c, 0x20, McpInterrupt_1, Mcp_Reset);
+                Console.WriteLine("Mcp23008 #1 initialized");
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Err MCP 1: {e.Message}");
             }
+
             try
             {
-                //McpInterrupt_2 = Device.CreateDigitalInputPort(Device.Pins.D10, InterruptMode.EdgeRising);
-                //Mcp_2 = new Mcp23008(I2c, 0x20, McpInterrupt_2);
-                Mcp_2 = new Mcp23008(I2c, 0x21);
+                McpInterrupt_2 = Device.CreateDigitalInputPort(Device.Pins.D10, InterruptMode.EdgeRising);
+                Mcp_2 = new Mcp23008(I2c, 0x21, McpInterrupt_2);
+                Console.WriteLine("Mcp23008 #2 initialized");
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Err MCP 2: {e.Message}");
             }
+
             try
             {
-                Mcp_VersionInfo = new Mcp23008(I2c, 0x26);
+                Mcp_VersionInfo = new Mcp23008(I2c, 0x23);
+                Console.WriteLine("Mcp23008 version initialized");
             }
             catch (Exception e)
             {
@@ -99,10 +108,12 @@ namespace Juego.Core
             }
 
             //==== Speakers
-            try {
+            try 
+            {
                 LeftSpeaker = new PiezoSpeaker(device, device.Pins.D12);
             }
-            catch (Exception e) {
+            catch (Exception e) 
+            {
                 Console.WriteLine($"Err Left Speaker: {e.Message}");
             }
             try
@@ -114,18 +125,89 @@ namespace Juego.Core
                 Console.WriteLine($"Err Left Speaker: {e.Message}");
             }
 
-
             //==== SPI
-            Console.WriteLine("Initializing SPI Bus.");
+            Console.WriteLine("Initializing SPI Bus");
             try
             {
-                Spi = Device.CreateSpiBus(new Frequency(48, Frequency.UnitType.Kilohertz));
+                var config = new SpiClockConfiguration(new Frequency(12000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
+                Spi = Device.CreateSpiBus(Device.Pins.SPI5_SCK, Device.Pins.SPI5_COPI, Device.Pins.SPI5_CIPO, config);
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Err initializing SPI: {e.Message}");
             }
-            Console.WriteLine("SPI initialized.");
+            Console.WriteLine("SPI initialized");
+
+            //Display
+            //==== Display
+            if (Mcp_1 != null)
+            {
+                DisplayBacklightPort = Device.CreateDigitalOutputPort(Device.Pins.D05, true);
+
+                var chipSelectPort = Mcp_1.CreateDigitalOutputPort(Mcp_1.Pins.GP5);
+                var dcPort = Mcp_1.CreateDigitalOutputPort(Mcp_1.Pins.GP6);
+                var resetPort = Mcp_1.CreateDigitalOutputPort(Mcp_1.Pins.GP7);
+
+                Thread.Sleep(50);
+                
+                Display = new Ili9341 (
+                    spiBus: Spi,
+                    chipSelectPort: chipSelectPort,
+                    dataCommandPort: dcPort,
+                    resetPort: resetPort,
+                    width: 240, height: 320);
+
+                Display.Clear();
+
+                for(int i = 0; i < 100; i++)
+                {
+                    Display.DrawPixel(i, i, true);
+                    Display.DrawPixel(i, i + 20, false);
+                }
+
+                Display.Show();
+
+                Console.WriteLine("Display initialized");
+            }
+
+            //==== Buttons
+            if (Mcp_1 != null)
+            {
+                var upPort = Mcp_1.CreateDigitalInputPort(Mcp_2.Pins.GP1, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var rightPort = Mcp_1.CreateDigitalInputPort(Mcp_2.Pins.GP2, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var downPort = Mcp_1.CreateDigitalInputPort(Mcp_2.Pins.GP3, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var leftPort = Mcp_1.CreateDigitalInputPort(Mcp_2.Pins.GP4, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+
+                Left_UpButton = new PushButton(upPort);
+
+                Left_RightButton = new PushButton(rightPort);
+
+                Left_DownButton = new PushButton(downPort);
+
+                Left_LeftButton = new PushButton(leftPort);
+            }
+
+            if (Mcp_2 != null)
+            {
+                var upPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP2, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var rightPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP3, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var downPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP4, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var leftPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP5, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var startPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP1, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var selectPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP0, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+
+                Right_UpButton = new PushButton(upPort);
+
+                Right_RightButton = new PushButton(rightPort);
+
+                Right_DownButton = new PushButton(downPort);
+
+                Right_LeftButton = new PushButton(leftPort);
+
+                StartButton = new PushButton(startPort);
+
+                SelectButton = new PushButton(selectPort);
+            }
         }
     }
 }
