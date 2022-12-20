@@ -76,6 +76,18 @@ namespace Juego_Demo
                 downButton.PressEnded += (s, e) => displayController.Right_DownButtonState = false;
             }
 
+            if (hardware.SelectButton is { } selectButton)
+            {
+                selectButton.PressStarted += (s, e) => displayController.SelectButtonState = true;
+                selectButton.PressEnded += (s, e) => displayController.SelectButtonState = false;
+            }
+
+            if (hardware.SelectButton is { } startButton)
+            {
+                startButton.PressStarted += (s, e) => displayController.StartButtonState = true;
+                startButton.PressEnded += (s, e) => displayController.StartButtonState = false;
+            }
+
             return base.Initialize();
         }
 
@@ -91,6 +103,7 @@ namespace Juego_Demo
             for (int i = 0; i < 5; i++)
             {
                 await hardware.LeftSpeaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(500));
+                //await hardware.RightSpeaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(500));
             }
 
             return;
