@@ -166,7 +166,7 @@ namespace Juego_Demo
         void DrawStatus(string label, string value, Color color, int yPosition)
         {
             graphics.DrawText(x: 2, y: yPosition, label, color: color);
-            graphics.DrawText(x: 318, y: yPosition, value, alignment: TextAlignment.Right, color: color);
+            graphics.DrawText(x: 318, y: yPosition, value, alignmentH: HorizontalAlignment.Right, color: color);
         }
 
         void Draw()
