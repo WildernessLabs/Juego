@@ -82,7 +82,7 @@ namespace Juego_Demo
                 selectButton.PressEnded += (s, e) => displayController.SelectButtonState = false;
             }
 
-            if (hardware.SelectButton is { } startButton)
+            if (hardware.StartButton is { } startButton)
             {
                 startButton.PressStarted += (s, e) => displayController.StartButtonState = true;
                 startButton.PressEnded += (s, e) => displayController.StartButtonState = false;
