@@ -91,7 +91,7 @@ namespace Juego
         {
             graphics.Clear();
             graphics.DrawRectangle(0, 0, hardware.Graphics.Width, hardware.Graphics.Height);
-            graphics.DrawText(hardware.Graphics.Width / 2, hardware.Graphics.Height / 3, $"Juego v{version}", ScaleFactor.X1, TextAlignment.Center);
+            graphics.DrawText(hardware.Graphics.Width / 2, hardware.Graphics.Height / 3, $"Juego v{version}", ScaleFactor.X1, alignmentH: HorizontalAlignment.Center);
             graphics.Show();
         }
 

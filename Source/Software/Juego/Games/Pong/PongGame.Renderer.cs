@@ -47,7 +47,7 @@ namespace Juego.Games
 
             gl.DrawText(0, 0, $"{playerScore}");
             gl.DrawText(gl.Width, 0, $"{cpuScore}",
-                alignment: TextAlignment.Right);
+                alignmentH: HorizontalAlignment.Right);
 
             gl.Show();
 

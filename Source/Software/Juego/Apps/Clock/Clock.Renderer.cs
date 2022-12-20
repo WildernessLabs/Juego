@@ -90,9 +90,9 @@ namespace Juego.Apps
             long seconds = ((DateTime.Now - intervalStart).Ticks) / 10000000;
             if(itState == IntervalTimerState.Stop) { seconds = 0; }
 
-            gl.DrawText(gl.Width - 2, 0, GetTotalTime(seconds), alignment: TextAlignment.Right);
-            gl.DrawText(gl.Width - 2, 24, GetActiveTime(seconds), alignment: TextAlignment.Right);
-            gl.DrawText(gl.Width - 2, 48, GetRestTime(seconds), alignment: TextAlignment.Right);
+            gl.DrawText(gl.Width - 2, 0, GetTotalTime(seconds), alignmentH: HorizontalAlignment.Right);
+            gl.DrawText(gl.Width - 2, 24, GetActiveTime(seconds), alignmentH: HorizontalAlignment.Right);
+            gl.DrawText(gl.Width - 2, 48, GetRestTime(seconds), alignmentH: HorizontalAlignment.Right);
 
             gl.CurrentFont = fontDate;
 
@@ -209,11 +209,11 @@ namespace Juego.Apps
             gl.Clear();
 
             gl.CurrentFont = fontClock;
-            gl.DrawText(gl.Width / 2, 10, DateTime.Now.ToString("h:mm:sstt"), alignment: TextAlignment.Center);
+            gl.DrawText(gl.Width / 2, 10, DateTime.Now.ToString("h:mm:sstt"), alignmentH: HorizontalAlignment.Center);
 
             gl.CurrentFont = fontDate;
-            gl.DrawText(gl.Width / 2, 30, DateTime.Now.ToString("dddd"), alignment: TextAlignment.Center);
-            gl.DrawText(gl.Width / 2, 46, DateTime.Now.ToString("MMMM d, yyyy"), alignment: TextAlignment.Center);
+            gl.DrawText(gl.Width / 2, 30, DateTime.Now.ToString("dddd"), alignmentH: HorizontalAlignment.Center);
+            gl.DrawText(gl.Width / 2, 46, DateTime.Now.ToString("MMMM d, yyyy"), alignmentH: HorizontalAlignment.Center);
 
             gl.Show();
 
