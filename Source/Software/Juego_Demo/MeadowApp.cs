@@ -103,7 +103,7 @@ namespace Juego_Demo
             for (int i = 0; i < 5; i++)
             {
                 await hardware.LeftSpeaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(500));
-                //await hardware.RightSpeaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(500));
+                await hardware.RightSpeaker.PlayTone(new Frequency(540), TimeSpan.FromMilliseconds(500));
             }
 
             return;

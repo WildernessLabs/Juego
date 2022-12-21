@@ -108,21 +108,21 @@ namespace Juego.Core
             }
 
             //==== Speakers
-            try 
+            try
             {
                 LeftSpeaker = new PiezoSpeaker(device, device.Pins.D12);
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 Console.WriteLine($"Err Left Speaker: {e.Message}");
             }
             try
             {
-                LeftSpeaker = new PiezoSpeaker(device, device.Pins.D13);
+                RightSpeaker = new PiezoSpeaker(device, device.Pins.D13);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Err Left Speaker: {e.Message}");
+                Console.WriteLine($"Err Right Speaker: {e.Message}");
             }
 
             //==== SPI

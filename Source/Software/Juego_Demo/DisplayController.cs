@@ -169,9 +169,9 @@ namespace Juego_Demo
             graphics.DrawText(x: 318, y: yPosition, value, alignmentH: HorizontalAlignment.Right, color: color);
         }
 
-        void DrawDivider(int yPosition)
+        void DrawDivider(Color color, int yPosition)
         {
-            graphics.DrawLine(0, yPosition, graphics.Width, yPosition, true);
+            graphics.DrawLine(0, yPosition, graphics.Width, yPosition, color);
         }
 
         void Draw()
@@ -182,13 +182,13 @@ namespace Juego_Demo
             DrawStatus("Down D-pad:", $"{(Left_DownButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 40);
             DrawStatus("Left D-pad:", $"{(Left_LeftButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 60);
             DrawStatus("Right D-pad:", $"{(Left_RightButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 80);
-            DrawDivider(98);
+            DrawDivider(WildernessLabsColors.AzureBlue, 98);
 
             DrawStatus("Up button:", $"{(Right_UpButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 100);
             DrawStatus("Down button:", $"{(Right_DownButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 120);
             DrawStatus("Left button:", $"{(Right_LeftButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 140);
             DrawStatus("Right button:", $"{(Right_RightButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 160);
-            DrawDivider(178);
+            DrawDivider(WildernessLabsColors.AzureBlue, 178);
 
             DrawStatus("Select button:", $"{(SelectButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 180);
             DrawStatus("Start button:", $"{(StartButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 200);
