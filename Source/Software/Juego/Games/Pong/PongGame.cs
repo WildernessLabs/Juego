@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Meadow;
+using System;
 
 namespace Juego.Games
 {
@@ -76,13 +77,13 @@ namespace Juego.Games
                 && cpuY < ballY)
             {
                 cpuY++;
-                Console.WriteLine($"cpuY: {cpuY}, paddleWidth: {paddleWidth}, GameHeight: {GameHeight} ++");
+                Resolver.Log.Info($"cpuY: {cpuY}, paddleWidth: {paddleWidth}, GameHeight: {GameHeight} ++");
             }
             else if (cpuY > 0
                 && cpuY > ballY)
             {
                 cpuY--;
-                Console.WriteLine($"cpuY: {cpuY}, paddleWidth: {paddleWidth}, GameHeight: {GameHeight} --");
+                Resolver.Log.Info($"cpuY: {cpuY}, paddleWidth: {paddleWidth}, GameHeight: {GameHeight} --");
             }
         }
 

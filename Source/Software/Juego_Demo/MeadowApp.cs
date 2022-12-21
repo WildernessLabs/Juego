@@ -18,7 +18,7 @@ namespace Juego_Demo
 
         public override Task Initialize()
         {
-            Console.WriteLine("Initialize");
+            Resolver.Log.Info("Initialize");
 
             hardware = new JuegoHardware_v2(Device);
 
@@ -93,7 +93,7 @@ namespace Juego_Demo
 
         public async override Task Run()
         {
-            Console.WriteLine("Run...");
+            Resolver.Log.Info("Run...");
 
             if (displayController != null)
             {

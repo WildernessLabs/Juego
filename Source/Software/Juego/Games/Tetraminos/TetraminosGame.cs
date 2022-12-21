@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Meadow;
+using System;
 
 namespace Juego.Games
 {
@@ -136,7 +137,7 @@ namespace Juego.Games
                     Roate();
                     break;
                 case UserInput.Down:
-                    Console.WriteLine("Down");
+                    Resolver.Log.Info("Down");
                     Drop();
                     break;
             }
@@ -228,7 +229,7 @@ namespace Juego.Games
                                     CurrentPiece.Rotation,
                                     Tetraminos[CurrentPiece.PieceType]) == false)
                 {
-                    Console.WriteLine($"Game over: {LinesCleared} lines cleared");
+                    Resolver.Log.Info($"Game over: {LinesCleared} lines cleared");
                     Reset(); //start a new game
                 }
             }
@@ -269,7 +270,7 @@ namespace Juego.Games
 
         void ClearLine(int yPos)
         {
-            Console.WriteLine("ClearLine");
+            Resolver.Log.Info("ClearLine");
             LinesCleared++;
 
             if(LinesCleared % 10 == 0)

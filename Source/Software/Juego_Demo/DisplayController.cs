@@ -1,4 +1,5 @@
-﻿using Meadow.Foundation;
+﻿using Meadow;
+using Meadow.Foundation;
 using Meadow.Foundation.Graphics;
 using System;
 
@@ -123,7 +124,7 @@ namespace Juego_Demo
 
         public DisplayController(IGraphicsDisplay display)
         {
-            Console.WriteLine("Display controller ctor");
+            Resolver.Log.Info("Display controller ctor");
 
             graphics = new MicroGraphics(display)
             {
@@ -140,7 +141,7 @@ namespace Juego_Demo
 
         public void Update()
         {
-            Console.WriteLine("Update");
+            Resolver.Log.Info("Update");
 
             if (isUpdating)
             {   //queue up the next update
