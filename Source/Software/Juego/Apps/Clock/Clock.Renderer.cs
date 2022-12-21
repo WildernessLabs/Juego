@@ -1,4 +1,5 @@
-﻿using Meadow.Foundation;
+﻿using Meadow;
+using Meadow.Foundation;
 using Meadow.Foundation.Displays.TextDisplayMenu;
 using Meadow.Foundation.Graphics;
 using System;
@@ -225,7 +226,7 @@ namespace Juego.Apps
 
         void InitMenu(MicroGraphics gl)
         {
-            Console.WriteLine("InitMenu");
+            Resolver.Log.Info("InitMenu");
 
             var menuItems = new MenuItem[]
             {
