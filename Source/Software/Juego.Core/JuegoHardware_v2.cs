@@ -8,6 +8,7 @@ using Meadow.Devices;
 using Meadow.Units;
 using System.Threading;
 using Meadow.Foundation.Displays;
+using Meadow;
 
 namespace Juego.Core
 {
@@ -59,19 +60,19 @@ namespace Juego.Core
         {
             this.Device = device;
 
-            Console.WriteLine("Initialize hardware...");
+            Resolver.Log.Info("Initialize hardware...");
 
             //==== I2C Bus
-            Console.WriteLine("Initializing I2C Bus");
+            Resolver.Log.Info("Initializing I2C Bus");
             try
             {
                 I2c = Device.CreateI2cBus();
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Err initializing I2C Bus: {e.Message}");
+                Resolver.Log.Error($"Err initializing I2C Bus: {e.Message}");
             }
-            Console.WriteLine("I2C initialized");
+            Resolver.Log.Info("I2C initialized");
 
             //==== MCPs
             try
@@ -79,32 +80,32 @@ namespace Juego.Core
                 Mcp_Reset = Device.CreateDigitalOutputPort(Device.Pins.D11, true);
                 McpInterrupt_1 = Device.CreateDigitalInputPort(Device.Pins.D09, InterruptMode.EdgeRising);
                 Mcp_1 = new Mcp23008(I2c, 0x20, McpInterrupt_1, Mcp_Reset);
-                Console.WriteLine("Mcp23008 #1 initialized");
+                Resolver.Log.Info("Mcp23008 #1 initialized");
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Err MCP 1: {e.Message}");
+                Resolver.Log.Error($"Err MCP 1: {e.Message}");
             }
 
             try
             {
                 McpInterrupt_2 = Device.CreateDigitalInputPort(Device.Pins.D10, InterruptMode.EdgeRising);
                 Mcp_2 = new Mcp23008(I2c, 0x21, McpInterrupt_2);
-                Console.WriteLine("Mcp23008 #2 initialized");
+                Resolver.Log.Info("Mcp23008 #2 initialized");
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Err MCP 2: {e.Message}");
+                Resolver.Log.Error($"Err MCP 2: {e.Message}");
             }
 
             try
             {
                 Mcp_VersionInfo = new Mcp23008(I2c, 0x23);
-                Console.WriteLine("Mcp23008 version initialized");
+                Resolver.Log.Info("Mcp23008 version initialized");
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Err MCP 3: {e.Message}");
+                Resolver.Log.Error($"Err MCP 3: {e.Message}");
             }
 
             //==== Speakers
@@ -114,7 +115,7 @@ namespace Juego.Core
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Err Left Speaker: {e.Message}");
+                Resolver.Log.Error($"Err Left Speaker: {e.Message}");
             }
             try
             {
@@ -122,11 +123,11 @@ namespace Juego.Core
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Err Right Speaker: {e.Message}");
+                Resolver.Log.Error($"Err Right Speaker: {e.Message}");
             }
 
             //==== SPI
-            Console.WriteLine("Initializing SPI Bus");
+            Resolver.Log.Info("Initializing SPI Bus");
             try
             {
                 var config = new SpiClockConfiguration(new Frequency(12000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
@@ -134,9 +135,9 @@ namespace Juego.Core
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Err initializing SPI: {e.Message}");
+                Resolver.Log.Error($"Err initializing SPI: {e.Message}");
             }
-            Console.WriteLine("SPI initialized");
+            Resolver.Log.Info("SPI initialized");
 
             //Display
             //==== Display
@@ -167,7 +168,7 @@ namespace Juego.Core
 
                 Display.Show();
 
-                Console.WriteLine("Display initialized");
+                Resolver.Log.Info("Display initialized");
             }
 
             //==== Buttons

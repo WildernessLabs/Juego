@@ -28,15 +28,15 @@ namespace Juego
         {
             //settings test
             /*
-            Console.WriteLine("Settings test");
+            Resolver.Log.Info("Settings test");
 
             int hiscore = Settings.GetInteger("HiScore", 0);
             byte volume = Settings.GetByte("Volume", 5);
             bool playSound = Settings.GetBoolean("PlaySound", false);
 
-            Console.WriteLine($"HiScore: {hiscore}");
-            Console.WriteLine($"Volume: {volume}");
-            Console.WriteLine($"PlaySound: {playSound}");
+            Resolver.Log.Info($"HiScore: {hiscore}");
+            Resolver.Log.Info($"Volume: {volume}");
+            Resolver.Log.Info($"PlaySound: {playSound}");
 
             Settings.SetInteger("HiScore", 10000);
             Settings.SetByte("Volume", 9);
@@ -47,9 +47,9 @@ namespace Juego
             volume = Settings.GetByte("Volume", 5);
             playSound = Settings.GetBoolean("PlaySound", false);
 
-            Console.WriteLine($"HiScore: {hiscore}");
-            Console.WriteLine($"Volume: {volume}");
-            Console.WriteLine($"PlaySound: {playSound}");
+            Resolver.Log.Info($"HiScore: {hiscore}");
+            Resolver.Log.Info($"Volume: {volume}");
+            Resolver.Log.Info($"PlaySound: {playSound}");
 
             */
 
@@ -63,7 +63,7 @@ namespace Juego
 
         void Initialize()
         {
-            Console.WriteLine("Initialize game hardware...");
+            Resolver.Log.Info("Initialize game hardware...");
 
             //hardware = new Config_1c_St7735();
             hardware = new Config_proto_Ssd130x_Spi(); //SSD1309 proto 
@@ -76,7 +76,7 @@ namespace Juego
 
             DrawSplashScreen(hardware.Graphics);
 
-            Console.WriteLine("Create buttons...");
+            Resolver.Log.Info("Create buttons...");
 
             hardware.Up.Clicked += Up_Clicked;
             hardware.Left.Clicked += Left_Clicked;
@@ -222,17 +222,17 @@ namespace Juego
 
         void CreateMenu(ITextDisplay display)
         {
-            Console.WriteLine("Load menu data...");
+            Resolver.Log.Info("Load menu data...");
 
             /*
             
             var menuData = LoadResource("menu.json");
-            Console.WriteLine($"Data length: {menuData.Length}...");
-            Console.WriteLine("Create menu..."); 
+            Resolver.Log.Info($"Data length: {menuData.Length}...");
+            Resolver.Log.Info("Create menu..."); 
             menu = new Menu(display, menuData, false);
             
             */
-            
+
             var menuItems = new MenuItem[]
             {
                 new MenuItem("SpaceRaid", command: "startSpace"),
@@ -259,7 +259,7 @@ namespace Juego
 
         private void Menu_Exited(object sender, EventArgs e)
         {
-            Console.WriteLine("Menu exited");
+            Resolver.Log.Info("Menu exited");
         }
 
         private void Menu_Selected(object sender, MenuSelectedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Meadow;
+using System;
 using System.Diagnostics;
 
 namespace Juego.Games
@@ -93,8 +94,8 @@ namespace Juego.Games
             else if(count == 100)
             {
                 sw.Stop();
-                Console.WriteLine($"100 frames took {sw.Elapsed}");
-                Console.WriteLine($"FPS: {100 / sw.Elapsed.TotalSeconds}");
+                Resolver.Log.Info($"100 frames took {sw.Elapsed}");
+                Resolver.Log.Info($"FPS: {100 / sw.Elapsed.TotalSeconds}");
             }
 
             count++;

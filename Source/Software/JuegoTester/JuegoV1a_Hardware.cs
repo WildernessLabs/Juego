@@ -52,7 +52,7 @@ namespace JuegoTester
             }
             catch (Exception e)
             {
-                Console.WriteLine($"ERR creating SPI: {e.Message}");
+                Resolver.Log.Error($"ERR creating SPI: {e.Message}");
             }
 
             //==== Display

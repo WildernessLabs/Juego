@@ -16,7 +16,7 @@ namespace JuegoTester
 
         public override Task Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
+            Resolver.Log.Info("Initialize hardware...");
 
             // get the correct hardware config depending on board version
             hardware = new JuegoV1a_Hardware();
@@ -36,25 +36,25 @@ namespace JuegoTester
             //---- buttons
             hardware.StartButton.PressStarted += (s, e) => {
 
-                Console.WriteLine("Start Button press started");
+                Resolver.Log.Info("Start Button press started");
                 displayController.StartButtonState = true;
             };
 
             hardware.SelectButton.PressStarted += (s, e) => {
 
-                Console.WriteLine("Select Button press started");
+                Resolver.Log.Info("Select Button press started");
                 displayController.SelectButtonState = true;
             };
 
             hardware.LeftButton.PressStarted += (s, e) => {
 
-                Console.WriteLine("Left Button press started");
+                Resolver.Log.Info("Left Button press started");
                 displayController.LeftButtonState = true;
             };
 
             hardware.LeftButton.PressEnded += (s, e) =>
             {
-                Console.WriteLine("Left Button press ended");
+                Resolver.Log.Info("Left Button press ended");
                 displayController.LeftButtonState = false;
             };
 
@@ -79,7 +79,7 @@ namespace JuegoTester
             //---- heartbeat
             hardware.OnboardLed.StartPulse(WildernessLabsColors.PearGreen);
 
-            Console.WriteLine("Initialization complete");
+            Resolver.Log.Info("Initialization complete");
 
             return base.Initialize();
         }
@@ -87,7 +87,7 @@ namespace JuegoTester
         private void JoystickUpdated(object sender, IChangeResult<Meadow.Peripherals.Sensors.Hid.AnalogJoystickPosition> e)
         {
 
-            Console.WriteLine($"Joystick: {e.New.Horizontal:0.0},{e.New.Vertical:0.0}");
+            Resolver.Log.Info($"Joystick: {e.New.Horizontal:0.0},{e.New.Vertical:0.0}");
 
             displayController.AnalogJoystickPosition = e.New;
             displayController.DigitalJoystickPosition = hardware.AnalogJoystick.DigitalPosition.Value;
@@ -95,11 +95,11 @@ namespace JuegoTester
 
         public override Task Run()
         {
-            Console.WriteLine("Run...");
+            Resolver.Log.Info("Run...");
 
             displayController.Update();
 
-            Console.WriteLine("starting blink");
+            Resolver.Log.Info("starting blink");
             hardware.OnboardLed.StartBlink(WildernessLabsColors.PearGreen, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(2000), 0.5f);
 
             return base.Run();

@@ -1,4 +1,5 @@
-﻿using Meadow.Foundation.Audio;
+﻿using Meadow;
+using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
@@ -31,7 +32,7 @@ namespace Juego
 
         public Config_1c_Ssd1351()
         {
-            Console.WriteLine("Config_1c_Ssd1351");
+            Resolver.Log.Info("Config_1c_Ssd1351");
 
             var device = MeadowApp.Device;
 
@@ -56,7 +57,7 @@ namespace Juego
                 Rotation = RotationType._180Degrees,
             };
 
-            Console.WriteLine("Draw line");
+            Resolver.Log.Info("Draw line");
 
             Graphics.Clear();
             Graphics.DrawLine(0, 0, 10, 10, true);
