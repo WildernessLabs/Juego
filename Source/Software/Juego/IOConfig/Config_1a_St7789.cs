@@ -43,7 +43,7 @@ namespace Juego
                 resetPin: IODeviceMap.Display.ResetPin,
                 width: 240,
                 height: 240,
-                colorMode: ColorType.Format16bppRgb565
+                colorMode: ColorMode.Format16bppRgb565
             );
 
             Graphics = new MicroGraphics(display)

@@ -44,7 +44,7 @@ namespace Juego
                 width: 128,
                 height: 128,
                 displayType: St7735.DisplayType.ST7735R_144x144,
-                colorMode: ColorType.Format12bppRgb444
+                colorMode: ColorMode.Format12bppRgb444
             );
 
             Graphics = new MicroGraphics(display)
