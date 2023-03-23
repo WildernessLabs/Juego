@@ -1,5 +1,4 @@
-﻿using System;
-using Meadow;
+﻿using Meadow;
 using Meadow.Foundation;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
@@ -8,8 +7,8 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
-using Meadow.Peripherals.Sensors.Hid;
 using Meadow.Units;
+using System;
 
 namespace JuegoTester
 {
@@ -59,7 +58,6 @@ namespace JuegoTester
             if (SpiBus != null)
             {
                 Display = new St7789(
-                    device: device,
                     spiBus: SpiBus,
                     chipSelectPin: device.Pins.D14,
                     dcPin: device.Pins.D03,
@@ -69,28 +67,28 @@ namespace JuegoTester
             }
 
             //==== Onboard LED
-            OnboardLed = new RgbPwmLed(device: device,
+            OnboardLed = new RgbPwmLed(
                 redPwmPin: device.Pins.OnboardLedRed,
                 greenPwmPin: device.Pins.OnboardLedGreen,
                 bluePwmPin: device.Pins.OnboardLedBlue);
             OnboardLed.StartPulse(WildernessLabsColors.ChileanFire);
 
             //==== Speakers
-            LeftSpeaker = new PiezoSpeaker(device, device.Pins.D11);
+            LeftSpeaker = new PiezoSpeaker(device.Pins.D11);
 
-            RightSpeaker = new PiezoSpeaker(device, device.Pins.D11);
+            RightSpeaker = new PiezoSpeaker(device.Pins.D11);
 
 
-            AnalogJoystick = new AnalogJoystick(device, device.Pins.A00, device.Pins.A01);
+            AnalogJoystick = new AnalogJoystick(device.Pins.A00, device.Pins.A01);
 
 
             //==== Buttons
-            UpButton = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);
-            DownButton = new PushButton(device, device.Pins.D05, ResistorMode.InternalPullDown);
-            LeftButton = new PushButton(device, device.Pins.D12, ResistorMode.InternalPullDown);
-            RightButton = new PushButton(device, device.Pins.D11, ResistorMode.InternalPullDown);
-            StartButton = new PushButton(device, device.Pins.D13, ResistorMode.InternalPullDown);
-            SelectButton = new PushButton(device, device.Pins.D15, ResistorMode.InternalPullDown);
+            UpButton = new PushButton(device.Pins.D06, ResistorMode.InternalPullDown);
+            DownButton = new PushButton(device.Pins.D05, ResistorMode.InternalPullDown);
+            LeftButton = new PushButton(device.Pins.D12, ResistorMode.InternalPullDown);
+            RightButton = new PushButton(device.Pins.D11, ResistorMode.InternalPullDown);
+            StartButton = new PushButton(device.Pins.D13, ResistorMode.InternalPullDown);
+            SelectButton = new PushButton(device.Pins.D15, ResistorMode.InternalPullDown);
         }
     }
 }

@@ -37,7 +37,6 @@ namespace Juego
 
             var display = new Ssd1309
             (
-                device: device,
                 spiBus: bus,
                 chipSelectPin: device.Pins.D03,
                 dcPin: device.Pins.D01,
@@ -52,12 +51,12 @@ namespace Juego
                 IgnoreOutOfBoundsPixels = true
             };
 
-            Left = new PushButton(device, device.Pins.D12, ResistorMode.ExternalPullUp);
-            Right = new PushButton(device, device.Pins.D11, ResistorMode.ExternalPullUp);
-            Down = new PushButton(device, device.Pins.D13, ResistorMode.ExternalPullUp);
-            Up = new PushButton(device, device.Pins.D09, ResistorMode.ExternalPullUp);
+            Left = new PushButton(device.Pins.D12, ResistorMode.ExternalPullUp);
+            Right = new PushButton(device.Pins.D11, ResistorMode.ExternalPullUp);
+            Down = new PushButton(device.Pins.D13, ResistorMode.ExternalPullUp);
+            Up = new PushButton(device.Pins.D09, ResistorMode.ExternalPullUp);
 
-            rgbLed = new RgbPwmLed(device: device,
+            rgbLed = new RgbPwmLed(
                 redPwmPin: device.Pins.OnboardLedRed,
                 greenPwmPin: device.Pins.OnboardLedGreen,
                 bluePwmPin: device.Pins.OnboardLedBlue,

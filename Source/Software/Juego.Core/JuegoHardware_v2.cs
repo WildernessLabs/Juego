@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Meadow;
+using Meadow.Devices;
 using Meadow.Foundation.Audio;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
-using Meadow.Foundation.ICs.IOExpanders;
-using Meadow.Devices;
 using Meadow.Units;
+using System;
 using System.Threading;
-using Meadow.Foundation.Displays;
-using Meadow;
 
 namespace Juego.Core
 {
@@ -111,7 +111,7 @@ namespace Juego.Core
             //==== Speakers
             try
             {
-                LeftSpeaker = new PiezoSpeaker(device, device.Pins.D12);
+                LeftSpeaker = new PiezoSpeaker(device.Pins.D12);
             }
             catch (Exception e)
             {
@@ -119,7 +119,7 @@ namespace Juego.Core
             }
             try
             {
-                RightSpeaker = new PiezoSpeaker(device, device.Pins.D13);
+                RightSpeaker = new PiezoSpeaker(device.Pins.D13);
             }
             catch (Exception e)
             {
@@ -150,8 +150,8 @@ namespace Juego.Core
                 var resetPort = Mcp_1.CreateDigitalOutputPort(Mcp_1.Pins.GP7);
 
                 Thread.Sleep(50);
-                
-                Display = new Ili9341 (
+
+                Display = new Ili9341(
                     spiBus: Spi,
                     chipSelectPort: chipSelectPort,
                     dataCommandPort: dcPort,
@@ -160,7 +160,7 @@ namespace Juego.Core
 
                 Display.Clear();
 
-                for(int i = 0; i < 100; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     Display.DrawPixel(i, i, true);
                     Display.DrawPixel(i, i + 20, false);
