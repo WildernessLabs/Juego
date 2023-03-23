@@ -40,17 +40,17 @@ namespace Juego
                 IgnoreOutOfBoundsPixels = true
             };
 
-            Up = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);
-            Down = new PushButton(device, device.Pins.D05, ResistorMode.InternalPullDown);
-            Left = new PushButton(device, device.Pins.D12, ResistorMode.InternalPullDown);
-            Right = new PushButton(device, device.Pins.D11, ResistorMode.InternalPullDown);
-            Start = new PushButton(device, device.Pins.D13, ResistorMode.InternalPullDown);
-            Select = new PushButton(device, device.Pins.D15, ResistorMode.InternalPullDown);
+            Up = new PushButton(device.Pins.D06, ResistorMode.InternalPullDown);
+            Down = new PushButton(device.Pins.D05, ResistorMode.InternalPullDown);
+            Left = new PushButton(device.Pins.D12, ResistorMode.InternalPullDown);
+            Right = new PushButton(device.Pins.D11, ResistorMode.InternalPullDown);
+            Start = new PushButton(device.Pins.D13, ResistorMode.InternalPullDown);
+            Select = new PushButton(device.Pins.D15, ResistorMode.InternalPullDown);
 
             Joystick = new AnalogJoystick(device.CreateAnalogInputPort(device.Pins.A00),
                                           device.CreateAnalogInputPort(device.Pins.A01));
 
-            rgbLed = new RgbPwmLed(device: device,
+            rgbLed = new RgbPwmLed(
                 redPwmPin: device.Pins.OnboardLedRed,
                 greenPwmPin: device.Pins.OnboardLedGreen,
                 bluePwmPin: device.Pins.OnboardLedBlue,

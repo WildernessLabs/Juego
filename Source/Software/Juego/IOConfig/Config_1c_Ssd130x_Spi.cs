@@ -32,11 +32,11 @@ namespace Juego
         {
             var device = MeadowApp.Device;
 
-        //    var config = new SpiClockConfiguration(3000, SpiClockConfiguration.Mode.Mode3);
+            //    var config = new SpiClockConfiguration(3000, SpiClockConfiguration.Mode.Mode3);
             var bus = device.CreateSpiBus(device.Pins.SCK, device.Pins.MOSI, device.Pins.MISO);
 
             var display = new Ssd1309(
-                device: device, spiBus: bus,
+                spiBus: bus,
                 chipSelectPin: IODeviceMap.Display.CSPin,
                 dcPin: IODeviceMap.Display.DCPin,
                 resetPin: IODeviceMap.Display.ResetPin);
@@ -50,14 +50,14 @@ namespace Juego
                 IgnoreOutOfBoundsPixels = true,
             };
 
-            Up = new PushButton(device, device.Pins.D06, ResistorMode.InternalPullDown);
-            Down = new PushButton(device, device.Pins.D05, ResistorMode.InternalPullDown);
-            Left = new PushButton(device, device.Pins.D12, ResistorMode.InternalPullDown);
-            Right = new PushButton(device, device.Pins.D11, ResistorMode.InternalPullDown);
-            Start = new PushButton(device, device.Pins.D13, ResistorMode.InternalPullDown);
-            Select = new PushButton(device, device.Pins.D15, ResistorMode.InternalPullDown);
+            Up = new PushButton(device.Pins.D06, ResistorMode.InternalPullDown);
+            Down = new PushButton(device.Pins.D05, ResistorMode.InternalPullDown);
+            Left = new PushButton(device.Pins.D12, ResistorMode.InternalPullDown);
+            Right = new PushButton(device.Pins.D11, ResistorMode.InternalPullDown);
+            Start = new PushButton(device.Pins.D13, ResistorMode.InternalPullDown);
+            Select = new PushButton(device.Pins.D15, ResistorMode.InternalPullDown);
 
-            rgbLed = new RgbPwmLed(device: device,
+            rgbLed = new RgbPwmLed(
                 redPwmPin: device.Pins.OnboardLedRed,
                 greenPwmPin: device.Pins.OnboardLedGreen,
                 bluePwmPin: device.Pins.OnboardLedBlue,
