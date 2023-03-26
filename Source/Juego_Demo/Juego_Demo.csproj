@@ -6,6 +6,6 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Juego.Core\Juego.Core.csproj" />
+    <ProjectReference Include="..\Juego\Juego.csproj" />
   </ItemGroup>
 </Project>

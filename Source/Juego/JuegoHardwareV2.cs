@@ -1,5 +1,4 @@
 ﻿using Meadow;
-using Meadow.Devices;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
@@ -10,11 +9,11 @@ using Meadow.Units;
 using System;
 using System.Threading;
 
-namespace Juego.Core
+namespace WildernessLabs.Hardware.Juego
 {
-    public class JuegoHardware_v2
+    public class JuegoHardwareV2 : IJuegoHardware
     {
-        protected F7CoreComputeV2 Device { get; }
+        protected IF7CoreComputeMeadowDevice Device { get; }
         protected IDigitalInputPort McpInterrupt_1 { get; }
 
         protected IDigitalInputPort McpInterrupt_2 { get; }
@@ -26,7 +25,7 @@ namespace Juego.Core
         public IDigitalOutputPort DisplayBacklightPort { get; }
 
         //==== Comms Busses
-        protected II2cBus I2c { get; }
+        protected II2cBus I2cBus { get; }
         protected ISpiBus Spi { get; }
 
         //==== MCP IO Expanders
@@ -34,39 +33,36 @@ namespace Juego.Core
         public Mcp23008 Mcp_2 { get; protected set; }
         public Mcp23008 Mcp_VersionInfo { get; protected set; }
 
-        //AnalogJoystick AnalogJoystick { get; }
-
         //==== Right side buttons
-        public PushButton Right_UpButton { get; protected set; }
-        public PushButton Right_DownButton { get; protected set; }
-        public PushButton Right_LeftButton { get; protected set; }
-        public PushButton Right_RightButton { get; protected set; }
+        public PushButton? Right_UpButton { get; protected set; }
+        public PushButton? Right_DownButton { get; protected set; }
+        public PushButton? Right_LeftButton { get; protected set; }
+        public PushButton? Right_RightButton { get; protected set; }
 
         //==== Left side buttons
-        public PushButton Left_UpButton { get; protected set; }
-        public PushButton Left_DownButton { get; protected set; }
-        public PushButton Left_LeftButton { get; protected set; }
-        public PushButton Left_RightButton { get; protected set; }
+        public PushButton? Left_UpButton { get; protected set; }
+        public PushButton? Left_DownButton { get; protected set; }
+        public PushButton? Left_LeftButton { get; protected set; }
+        public PushButton? Left_RightButton { get; protected set; }
 
         //==== Start/Select Buttons
-        public PushButton StartButton { get; protected set; }
-        public PushButton SelectButton { get; protected set; }
+        public PushButton? StartButton { get; protected set; }
+        public PushButton? SelectButton { get; protected set; }
 
         //==== Speakers
-        public PiezoSpeaker LeftSpeaker { get; protected set; }
-        public PiezoSpeaker RightSpeaker { get; protected set; }
+        public PiezoSpeaker? LeftSpeaker { get; protected set; }
+        public PiezoSpeaker? RightSpeaker { get; protected set; }
 
-        public JuegoHardware_v2(F7CoreComputeV2 device)
+        public JuegoHardwareV2(IF7CoreComputeMeadowDevice device)
         {
-            this.Device = device;
+            Device = device;
 
             Resolver.Log.Info("Initialize hardware...");
 
-            //==== I2C Bus
             Resolver.Log.Info("Initializing I2C Bus");
             try
             {
-                I2c = Device.CreateI2cBus();
+                I2cBus = Device.CreateI2cBus();
             }
             catch (Exception e)
             {
@@ -79,7 +75,7 @@ namespace Juego.Core
             {
                 Mcp_Reset = Device.CreateDigitalOutputPort(Device.Pins.D11, true);
                 McpInterrupt_1 = Device.CreateDigitalInputPort(Device.Pins.D09, InterruptMode.EdgeRising);
-                Mcp_1 = new Mcp23008(I2c, 0x20, McpInterrupt_1, Mcp_Reset);
+                Mcp_1 = new Mcp23008(I2cBus, 0x20, McpInterrupt_1, Mcp_Reset);
                 Resolver.Log.Info("Mcp23008 #1 initialized");
             }
             catch (Exception e)
@@ -90,7 +86,7 @@ namespace Juego.Core
             try
             {
                 McpInterrupt_2 = Device.CreateDigitalInputPort(Device.Pins.D10, InterruptMode.EdgeRising);
-                Mcp_2 = new Mcp23008(I2c, 0x21, McpInterrupt_2);
+                Mcp_2 = new Mcp23008(I2cBus, 0x21, McpInterrupt_2);
                 Resolver.Log.Info("Mcp23008 #2 initialized");
             }
             catch (Exception e)
@@ -100,7 +96,7 @@ namespace Juego.Core
 
             try
             {
-                Mcp_VersionInfo = new Mcp23008(I2c, 0x23);
+                Mcp_VersionInfo = new Mcp23008(I2cBus, 0x23);
                 Resolver.Log.Info("Mcp23008 version initialized");
             }
             catch (Exception e)
@@ -139,7 +135,6 @@ namespace Juego.Core
             }
             Resolver.Log.Info("SPI initialized");
 
-            //Display
             //==== Display
             if (Mcp_1 != null)
             {
@@ -157,16 +152,6 @@ namespace Juego.Core
                     dataCommandPort: dcPort,
                     resetPort: resetPort,
                     width: 240, height: 320);
-
-                Display.Clear();
-
-                for (int i = 0; i < 100; i++)
-                {
-                    Display.DrawPixel(i, i, true);
-                    Display.DrawPixel(i, i + 20, false);
-                }
-
-                Display.Show();
 
                 Resolver.Log.Info("Display initialized");
             }
@@ -198,15 +183,10 @@ namespace Juego.Core
                 var selectPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP0, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
 
                 Right_UpButton = new PushButton(upPort);
-
                 Right_RightButton = new PushButton(rightPort);
-
                 Right_DownButton = new PushButton(downPort);
-
                 Right_LeftButton = new PushButton(leftPort);
-
                 StartButton = new PushButton(startPort);
-
                 SelectButton = new PushButton(selectPort);
             }
         }
