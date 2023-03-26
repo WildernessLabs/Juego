@@ -1,18 +1,16 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
-using Juego.Core;
 using Meadow.Units;
+using System;
+using System.Threading.Tasks;
+using WildernessLabs.Hardware.Juego;
 
 namespace Juego_Demo
 {
-	// Change F7FeatherV2 to F7FeatherV1 for V1.x boards
-	public class MeadowApp : App<F7CoreComputeV2>
-	{
-        JuegoHardware_v2 hardware;
+    // Change F7FeatherV2 to F7FeatherV1 for V1.x boards
+    public class MeadowApp : App<F7CoreComputeV2>
+    {
+        IJuegoHardware hardware;
 
         DisplayController displayController;
 
@@ -20,7 +18,7 @@ namespace Juego_Demo
         {
             Resolver.Log.Info("Initialize");
 
-            hardware = new JuegoHardware_v2(Device);
+            hardware = Juego.Create();
 
             if (hardware.Display is { } display)
             {

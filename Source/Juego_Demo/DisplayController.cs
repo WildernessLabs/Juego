@@ -1,7 +1,6 @@
 ﻿using Meadow;
 using Meadow.Foundation;
 using Meadow.Foundation.Graphics;
-using System;
 
 namespace Juego_Demo
 {
@@ -141,8 +140,6 @@ namespace Juego_Demo
 
         public void Update()
         {
-            Resolver.Log.Info("Update");
-
             if (isUpdating)
             {   //queue up the next update
                 needsUpdate = true;
