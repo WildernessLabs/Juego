@@ -1,16 +1,15 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using Juego.Apps;
-using Juego.Games;
+﻿using Juego.Games;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.TextDisplayMenu;
 using Meadow.Foundation.Graphics;
 using Meadow.Peripherals.Displays;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Juego
 {
@@ -58,7 +57,7 @@ namespace Juego
             hardware.rgbLed.SetColor(Color.Green);
             InitMenu();
 
-           //StartGame("startClock");
+            //StartGame("startClock");
         }
 
         void Initialize()
@@ -66,7 +65,8 @@ namespace Juego
             Resolver.Log.Info("Initialize game hardware...");
 
             //hardware = new Config_1c_St7735();
-            hardware = new Config_proto_Ssd130x_Spi(); //SSD1309 proto 
+            //hardware = new Config_proto_Ssd130x_Spi(); //SSD1309 proto 
+            hardware = new Config_proto_Sh1106_Spi(); //SH1106 proto 
             //hardware = new Config_1c_Ssd130x_I2c();
             //hardware = new Config_1c_Ssd130x_Spi();
             //hardware = new Config_1a_St7789();
@@ -96,7 +96,7 @@ namespace Juego
         }
 
         void InitMenu()
-        { 
+        {
             CreateMenu(hardware.Graphics);
 
             menu.Enable();
@@ -127,7 +127,7 @@ namespace Juego
         {
             if (menu.IsEnabled)
             {
-             //   menu.Back();
+                //   menu.Back();
             }
             else
             {
@@ -151,7 +151,7 @@ namespace Juego
         {
             playGame = false;
 
-            if(menu.IsEnabled == false)
+            if (menu.IsEnabled == false)
             {
                 menu.Enable();
             }
@@ -159,7 +159,8 @@ namespace Juego
 
         private void Start_Clicked(object sender, EventArgs e)
         {
-            if (menu.IsEnabled) {
+            if (menu.IsEnabled)
+            {
                 menu.Select();
             }
         }
@@ -169,12 +170,6 @@ namespace Juego
         {
             switch (command)
             {
-                case "startClock":
-                    currentGame = new Clock();
-                    break;
-                case "startSpace":
-                    currentGame = new SpaceRaid();
-                    break;
                 case "startFrogIt":
                     currentGame = new FrogItGame();
                     break;
@@ -205,7 +200,7 @@ namespace Juego
                 {
                     currentGame.Update(hardware);
 
-                    Thread.Sleep(3);
+                    Thread.Sleep(0);
                 }
             });
         }
@@ -235,23 +230,21 @@ namespace Juego
 
             var menuItems = new MenuItem[]
             {
-                new MenuItem("SpaceRaid", command: "startSpace"),
-                new MenuItem("Clock", command: "startClock"),
                 new MenuItem("FrogIt", command: "startFrogIt"),
                 new MenuItem("Pong", command: "startPong"),
                 new MenuItem("Span4", command: "startSpan4"),
                 new MenuItem("Snake", command: "startSnake"),
                 new MenuItem("Tetraminos", command: "startTetraminos"),
-                new MenuItem("Options", 
+                new MenuItem("Options",
                     subItems: new MenuItem[]{new MenuItem("Sound {value}", id: "sound", type: "OnOff", value: true),
                                              new MenuItem("Volume {value}", id: "volume", type: "Numerical", value: 5),
                                              new MenuItem("Clear scores", command: "clearScores"),
                                              new MenuItem($"Version {version}") }),
             };
-            
+
 
             menu = new Menu(display, menuItems);
-            
+
 
             menu.Selected += Menu_Selected;
             menu.Exited += Menu_Exited;

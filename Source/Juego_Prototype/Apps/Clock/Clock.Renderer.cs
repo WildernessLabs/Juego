@@ -27,11 +27,11 @@ namespace Juego.Apps
             fontDate = new Font8x12();
             FontText = new Font4x8();
 
-            MeadowApp.Device.SetClock(new DateTime(2021, 3, 1));
+            MeadowApp.Device.PlatformOS.SetClock(new DateTime(2021, 3, 1));
 
             InitMenu(gl);
 
-            return; 
+            return;
 
             gl.Clear();
             gl.DrawText(0, 0, "Meadow Clock");
@@ -50,11 +50,11 @@ namespace Juego.Apps
                 return;
             }
 
-            if(state == ClockState.Clock)
+            if (state == ClockState.Clock)
             {
                 UpdateClock(ioConfig);
             }
-            else if(state == ClockState.StopWatch)
+            else if (state == ClockState.StopWatch)
             {
                 UpdateStopWatch(ioConfig);
             }
@@ -89,7 +89,7 @@ namespace Juego.Apps
             gl.CurrentFont = fontClock;
 
             long seconds = ((DateTime.Now - intervalStart).Ticks) / 10000000;
-            if(itState == IntervalTimerState.Stop) { seconds = 0; }
+            if (itState == IntervalTimerState.Stop) { seconds = 0; }
 
             gl.DrawText(gl.Width - 2, 0, GetTotalTime(seconds), alignmentH: HorizontalAlignment.Right);
             gl.DrawText(gl.Width - 2, 24, GetActiveTime(seconds), alignmentH: HorizontalAlignment.Right);
@@ -97,11 +97,11 @@ namespace Juego.Apps
 
             gl.CurrentFont = fontDate;
 
-            gl.DrawText(4, 02, $"SET { seconds / (interval1 + interval2) + 1}");
+            gl.DrawText(4, 02, $"SET {seconds / (interval1 + interval2) + 1}");
             gl.DrawText(4, 26, "ACTIVE");
             gl.DrawText(4, 50, "REST");
 
-            if(seconds % (interval1 + interval2) < interval1)
+            if (seconds % (interval1 + interval2) < interval1)
             {
                 gl.DrawRectangle(0, 22, gl.Width, 18);
                 ioConfig.rgbLed.SetColor(Color.Green);
@@ -128,7 +128,7 @@ namespace Juego.Apps
 
             int activeTime = 0;
 
-            if(cycleTime >=interval1)
+            if (cycleTime >= interval1)
             {
                 activeTime = 0;
             }
@@ -170,7 +170,7 @@ namespace Juego.Apps
 
             gl.CurrentFont = fontDate;
 
-            if(swState == StopWatchState.Start)
+            if (swState == StopWatchState.Start)
             {
                 gl.DrawText(0, 8, GetStopwatchTime((DateTime.Now - stopWatchStart).Ticks + stopwatchOffset));
             }
@@ -178,11 +178,11 @@ namespace Juego.Apps
             {
                 gl.DrawText(0, 8, GetStopwatchTime(stopwatchOffset));
             }
-            
-            if(splits.Count > 0)
+
+            if (splits.Count > 0)
             {
                 //current lap
-                if(swState == StopWatchState.Start)
+                if (swState == StopWatchState.Start)
                 {
                     gl.DrawText(0, 30, GetStopwatchTime((DateTime.Now - stopWatchStart).Ticks));
                 }
@@ -190,7 +190,7 @@ namespace Juego.Apps
                 {
                     gl.DrawText(0, 30, GetStopwatchTime(stopwatchOffset - splits.LastOrDefault()));
                 }
-               
+
                 //last split
                 gl.DrawText(0, 52, GetStopwatchTime(splits.LastOrDefault()));
 
@@ -218,11 +218,11 @@ namespace Juego.Apps
 
             gl.Show();
 
-            if(state == ClockState.Clock)
+            if (state == ClockState.Clock)
             {
                 Thread.Sleep(100);
             }
-        }   
+        }
 
         void InitMenu(MicroGraphics gl)
         {
@@ -236,7 +236,7 @@ namespace Juego.Apps
                     }),
                 new MenuItem("Intervals",
                     subItems: new MenuItem[]{new MenuItem("Active duration", id: ActiveID, type: "TimeShort", value: new TimeSpan(0, 0, interval1)),
-                                             new MenuItem("Rest duration", id: RestId, type: "TimeShort", value: new TimeSpan(0, 0, interval2)) 
+                                             new MenuItem("Rest duration", id: RestId, type: "TimeShort", value: new TimeSpan(0, 0, interval2))
                     })
              };
 
@@ -256,17 +256,17 @@ namespace Juego.Apps
                     interval2 = (int)((TimeSpan)e.Value).TotalSeconds;
                     break;
                 case SetTime:
-                    { 
+                    {
                         var now = DateTime.Now;
                         var time = (TimeSpan)e.Value;
-                        MeadowApp.Device.SetClock(new DateTime(now.Year, now.Month, now.Day, time.Hours, time.Minutes, time.Seconds));
+                        MeadowApp.Device.PlatformOS.SetClock(new DateTime(now.Year, now.Month, now.Day, time.Hours, time.Minutes, time.Seconds));
                     }
                     break;
                 case SetDate:
                     {
                         var now = DateTime.Now;
                         var date = (DateTime)e.Value;
-                        MeadowApp.Device.SetClock(new DateTime(date.Year, date.Month, date.Day, now.Hour, now.Minute, now.Second));
+                        MeadowApp.Device.PlatformOS.SetClock(new DateTime(date.Year, date.Month, date.Day, now.Hour, now.Minute, now.Second));
                     }
                     break;
             }

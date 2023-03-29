@@ -19,12 +19,10 @@
     <ProjectReference Include="..\..\..\Meadow.Core\source\implementations\f7\Meadow.F7\Meadow.F7.csproj" />
     <ProjectReference Include="..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj" />
     <ProjectReference Include="..\..\..\meadow.foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Displays.TextDisplayMenu\Driver\Displays.TextDisplayMenu.csproj" />
+    <ProjectReference Include="..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Sh1106\Driver\Displays.Sh1106.csproj" />
     <ProjectReference Include="..\..\..\meadow.foundation\Source\Meadow.Foundation.Peripherals\Displays.Ssd130x\Driver\Displays.Ssd130x.csproj" />
     <ProjectReference Include="..\..\..\meadow.foundation\Source\Meadow.Foundation.Peripherals\Displays.TftSpi\Driver\Displays.TftSpi.csproj" />
     <ProjectReference Include="..\..\..\Meadow.Units\Source\Meadow.Units\Meadow.Units.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Games\Lander\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="meadow.config.yaml">
