@@ -1,30 +1,30 @@
 <Project Sdk="Meadow.Sdk/1.1.0">
-	<PropertyGroup>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<PackageIcon>icon.png</PackageIcon>
-		<Authors>Wilderness Labs, Inc</Authors>
-		<TargetFramework>netstandard2.1</TargetFramework>
-		<OutputType>Library</OutputType>
-		<AssemblyName>ProjectLab</AssemblyName>
-		<Company>Wilderness Labs, Inc</Company>
-		<PackageProjectUrl>https://github.com/WildernessLabs/Meadow.ProjectLab</PackageProjectUrl>
-		<PackageId>Meadow.Juego</PackageId>
-		<RepositoryUrl>https://github.com/WildernessLabs/Meadow.ProjectLab</RepositoryUrl>
-		<PackageTags>Meadow.Juego, Meadow, Juego</PackageTags>
-		<Version>0.96.0</Version>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Description>Convenience library for the Meadow Juego famile of boards</Description>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
-	<PropertyGroup>
-		<LangVersion>10.0</LangVersion>
-	</PropertyGroup>
-	<ItemGroup>
-		<None Include="icon.png" Pack="true" PackagePath="" />
-	</ItemGroup>
-    <ItemGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <Authors>Wilderness Labs, Inc</Authors>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Juego</AssemblyName>
+    <Company>Wilderness Labs, Inc</Company>
+    <PackageProjectUrl>https://github.com/WildernessLabs/Meadow.ProjectLab</PackageProjectUrl>
+    <PackageId>Meadow.Juego</PackageId>
+    <RepositoryUrl>https://github.com/WildernessLabs/Meadow.ProjectLab</RepositoryUrl>
+    <PackageTags>Meadow.Juego, Meadow, Juego</PackageTags>
+    <Version>0.96.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Convenience library for the Meadow Juego family of boards</Description>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>10.0</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Meadow.F7" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Mcp23xxx" Version="0.*" />
-    </ItemGroup>
+  </ItemGroup>
 </Project>
