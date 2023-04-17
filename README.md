@@ -9,8 +9,7 @@ Open-source, Meadow-powered, multigame handheld console with DPads, speakers and
 * [Getting Started](#getting-started)
 * [Hardware Specifications](#hardware-specifications)
 * [Pinout Diagram](#pinout-diagram)
-  * [Project Lab v1.e](#project-lab-v1e)
-  * [Project Lab v2.e](#project-lab-v2e)
+  * [Juego v2.c](#project-lab-v1e)
 * [Additional Samples](#additional-samples)
 
 ## Purchasing or Building
@@ -29,7 +28,7 @@ Open-source, Meadow-powered, multigame handheld console with DPads, speakers and
             You can get a Juego board from the <a href="https://store.wildernesslabs.co/collections/frontpage/products/project-lab-board">Wilderness Labs store</a>.
         </td>
         <td> 
-            You can also build a simpler Juego using Hack Kit components.
+            You can also build a simpler Juego using a monocolor display and push buttons.
         </td>
     </tr>
 </table>
@@ -93,7 +92,7 @@ To validate your Juego hardware, connect your Juego, and deploy the Juego_Demo a
 
 ## Juego Prototype
 
-This was an early hardware project to create a Meadow handheld multi-game project designed to work with 128x64 single color displays (SSD1306 or SSD1309)
+This was an early hardware project to create a Meadow handheld multi-game project designed to work with 128x64 or 320x240 single color displays (SSD1306 or SSD1309)
 
 Includes five games:
 
@@ -103,12 +102,26 @@ Includes five games:
 - Snake
 - Tetraminos (inspired by Tetris)
 
-!["Image of Juego Meadow prototype hardware"](./juego.png)
+!["Image of Juego Meadow prototype hardware"](Design/juego-ping-pong.jpg)
 
-## Fritzing Diagram with SSD1309 (SPI Connection)
+## Fritzing Diagrams of Juego using a Meadow Dev Kit
 
-!["Image of Juego Meadow prototype hardware"](./juego_spi_fritzing.png)
+<table width="100%">
+    <tr>
+        <td>
+            <img src="Design/juego_spi_fritzing.png" />
+        </td>
+        <td>
+            <img src="Design/juego_i2c_fritzing.png" /> 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Juego using a SSD1309 Display connected via SPI and Push Buttons.
+        </td>
+        <td> 
+            Juego using a SSD1309 Display connected via I2C and Push Buttons.
+        </td>
+    </tr>
+</table>
 
-## Fritzing Diagram with SSD1309 (I2C Connection)
-
-!["Image of Juego Meadow prototype hardware"](./juego_i2c_fritzing.png)
