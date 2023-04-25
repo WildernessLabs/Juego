@@ -35,6 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juego_Prototype", "Juego_Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.Sh110x", "..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Sh110x\Driver\Displays.Sh110x.csproj", "{7D611BC9-B5BF-424C-A03C-3FC7FA8E703A}"
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

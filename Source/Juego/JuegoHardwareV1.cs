@@ -20,23 +20,19 @@ namespace WildernessLabs.Hardware.Juego
 
         public AnalogJoystick? AnalogJoystick { get; protected set; }
 
-        //==== Right side buttons
         public PushButton? Right_UpButton { get; protected set; }
         public PushButton? Right_DownButton { get; protected set; }
         public PushButton? Right_LeftButton { get; protected set; }
         public PushButton? Right_RightButton { get; protected set; }
 
-        //==== Left side buttons
         public PushButton? Left_UpButton => null;
         public PushButton? Left_DownButton => null;
         public PushButton? Left_LeftButton => null;
         public PushButton? Left_RightButton => null;
 
-        //==== Start/Select Buttons
         public PushButton? StartButton { get; protected set; }
         public PushButton? SelectButton { get; protected set; }
 
-        //==== Speakers
         public PiezoSpeaker? LeftSpeaker { get; protected set; }
         public PiezoSpeaker? RightSpeaker { get; protected set; }
 
@@ -46,7 +42,6 @@ namespace WildernessLabs.Hardware.Juego
 
             Resolver.Log.Info("Initialize hardware...");
 
-            //==== Speakers
             try
             {
                 LeftSpeaker = new PiezoSpeaker(device.Pins.D12);
@@ -64,20 +59,17 @@ namespace WildernessLabs.Hardware.Juego
                 Resolver.Log.Error($"Err Right Speaker: {e.Message}");
             }
 
-            //==== SPI
-            Resolver.Log.Info("Initializing SPI Bus");
             try
             {
                 var config = new SpiClockConfiguration(new Frequency(48000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
                 Spi = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.COPI, Device.Pins.CIPO, config);
+                Resolver.Log.Info("SPI initialized");
             }
             catch (Exception e)
             {
                 Resolver.Log.Error($"Err initializing SPI: {e.Message}");
             }
-            Resolver.Log.Info("SPI initialized");
 
-            //Display
             var chipSelectPort = Device.CreateDigitalOutputPort(Device.Pins.D03);
             var dcPort = Device.CreateDigitalOutputPort(Device.Pins.D04);
             var resetPort = Device.CreateDigitalOutputPort(Device.Pins.D14);
@@ -88,7 +80,6 @@ namespace WildernessLabs.Hardware.Juego
                 dataCommandPort: dcPort,
                 resetPort: resetPort,
                 width: 240, height: 240);
-
             Resolver.Log.Info("Display initialized");
 
             Right_UpButton = new PushButton(device.Pins.D06, ResistorMode.InternalPullDown);

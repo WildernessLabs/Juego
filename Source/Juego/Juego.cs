@@ -9,10 +9,8 @@ namespace WildernessLabs.Hardware.Juego
         private Juego() { }
 
         /// <summary>
-        /// Create an instance of the ProjectLab class
+        /// Create an instance of the Juego class
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
         public static IJuegoHardware Create()
         {
             IJuegoHardware hardware;
@@ -20,7 +18,7 @@ namespace WildernessLabs.Hardware.Juego
 
             logger?.Debug("Initializing Juego...");
 
-            var device = Resolver.Device; //convenience local var
+            var device = Resolver.Device;
 
             // make sure not getting instantiated before the App Initialize method
             if (Resolver.Device == null)
@@ -32,17 +30,17 @@ namespace WildernessLabs.Hardware.Juego
 
             if (device is IF7FeatherMeadowDevice { } feather)
             {
-                logger?.Info("Instantiating Jeugo v1 hardware");
+                logger?.Info("Instantiating Juego v1 hardware");
                 hardware = new JuegoHardwareV1(feather);
             }
             else if (device is IF7CoreComputeMeadowDevice { } ccm)
             {
-                logger?.Info("Instantiating Jeugo v2 hardware");
+                logger?.Info("Instantiating Juego v2 hardware");
                 hardware = new JuegoHardwareV2(ccm);
             }
             else
             {
-                throw new NotSupportedException(); //should never get here
+                throw new NotSupportedException();
             }
 
             return hardware;

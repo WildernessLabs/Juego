@@ -13,8 +13,10 @@ using System.Threading.Tasks;
 
 namespace Juego
 {
-    public class MeadowApp : App<F7FeatherV1>
+    public class MeadowApp : App<F7FeatherV2>
     {
+        bool playGame = false;
+
         Menu menu;
 
         IIOConfig hardware;
@@ -23,68 +25,79 @@ namespace Juego
 
         const string version = "0.5.4";
 
-        public MeadowApp()
-        {
-            //settings test
-            /*
-            Resolver.Log.Info("Settings test");
-
-            int hiscore = Settings.GetInteger("HiScore", 0);
-            byte volume = Settings.GetByte("Volume", 5);
-            bool playSound = Settings.GetBoolean("PlaySound", false);
-
-            Resolver.Log.Info($"HiScore: {hiscore}");
-            Resolver.Log.Info($"Volume: {volume}");
-            Resolver.Log.Info($"PlaySound: {playSound}");
-
-            Settings.SetInteger("HiScore", 10000);
-            Settings.SetByte("Volume", 9);
-            Settings.SetBoolean("PlaySound", true);
-            Settings.SaveSettings();
-
-            hiscore = Settings.GetInteger("HiScore", 0);
-            volume = Settings.GetByte("Volume", 5);
-            playSound = Settings.GetBoolean("PlaySound", false);
-
-            Resolver.Log.Info($"HiScore: {hiscore}");
-            Resolver.Log.Info($"Volume: {volume}");
-            Resolver.Log.Info($"PlaySound: {playSound}");
-
-            */
-
-            Initialize();
-
-            hardware.rgbLed.SetColor(Color.Green);
-            InitMenu();
-
-            //StartGame("startClock");
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             Resolver.Log.Info("Initialize game hardware...");
 
             //hardware = new Config_1c_St7735();
             //hardware = new Config_proto_Ssd130x_Spi(); //SSD1309 proto 
-            hardware = new Config_proto_Sh1106_Spi(); //SH1106 proto 
-            //hardware = new Config_1c_Ssd130x_I2c();
+            //hardware = new Config_proto_Sh1106_Spi(); //SH1106 proto 
+            hardware = new Config_1c_Ssd130x_I2c();
             //hardware = new Config_1c_Ssd130x_Spi();
             //hardware = new Config_1a_St7789();
             //hardware = new Config_1c_St7789();
-
             //hardware = new Config_1c_Ssd1351();
 
-            DrawSplashScreen(hardware.Graphics);
+            hardware.rgbLed.SetColor(Color.Red);
 
-            Resolver.Log.Info("Create buttons...");
+            DrawSplashScreen(hardware.Graphics);
 
             hardware.Up.Clicked += Up_Clicked;
             hardware.Left.Clicked += Left_Clicked;
             hardware.Right.Clicked += Right_Clicked;
             hardware.Down.Clicked += Down_Clicked;
 
-            if (hardware.Select != null) hardware.Select.Clicked += Select_Clicked;
-            if (hardware.Start != null) hardware.Start.Clicked += Start_Clicked;
+            if (hardware.Select != null)
+            {
+                hardware.Select.Clicked += Select_Clicked;
+            }
+            if (hardware.Start != null)
+            {
+                hardware.Start.Clicked += Start_Clicked;
+            }
+
+            hardware.rgbLed.SetColor(Color.Green);
+
+            return Task.CompletedTask;
+        }
+
+        async Task StartGame(string command)
+        {
+            switch (command)
+            {
+                case "startFrogIt":
+                    currentGame = new FrogItGame();
+                    break;
+                case "startPong":
+                    currentGame = new PongGame();
+                    break;
+                case "startSpan4":
+                    currentGame = new Span4Game();
+                    break;
+                case "startSnake":
+                    currentGame = new SnakeGame();
+                    break;
+                case "startTetraminos":
+                    currentGame = new TetraminosGame();
+                    break;
+                default:
+                    EnableMenu();
+                    return;
+            }
+
+            playGame = true;
+            currentGame.Init(hardware.Graphics);
+            currentGame.Reset();
+
+            await Task.Run(() =>
+            {   //full speed today
+                while (playGame == true)
+                {
+                    currentGame.Update(hardware);
+
+                    Thread.Sleep(0);
+                }
+            });
         }
 
         void DrawSplashScreen(MicroGraphics graphics)
@@ -165,57 +178,17 @@ namespace Juego
             }
         }
 
-        bool playGame = false;
-        async Task StartGame(string command)
-        {
-            switch (command)
-            {
-                case "startFrogIt":
-                    currentGame = new FrogItGame();
-                    break;
-                case "startPong":
-                    currentGame = new PongGame();
-                    break;
-                case "startSpan4":
-                    currentGame = new Span4Game();
-                    break;
-                case "startSnake":
-                    currentGame = new SnakeGame();
-                    break;
-                case "startTetraminos":
-                    currentGame = new TetraminosGame();
-                    break;
-                default:
-                    EnableMenu();
-                    return;
-            }
-
-            playGame = true;
-            currentGame.Init(hardware.Graphics);
-            currentGame.Reset();
-
-            await Task.Run(() =>
-            {   //full speed today
-                while (playGame == true)
-                {
-                    currentGame.Update(hardware);
-
-                    Thread.Sleep(0);
-                }
-            });
-        }
-
-        void EnableMenu()
+        private void EnableMenu()
         {
             menu?.Enable();
         }
 
-        void DisableMenu()
+        private void DisableMenu()
         {
             menu?.Disable();
         }
 
-        void CreateMenu(ITextDisplay display)
+        private void CreateMenu(ITextDisplay display)
         {
             Resolver.Log.Info("Load menu data...");
 
@@ -275,6 +248,13 @@ namespace Juego
                     return ms.ToArray();
                 }
             }
+        }
+
+        public override Task Run()
+        {
+            InitMenu();
+
+            return base.Run();
         }
     }
 }
