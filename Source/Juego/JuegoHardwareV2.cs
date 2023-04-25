@@ -98,7 +98,7 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                LeftSpeaker = new PiezoSpeaker(device.Pins.D12);
+                LeftSpeaker = new PiezoSpeaker(device.Pins.D12); //D03
             }
             catch (Exception e)
             {
@@ -106,7 +106,7 @@ namespace WildernessLabs.Hardware.Juego
             }
             try
             {
-                RightSpeaker = new PiezoSpeaker(device.Pins.D13);
+                RightSpeaker = new PiezoSpeaker(device.Pins.D13); //D04
             }
             catch (Exception e)
             {
@@ -139,7 +139,10 @@ namespace WildernessLabs.Hardware.Juego
                     chipSelectPort: chipSelectPort,
                     dataCommandPort: dcPort,
                     resetPort: resetPort,
-                    width: 240, height: 320);
+                    width: 240, height: 320)
+                {
+                    SpiBusSpeed = new Frequency(48000, Frequency.UnitType.Kilohertz),
+                };
 
                 Resolver.Log.Info("Display initialized");
             }
