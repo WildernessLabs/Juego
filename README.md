@@ -8,9 +8,8 @@ Open-source, Meadow-powered, multigame handheld console with DPads, speakers and
 * [Purchasing or Building](#purchasing-or-building)
 * [Getting Started](#getting-started)
 * [Hardware Specifications](#hardware-specifications)
-* [Pinout Diagram](#pinout-diagram)
-  * [Juego v2.c](#project-lab-v1e)
-* [Additional Samples](#additional-samples)
+* [Building Locally](#building-locally)
+* [Juego Hack Kit Version](#juego-hack-kit-version)
 
 ## Purchasing or Building
 
@@ -25,7 +24,7 @@ Open-source, Meadow-powered, multigame handheld console with DPads, speakers and
     </tr>
     <tr>
         <td>
-            You can get a Juego board from the <a href="https://store.wildernesslabs.co/collections/frontpage/products/project-lab-board">Wilderness Labs store</a>.
+            You can get a Juego board from the <strong>Wilderness Labs store</strong> very soon.
         </td>
         <td> 
             You can also build a simpler Juego using a monocolor display and push buttons.
@@ -41,6 +40,66 @@ To make using the hardware even simpler, we've created a Nuget package that inst
     - `dotnet add package Meadow.Juego`, or
     - [Meadow.Juego Nuget Package](https://www.nuget.org/packages/Meadow.Juego)
     - [Explore in Fuget.org](https://www.fuget.org/packages/Meadow.Juego/0.1.0/lib/netstandard2.1/Juego.dll/Meadow.Devices/Juego)
+
+2. Instantiate the Juego class:
+```csharp
+public class MeadowApp : App<F7CoreComputeV2>
+{
+    IJuegoHardware juego;
+
+    public override Task Initialize()
+    {
+        juego = Juego.Create();
+        ...
+```
+
+3. Access `Juego`'s onboard peripherals.
+
+- To create a MicroGraphics object with Juego's Display:
+```csharp
+    ...
+    if (juego.Display is { } display)
+    {
+        graphics = new MicroGraphics(display)
+        {
+            IgnoreOutOfBoundsPixels = true,
+            CurrentFont = new Font12x16()
+        };
+        ....
+    }
+    ...
+```
+
+- To instantiate Juego's Select and Start buttons:
+```csharp
+    ...
+    if (juego.SelectButton is { } selectButton)
+    {
+        selectButton.PressStarted += (s, e) => { ... };
+        selectButton.PressEnded += (s, e) => { ... };
+    }
+
+    if (juego.StartButton is { } startButton)
+    {
+        startButton.PressStarted += (s, e) => { ... };
+        startButton.PressEnded += (s, e) => { ... };
+    }
+    ...
+```
+- To use Juego's speakers:
+```csharp
+    ...
+    for (int i = 0; i < 5; i++)
+    {
+        await juego.LeftSpeaker.PlayTone(
+            new Frequency(440), TimeSpan.FromMilliseconds(500));
+        await juego.RightSpeaker.PlayTone(
+            new Frequency(540), TimeSpan.FromMilliseconds(500));
+    }
+    ...
+```
+
+
 
 ## Hardware Specifications
 
@@ -86,11 +145,7 @@ Be sure to clone all these repos including `Juego` at the same folder level and 
 
 Also, make sure you are running the latest version of Meadow OS on your Juego v2 board.
 
-## Testing Juego
-
-To validate your Juego hardware, connect your Juego, and deploy the Juego_Demo application.
-
-## Juego Prototype
+## Juego Hack Kit Version
 
 This was an early hardware project to create a Meadow handheld multi-game project designed to work with 128x64 or 320x240 single color displays (SSD1306 or SSD1309)
 
@@ -104,7 +159,7 @@ Includes five games:
 
 !["Image of Juego Meadow prototype hardware"](Design/juego-ping-pong.jpg)
 
-## Fritzing Diagrams of Juego using a Meadow Dev Kit
+### Fritzing Diagrams of Juego using a Meadow Dev Kit
 
 <table width="100%">
     <tr>
