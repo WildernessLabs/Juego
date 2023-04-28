@@ -118,7 +118,7 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                BlinkyLed = new PwmLed(device.Pins.D20, TypicalForwardVoltage.Red);
+                BlinkyLed = new PwmLed(device.Pins.D20, TypicalForwardVoltage.Green);
             }
             catch (Exception e)
             {
