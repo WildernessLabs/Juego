@@ -3,6 +3,7 @@ using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.ICs.IOExpanders;
+using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
 using Meadow.Units;
@@ -46,6 +47,8 @@ namespace WildernessLabs.Hardware.Juego
 
         public PiezoSpeaker? LeftSpeaker { get; protected set; }
         public PiezoSpeaker? RightSpeaker { get; protected set; }
+
+        public PwmLed? BlinkyLed { get; protected set; }
 
         public JuegoHardwareV2(IF7CoreComputeMeadowDevice device)
         {
@@ -115,6 +118,15 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
+                BlinkyLed = new PwmLed(device.Pins.D20, TypicalForwardVoltage.Green);
+            }
+            catch (Exception e)
+            {
+                Resolver.Log.Error($"Err BlinkyLed: {e.Message}");
+            }
+
+            try
+            {
                 var config = new SpiClockConfiguration(new Frequency(48000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
                 Spi = Device.CreateSpiBus(Device.Pins.SPI5_SCK, Device.Pins.SPI5_COPI, Device.Pins.SPI5_CIPO, config);
             }
@@ -143,6 +155,8 @@ namespace WildernessLabs.Hardware.Juego
                 {
                     SpiBusSpeed = new Frequency(48000, Frequency.UnitType.Kilohertz),
                 };
+
+                ((Ili9341)Display).SetRotation(RotationType._270Degrees);
 
                 Resolver.Log.Info("Display initialized");
             }
