@@ -2,6 +2,7 @@
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
@@ -35,6 +36,8 @@ namespace WildernessLabs.Hardware.Juego
 
         public PiezoSpeaker? LeftSpeaker { get; protected set; }
         public PiezoSpeaker? RightSpeaker { get; protected set; }
+
+        public PwmLed? BlinkyLed => null;
 
         public JuegoHardwareV1(IF7FeatherMeadowDevice device)
         {
