@@ -2,7 +2,7 @@
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TextDisplayMenu;
+using Meadow.Foundation.Displays.UI;
 using Meadow.Foundation.Graphics;
 using Meadow.Peripherals.Displays;
 using System;
@@ -17,7 +17,7 @@ namespace Juego
     {
         bool playGame = false;
 
-        Menu menu;
+        TextDisplayMenu menu;
 
         IIOConfig hardware;
 
@@ -216,7 +216,7 @@ namespace Juego
             };
 
 
-            menu = new Menu(display, menuItems);
+            menu = new TextDisplayMenu(display, menuItems);
 
 
             menu.Selected += Menu_Selected;

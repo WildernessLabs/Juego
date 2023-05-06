@@ -1,6 +1,6 @@
 ﻿using Meadow;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TextDisplayMenu;
+using Meadow.Foundation.Displays.UI;
 using Meadow.Foundation.Graphics;
 using System;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace Juego.Apps
         IFont fontDate;
         IFont FontText;
 
-        Menu menu;
+        TextDisplayMenu menu;
 
         const string ActiveID = "active";
         const string RestId = "rest";
@@ -240,7 +240,7 @@ namespace Juego.Apps
                     })
              };
 
-            menu = new Menu(gl, menuItems);
+            menu = new TextDisplayMenu(gl, menuItems);
 
             menu.ValueChanged += Menu_ValueChanged;
         }
