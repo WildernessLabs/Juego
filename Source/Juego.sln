@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juego_Demo", "Juego_Demo\Juego_Demo.csproj", "{37C9BF80-5004-4F2B-82E4-B36C2153C43D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juego", "Juego\Juego.csproj", "{8DAF92C4-EAEE-4399-A554-D8316AC75984}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juego_Prototype", "Juego_Prototype\Juego_Prototype.csproj", "{5DBF9130-4538-488A-8274-C9EEFA9056A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37C9BF80-5004-4F2B-82E4-B36C2153C43D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37C9BF80-5004-4F2B-82E4-B36C2153C43D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37C9BF80-5004-4F2B-82E4-B36C2153C43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37C9BF80-5004-4F2B-82E4-B36C2153C43D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DAF92C4-EAEE-4399-A554-D8316AC75984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DAF92C4-EAEE-4399-A554-D8316AC75984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DAF92C4-EAEE-4399-A554-D8316AC75984}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8DAF92C4-EAEE-4399-A554-D8316AC75984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DAF92C4-EAEE-4399-A554-D8316AC75984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DAF92C4-EAEE-4399-A554-D8316AC75984}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB582CC6-C626-484E-9742-43FD65FE8158}
+	EndGlobalSection
+EndGlobal
