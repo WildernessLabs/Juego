@@ -58,7 +58,7 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                I2cBus = Device.CreateI2cBus();
+                I2cBus = Device.CreateI2cBus(busSpeed: I2cBusSpeed.FastPlus);
                 Resolver.Log.Info("I2C initialized");
             }
             catch (Exception e)
