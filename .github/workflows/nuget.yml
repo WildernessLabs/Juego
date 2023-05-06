@@ -18,6 +18,6 @@ jobs:
     - name: Pack
       run: dotnet pack -c Release ./Source/Juego/Juego.csproj /p:Version=${VERSION} --output .
     - name: Push
-      run: dotnet nuget push Juego.${VERSION}.nupkg -s https://api.nuget.org/v3/index.json -k ${NUGET_TOKEN}
+      run: dotnet nuget push Meadow.Juego.${VERSION}.nupkg -s https://api.nuget.org/v3/index.json -k ${NUGET_TOKEN}
       env:
         NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
