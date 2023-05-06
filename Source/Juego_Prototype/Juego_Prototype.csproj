@@ -22,7 +22,6 @@
     <PackageReference Include="Meadow.Foundation.Displays.Sh1106" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Displays.Ssd130x" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.*" />
-    <ProjectReference Include="..\..\..\Meadow.Units\Source\Meadow.Units\Meadow.Units.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="meadow.config.yaml">
