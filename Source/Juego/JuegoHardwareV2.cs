@@ -15,9 +15,9 @@ namespace WildernessLabs.Hardware.Juego
     public class JuegoHardwareV2 : IJuegoHardware
     {
         protected IF7CoreComputeMeadowDevice Device { get; }
-        protected IDigitalInputPort McpInterrupt_1 { get; }
+        protected IDigitalInterruptPort McpInterrupt_1 { get; }
 
-        protected IDigitalInputPort McpInterrupt_2 { get; }
+        protected IDigitalInterruptPort McpInterrupt_2 { get; }
 
         protected IDigitalOutputPort Mcp_Reset { get; }
 
@@ -69,7 +69,7 @@ namespace WildernessLabs.Hardware.Juego
             try
             {
                 Mcp_Reset = Device.CreateDigitalOutputPort(Device.Pins.D11, true);
-                McpInterrupt_1 = Device.CreateDigitalInputPort(Device.Pins.D09, InterruptMode.EdgeRising);
+                McpInterrupt_1 = Device.CreateDigitalInterruptPort(Device.Pins.D09, InterruptMode.EdgeRising);
                 Mcp_1 = new Mcp23008(I2cBus, 0x20, McpInterrupt_1, Mcp_Reset);
                 Resolver.Log.Info("Mcp23008 #1 initialized");
             }
@@ -80,7 +80,7 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                McpInterrupt_2 = Device.CreateDigitalInputPort(Device.Pins.D10, InterruptMode.EdgeRising);
+                McpInterrupt_2 = Device.CreateDigitalInterruptPort(Device.Pins.D10, InterruptMode.EdgeRising);
                 Mcp_2 = new Mcp23008(I2cBus, 0x21, McpInterrupt_2);
                 Resolver.Log.Info("Mcp23008 #2 initialized");
             }
@@ -163,10 +163,10 @@ namespace WildernessLabs.Hardware.Juego
 
             if (Mcp_1 != null)
             {
-                var upPort = Mcp_1.CreateDigitalInputPort(Mcp_1.Pins.GP1, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                var rightPort = Mcp_1.CreateDigitalInputPort(Mcp_1.Pins.GP2, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                var downPort = Mcp_1.CreateDigitalInputPort(Mcp_1.Pins.GP3, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                var leftPort = Mcp_1.CreateDigitalInputPort(Mcp_1.Pins.GP4, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var upPort = Mcp_1.CreateDigitalInterruptPort(Mcp_1.Pins.GP1, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var rightPort = Mcp_1.CreateDigitalInterruptPort(Mcp_1.Pins.GP2, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var downPort = Mcp_1.CreateDigitalInterruptPort(Mcp_1.Pins.GP3, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var leftPort = Mcp_1.CreateDigitalInterruptPort(Mcp_1.Pins.GP4, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
 
                 Left_UpButton = new PushButton(upPort);
                 Left_RightButton = new PushButton(rightPort);
@@ -176,12 +176,12 @@ namespace WildernessLabs.Hardware.Juego
 
             if (Mcp_2 != null)
             {
-                var upPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP5, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                var rightPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP4, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                var downPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP3, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                var leftPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP2, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                var startPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP1, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                var selectPort = Mcp_2.CreateDigitalInputPort(Mcp_2.Pins.GP0, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var upPort = Mcp_2.CreateDigitalInterruptPort(Mcp_2.Pins.GP5, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var rightPort = Mcp_2.CreateDigitalInterruptPort(Mcp_2.Pins.GP4, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var downPort = Mcp_2.CreateDigitalInterruptPort(Mcp_2.Pins.GP3, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var leftPort = Mcp_2.CreateDigitalInterruptPort(Mcp_2.Pins.GP2, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var startPort = Mcp_2.CreateDigitalInterruptPort(Mcp_2.Pins.GP1, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
+                var selectPort = Mcp_2.CreateDigitalInterruptPort(Mcp_2.Pins.GP0, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
 
                 Right_UpButton = new PushButton(upPort);
                 Right_RightButton = new PushButton(rightPort);
