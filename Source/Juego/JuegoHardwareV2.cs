@@ -165,16 +165,10 @@ namespace WildernessLabs.Hardware.Juego
 
             if (Mcp_1 != null)
             {
-                Resolver.Log.Info("MCP1 1");
                 var upPort = Mcp_1.Pins.GP1.CreateDigitalInterruptPort(InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                Resolver.Log.Info("MCP1 2");
                 var rightPort = Mcp_1.CreateDigitalInterruptPort(Mcp_1.Pins.GP2, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                Resolver.Log.Info("MCP1 3");
                 var downPort = Mcp_1.CreateDigitalInterruptPort(Mcp_1.Pins.GP3, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-                Resolver.Log.Info("MCP1 4");
                 var leftPort = Mcp_1.CreateDigitalInterruptPort(Mcp_1.Pins.GP4, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-
-                Resolver.Log.Info("MCP1 initialized");
 
                 Left_UpButton = new PushButton(upPort);
                 Left_RightButton = new PushButton(rightPort);
@@ -190,8 +184,6 @@ namespace WildernessLabs.Hardware.Juego
                 var leftPort = Mcp_2.CreateDigitalInterruptPort(Mcp_2.Pins.GP2, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
                 var startPort = Mcp_2.CreateDigitalInterruptPort(Mcp_2.Pins.GP1, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
                 var selectPort = Mcp_2.CreateDigitalInterruptPort(Mcp_2.Pins.GP0, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
-
-                Resolver.Log.Info("MCP2 initialized");
 
                 Right_UpButton = new PushButton(upPort);
                 Right_RightButton = new PushButton(rightPort);
