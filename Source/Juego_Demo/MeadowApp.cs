@@ -10,9 +10,8 @@ namespace Juego_Demo
     // Change F7FeatherV2 to F7FeatherV1 for V1.x boards
     public class MeadowApp : App<F7CoreComputeV2>
     {
-        IJuegoHardware hardware;
-
-        DisplayController displayController;
+        private IJuegoHardware hardware;
+        private DisplayController displayController;
 
         public override Task Initialize()
         {
@@ -92,6 +91,7 @@ namespace Juego_Demo
 
             for (int i = 0; i < 5; i++)
             {
+                Resolver.Log.Info("Playing tone");
                 await hardware.LeftSpeaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(500));
                 await hardware.RightSpeaker.PlayTone(new Frequency(540), TimeSpan.FromMilliseconds(500));
             }
