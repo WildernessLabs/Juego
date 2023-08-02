@@ -180,3 +180,35 @@ Includes five games:
     </tr>
 </table>
 
+## Release Notes
+
+### v2.e
+
+* Added STEMMA QT I2C connector for additional peripheral integrations.
+* Added I2C Accelerator to drive external I2C Peripherals.
+
+### v2.d
+
+* Fixed `VBAT` on mcu so it wasn't getting overvoltaged. Was `3.3V`, should be `1.8V` or disconnected.
+
+### v2.c
+
+* Changed form-factor to be much smaller.
+* Added optional debug header footprint.
+
+### v2.b
+
+* Added LED for debugging.
+* Added I2C pull-ups.
+
+### v2.a
+
+* Converted to Meadow CCM Design.
+* Added a much larger screen.
+* Added an MCP23008 for button IO.
+* Added a solar power/charging circuit.
+* Upgraded the batter mount to an off-the-shelf holder.
+
+### v1
+
+* Inital design.
