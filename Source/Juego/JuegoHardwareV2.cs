@@ -6,6 +6,7 @@ using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
+using Meadow.Logging;
 using Meadow.Units;
 using System;
 using System.Threading;
@@ -26,7 +27,7 @@ namespace WildernessLabs.Hardware.Juego
         public IDigitalOutputPort DisplayBacklightPort { get; }
 
         protected II2cBus I2cBus { get; }
-        protected ISpiBus Spi { get; }
+        protected ISpiBus SpiBus { get; }
 
         public Mcp23008 Mcp_1 { get; protected set; }
         public Mcp23008 Mcp_2 { get; protected set; }
@@ -49,6 +50,30 @@ namespace WildernessLabs.Hardware.Juego
         public PiezoSpeaker? RightSpeaker { get; protected set; }
 
         public PwmLed? BlinkyLed { get; protected set; }
+
+        /// <summary>
+        /// Gets the display header connector on the Juego board
+        /// </summary>
+        public DisplayConnector DisplayHeader => (DisplayConnector)Connectors[0];
+
+        /// <summary>
+        /// Collection of connectors on the Juego board
+        /// </summary>
+        public IConnector?[] Connectors
+        {
+            get
+            {
+                if (_connectors == null)
+                {
+                    _connectors = new IConnector[1];
+                    _connectors[1] = CreateDisplayConnector();
+                }
+
+                return _connectors;
+            }
+        }
+
+        private IConnector?[]? _connectors;
 
         public JuegoHardwareV2(IF7CoreComputeMeadowDevice device)
         {
@@ -130,7 +155,7 @@ namespace WildernessLabs.Hardware.Juego
             try
             {
                 var config = new SpiClockConfiguration(new Frequency(48000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
-                Spi = Device.CreateSpiBus(Device.Pins.SPI5_SCK, Device.Pins.SPI5_COPI, Device.Pins.SPI5_CIPO, config);
+                SpiBus = Device.CreateSpiBus(Device.Pins.SPI5_SCK, Device.Pins.SPI5_COPI, Device.Pins.SPI5_CIPO, config);
             }
             catch (Exception e)
             {
@@ -149,7 +174,7 @@ namespace WildernessLabs.Hardware.Juego
                 Thread.Sleep(50);
 
                 Display = new Ili9341(
-                    spiBus: Spi,
+                    spiBus: SpiBus,
                     chipSelectPort: chipSelectPort,
                     dataCommandPort: dcPort,
                     resetPort: resetPort,
@@ -192,6 +217,21 @@ namespace WildernessLabs.Hardware.Juego
                 StartButton = new PushButton(startPort);
                 SelectButton = new PushButton(selectPort);
             }
+        }
+        internal DisplayConnector CreateDisplayConnector()
+        {
+            Resolver.Log.Trace("Creating display connector");
+
+            return new DisplayConnector(
+               "Display",
+                new PinMapping
+                {
+                new PinMapping.PinAlias(DisplayConnector.PinNames.CS, Mcp_1.Pins.GP5),
+                new PinMapping.PinAlias(DisplayConnector.PinNames.RST, Mcp_1.Pins.GP7),
+                new PinMapping.PinAlias(DisplayConnector.PinNames.DC, Mcp_1.Pins.GP6),
+                new PinMapping.PinAlias(DisplayConnector.PinNames.CLK, Device.Pins.SCK),
+                new PinMapping.PinAlias(DisplayConnector.PinNames.COPI, Device.Pins.COPI),
+                });
         }
     }
 }

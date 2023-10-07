@@ -17,7 +17,7 @@ namespace WildernessLabs.Hardware.Juego
 
         public IGraphicsDisplay Display { get; }
 
-        protected ISpiBus Spi { get; }
+        protected ISpiBus SpiBus { get; }
 
         public AnalogJoystick? AnalogJoystick { get; protected set; }
 
@@ -38,6 +38,30 @@ namespace WildernessLabs.Hardware.Juego
         public PiezoSpeaker? RightSpeaker { get; protected set; }
 
         public PwmLed? BlinkyLed => null;
+
+        /// <summary>
+        /// Gets the display header connector on the Juego board
+        /// </summary>
+        public DisplayConnector DisplayHeader => (DisplayConnector)Connectors[0];
+
+        /// <summary>
+        /// Collection of connectors on the Juego board
+        /// </summary>
+        public IConnector?[] Connectors
+        {
+            get
+            {
+                if (_connectors == null)
+                {
+                    _connectors = new IConnector[1];
+                    _connectors[1] = CreateDisplayConnector();
+                }
+
+                return _connectors;
+            }
+        }
+
+        private IConnector?[]? _connectors;
 
         public JuegoHardwareV1(IF7FeatherMeadowDevice device)
         {
@@ -65,7 +89,7 @@ namespace WildernessLabs.Hardware.Juego
             try
             {
                 var config = new SpiClockConfiguration(new Frequency(48000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
-                Spi = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.COPI, Device.Pins.CIPO, config);
+                SpiBus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.COPI, Device.Pins.CIPO, config);
                 Resolver.Log.Info("SPI initialized");
             }
             catch (Exception e)
@@ -78,7 +102,7 @@ namespace WildernessLabs.Hardware.Juego
             var resetPort = Device.CreateDigitalOutputPort(Device.Pins.D14);
 
             Display = new St7789(
-                spiBus: Spi,
+                spiBus: SpiBus,
                 chipSelectPort: chipSelectPort,
                 dataCommandPort: dcPort,
                 resetPort: resetPort,
@@ -91,10 +115,22 @@ namespace WildernessLabs.Hardware.Juego
             Right_RightButton = new PushButton(device.Pins.D11, ResistorMode.InternalPullDown);
             StartButton = new PushButton(device.Pins.D13, ResistorMode.InternalPullDown);
             SelectButton = new PushButton(device.Pins.D15, ResistorMode.InternalPullDown);
+        }
 
-            //ToDo confirm analog pins and wire it up
-            //AnalogJoystick = new AnalogJoystick(Device.Pins.A00.CreateAnalogInputPort(),
-            //    Device.CreateAnalogInputPort(Device.Pins.A01));
+        internal DisplayConnector CreateDisplayConnector()
+        {
+            Resolver.Log.Trace("Creating display connector");
+
+            return new DisplayConnector(
+               "Display",
+                new PinMapping
+                {
+                new PinMapping.PinAlias(DisplayConnector.PinNames.CS, Device.Pins.D03),
+                new PinMapping.PinAlias(DisplayConnector.PinNames.RST, Device.Pins.D14),
+                new PinMapping.PinAlias(DisplayConnector.PinNames.DC, Device.Pins.D04),
+                new PinMapping.PinAlias(DisplayConnector.PinNames.CLK, Device.Pins.SCK),
+                new PinMapping.PinAlias(DisplayConnector.PinNames.COPI, Device.Pins.COPI),
+                });
         }
     }
 }
