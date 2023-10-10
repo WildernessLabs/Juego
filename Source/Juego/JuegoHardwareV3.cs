@@ -14,9 +14,9 @@ using System.Threading;
 namespace WildernessLabs.Hardware.Juego
 {
     /// <summary>
-    /// Represents the hardware interface for the Juego v2 device
+    /// Represents the hardware interface for the Juego v1 device
     /// </summary>
-    public class JuegoHardwareV2 : IJuegoHardware
+    public class JuegoHardwareV3 : IJuegoHardware
     {
         /// <inheritdoc/>
         protected IF7CoreComputeMeadowDevice Device { get; }
@@ -67,23 +67,26 @@ namespace WildernessLabs.Hardware.Juego
         /// <inheritdoc/>
         public PwmLed? BlinkyLed { get; protected set; }
         /// <inheritdoc/>
-        public Bmi270? MotionSensor => null;
+        public Bmi270? MotionSensor { get; protected set; }
 
         /// <inheritdoc/>
         public DisplayConnector DisplayHeader => (DisplayConnector)Connectors[0];
 
         /// <inheritdoc/>
-        public I2cConnector? Qwiic => null;
+        public I2cConnector? Qwiic => (I2cConnector)Connectors[1];
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Collection of connectors on the Juego board
+        /// </summary>
         public IConnector?[] Connectors
         {
             get
             {
                 if (_connectors == null)
                 {
-                    _connectors = new IConnector[1];
+                    _connectors = new IConnector[2];
                     _connectors[0] = CreateDisplayConnector();
+                    _connectors[1] = CreateQwiicConnector();
                 }
 
                 return _connectors;
@@ -93,9 +96,9 @@ namespace WildernessLabs.Hardware.Juego
         private IConnector?[]? _connectors;
 
         /// <summary>
-        /// Create a new Juego hardware v2 object
+        /// Create a new Juego hardware v3 object
         /// </summary>
-        public JuegoHardwareV2(IF7CoreComputeMeadowDevice device, II2cBus i2cBus)
+        public JuegoHardwareV3(IF7CoreComputeMeadowDevice device, II2cBus i2cBus)
         {
             Device = device;
             I2cBus = i2cBus;
@@ -123,8 +126,8 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                Mcp_Reset = Device.CreateDigitalOutputPort(Device.Pins.D11, true);
-                McpInterrupt_1 = Device.CreateDigitalInterruptPort(Device.Pins.D09, InterruptMode.EdgeRising);
+                Mcp_Reset = Device.CreateDigitalOutputPort(Device.Pins.PC9, true);
+                McpInterrupt_1 = Device.CreateDigitalInterruptPort(Device.Pins.PC6, InterruptMode.EdgeRising);
                 Mcp_1 = new Mcp23008(I2cBus, 0x20, McpInterrupt_1, Mcp_Reset);
                 Resolver.Log.Info("Mcp23008 #1 initialized");
             }
@@ -135,23 +138,13 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                McpInterrupt_2 = Device.CreateDigitalInterruptPort(Device.Pins.D10, InterruptMode.EdgeRising);
+                McpInterrupt_2 = Device.CreateDigitalInterruptPort(Device.Pins.PC7, InterruptMode.EdgeRising);
                 Mcp_2 = new Mcp23008(I2cBus, 0x21, McpInterrupt_2);
                 Resolver.Log.Info("Mcp23008 #2 initialized");
             }
             catch (Exception e)
             {
                 Resolver.Log.Error($"Err MCP 2: {e.Message}");
-            }
-
-            try
-            {
-                Mcp_VersionInfo = new Mcp23008(I2cBus, 0x23);
-                Resolver.Log.Info("Mcp23008 version initialized");
-            }
-            catch (Exception e)
-            {
-                Resolver.Log.Error($"Err MCP 3: {e.Message}");
             }
 
             try
@@ -228,6 +221,17 @@ namespace WildernessLabs.Hardware.Juego
                 StartButton = new PushButton(startPort);
                 SelectButton = new PushButton(selectPort);
             }
+
+            try
+            {
+                Resolver.Log.Trace("Instantiating motion sensor");
+                MotionSensor = new Bmi270(I2cBus);
+                Resolver.Log.Trace("Motion sensor up");
+            }
+            catch (Exception ex)
+            {
+                Resolver.Log.Error($"Unable to create the BMI270 IMU: {ex.Message}");
+            }
         }
         internal DisplayConnector CreateDisplayConnector()
         {
@@ -243,6 +247,20 @@ namespace WildernessLabs.Hardware.Juego
                 new PinMapping.PinAlias(DisplayConnector.PinNames.CLK, Device.Pins.SCK),
                 new PinMapping.PinAlias(DisplayConnector.PinNames.COPI, Device.Pins.COPI),
                 });
+        }
+
+        internal I2cConnector CreateQwiicConnector()
+        {
+            Resolver.Log.Trace("Creating Qwiic I2C connector");
+
+            return new I2cConnector(
+               "Qwiic",
+                new PinMapping
+                {
+                new PinMapping.PinAlias(I2cConnector.PinNames.SCL, Device.Pins.D08),
+                new PinMapping.PinAlias(I2cConnector.PinNames.SDA, Device.Pins.D07),
+                },
+                new I2cBusMapping(Device, 1));
         }
     }
 }

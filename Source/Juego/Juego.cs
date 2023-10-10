@@ -1,4 +1,6 @@
 ﻿using Meadow;
+using Meadow.Foundation.ICs.IOExpanders;
+using Meadow.Hardware;
 using Meadow.Logging;
 using System;
 
@@ -28,6 +30,13 @@ namespace WildernessLabs.Hardware.Juego
                 throw new Exception(msg);
             }
 
+            I32PinFeatherBoardPinout pins = device switch
+            {
+                IF7FeatherMeadowDevice f => f.Pins,
+                IF7CoreComputeMeadowDevice c => c.Pins,
+                _ => throw new NotSupportedException("Device must be a Feather F7 or F7 Core Compute module"),
+            };
+
             if (device is IF7FeatherMeadowDevice { } feather)
             {
                 logger?.Info("Instantiating Juego v1 hardware");
@@ -35,8 +44,27 @@ namespace WildernessLabs.Hardware.Juego
             }
             else if (device is IF7CoreComputeMeadowDevice { } ccm)
             {
-                logger?.Info("Instantiating Juego v2 hardware");
-                hardware = new JuegoHardwareV2(ccm);
+                var i2cBus = device.CreateI2cBus(1, busSpeed: I2cBusSpeed.FastPlus);
+                logger?.Debug("I2C Bus instantiated");
+
+                try
+                {
+                    var mcp1 = new Mcp23008(i2cBus, address: 0x26);
+
+                    logger?.Trace("McpVersion up");
+                    logger?.Trace($"Hardware version is {mcp1.ReadFromPorts()}");
+
+                    logger?.Info("Instantiating Juego v3 hardware");
+                    hardware = new JuegoHardwareV3(ccm, i2cBus);
+
+                }
+                catch (Exception e)
+                {
+                    logger?.Debug($"Failed to create McpVersion: {e.Message}, could be a v2 board");
+
+                    logger?.Info("Instantiating Juego v3 hardware");
+                    hardware = new JuegoHardwareV3(ccm, i2cBus);
+                }
             }
             else
             {

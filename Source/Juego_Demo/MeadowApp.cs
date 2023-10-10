@@ -1,17 +1,16 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Units;
-using System;
+using Meadow.Foundation.Audio;
 using System.Threading.Tasks;
 using WildernessLabs.Hardware.Juego;
 
 namespace Juego_Demo
 {
-    // Change F7FeatherV2 to F7FeatherV1 for V1.x boards
     public class MeadowApp : App<F7CoreComputeV2>
     {
         private IJuegoHardware hardware;
         private DisplayController displayController;
+        private MicroAudio audioLeft, audioRight;
 
         public override Task Initialize()
         {
@@ -77,6 +76,9 @@ namespace Juego_Demo
                 startButton.PressEnded += (s, e) => displayController.StartButtonState = false;
             }
 
+            audioLeft = new MicroAudio(hardware.LeftSpeaker);
+            audioRight = new MicroAudio(hardware.RightSpeaker);
+
             return base.Initialize();
         }
 
@@ -84,17 +86,10 @@ namespace Juego_Demo
         {
             Resolver.Log.Info("Run...");
 
-            if (displayController != null)
-            {
-                displayController.Update();
-            }
+            displayController?.Update();
 
-            for (int i = 0; i < 5; i++)
-            {
-                Resolver.Log.Info("Playing tone");
-                await hardware.LeftSpeaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(500));
-                await hardware.RightSpeaker.PlayTone(new Frequency(540), TimeSpan.FromMilliseconds(500));
-            }
+            await audioLeft.PlaySystemSound(SystemSoundEffect.PowerUp);
+            await audioRight.PlayGameSound(GameSoundEffect.LevelComplete);
 
             return;
         }
