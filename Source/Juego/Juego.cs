@@ -1,21 +1,24 @@
 ﻿using Meadow;
+using Meadow.Foundation.Audio;
 using Meadow.Foundation.ICs.IOExpanders;
-using Meadow.Hardware;
 using Meadow.Logging;
 using System;
 
 namespace WildernessLabs.Hardware.Juego
 {
+    /// <summary>
+    /// Juego hardware factory class for Juego v1, v2, and v3 hardware
+    /// </summary>
     public class Juego
     {
         private Juego() { }
 
         /// <summary>
-        /// Create an instance of the Juego class
+        /// Create an instance of the Juego class for the current hardware
         /// </summary>
-        public static IJuegoHardware Create()
+        public static IJuegoHardware? Create()
         {
-            IJuegoHardware hardware;
+            IJuegoHardware? hardware;
             Logger? logger = Resolver.Log;
 
             logger?.Debug("Initializing Juego...");
@@ -30,13 +33,6 @@ namespace WildernessLabs.Hardware.Juego
                 throw new Exception(msg);
             }
 
-            I32PinFeatherBoardPinout pins = device switch
-            {
-                IF7FeatherMeadowDevice f => f.Pins,
-                IF7CoreComputeMeadowDevice c => c.Pins,
-                _ => throw new NotSupportedException("Device must be a Feather F7 or F7 Core Compute module"),
-            };
-
             if (device is IF7FeatherMeadowDevice { } feather)
             {
                 logger?.Info("Instantiating Juego v1 hardware");
@@ -44,36 +40,47 @@ namespace WildernessLabs.Hardware.Juego
             }
             else if (device is IF7CoreComputeMeadowDevice { } ccm)
             {
-                var i2cBus = device.CreateI2cBus(busSpeed: I2cBusSpeed.FastPlus);
-                logger?.Info("I2C Bus instantiated");
-
                 try
                 {
-                    var mcp1 = new Mcp23008(i2cBus, address: 0x23);
+                    // hack for PWM init bug .... move back into the hardware classes once it's fixed
+                    var leftSpeaker = new PiezoSpeaker(ccm.Pins.PB8);
+                    var rightSpeaker = new PiezoSpeaker(ccm.Pins.PB9);
 
-                    var version = mcp1.ReadFromPorts();
+                    var i2cBus = ccm.CreateI2cBus(busSpeed: Meadow.Hardware.I2cBusSpeed.FastPlus);
+                    logger?.Info("I2C Bus instantiated");
+
+                    var mcpVersion = new Mcp23008(i2cBus, address: 0x23);
 
                     logger?.Trace("McpVersion up");
+                    var version = mcpVersion.ReadFromPorts();
+
                     logger?.Info($"Hardware version is {version}");
 
-                    if (version > 3)
+                    if (version >= JuegoHardwareV3.MinimumHardareVersion)
                     {
                         logger?.Info("Instantiating Juego v3 hardware");
-                        hardware = new JuegoHardwareV3(ccm, i2cBus);
+                        hardware = new JuegoHardwareV3(ccm, i2cBus)
+                        {
+                            Mcp_VersionInfo = mcpVersion,
+                            LeftSpeaker = leftSpeaker,
+                            RightSpeaker = rightSpeaker,
+                        };
                     }
                     else
                     {
                         logger?.Info("Instantiating Juego v2 hardware");
-                        hardware = new JuegoHardwareV2(ccm, i2cBus);
+                        hardware = new JuegoHardwareV2(ccm, i2cBus)
+                        {
+                            Mcp_VersionInfo = mcpVersion,
+                            LeftSpeaker = leftSpeaker,
+                            RightSpeaker = rightSpeaker,
+                        };
                     }
-
                 }
                 catch (Exception e)
                 {
-                    logger?.Debug($"Failed to create McpVersion: {e.Message}, could be a v2 board");
-
-                    logger?.Info("Instantiating Juego v2 hardware");
-                    hardware = new JuegoHardwareV2(ccm, i2cBus);
+                    logger?.Debug($"Failed to create McpVersion: {e.Message}");
+                    hardware = null;
                 }
             }
             else

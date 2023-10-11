@@ -18,6 +18,11 @@ namespace WildernessLabs.Hardware.Juego
     /// </summary>
     public class JuegoHardwareV3 : IJuegoHardware
     {
+        /// <summary>
+        /// The minimum hardware version for Juego v3 hardware
+        /// </summary>
+        public static int MinimumHardareVersion => 3;
+
         /// <inheritdoc/>
         protected IF7CoreComputeMeadowDevice Device { get; }
         /// <inheritdoc/>
@@ -39,7 +44,7 @@ namespace WildernessLabs.Hardware.Juego
         /// <inheritdoc/>
         public Mcp23008 Mcp_2 { get; protected set; }
         /// <inheritdoc/>
-        public Mcp23008 Mcp_VersionInfo { get; protected set; }
+        public Mcp23008 Mcp_VersionInfo { get; set; }
         /// <inheritdoc/>
         public PushButton? Right_UpButton { get; protected set; }
         /// <inheritdoc/>
@@ -61,9 +66,9 @@ namespace WildernessLabs.Hardware.Juego
         /// <inheritdoc/>
         public PushButton? SelectButton { get; protected set; }
         /// <inheritdoc/>
-        public PiezoSpeaker? LeftSpeaker { get; protected set; }
+        public PiezoSpeaker? LeftSpeaker { get; set; }
         /// <inheritdoc/>
-        public PiezoSpeaker? RightSpeaker { get; protected set; }
+        public PiezoSpeaker? RightSpeaker { get; set; }
         /// <inheritdoc/>
         public PwmLed? BlinkyLed { get; protected set; }
         /// <inheritdoc/>
@@ -106,7 +111,7 @@ namespace WildernessLabs.Hardware.Juego
             Resolver.Log.Info("Initialize hardware...");
 
             // DEV NOTE: **ALWAYS** Set up PWMs first - Nuttx PWM driver will step on pin configs otherwise
-            try
+            /* try // code left intentionally, restore once the PWM bug is fixed
             {
                 LeftSpeaker = new PiezoSpeaker(device.Pins.PB8); //D03
             }
@@ -122,7 +127,19 @@ namespace WildernessLabs.Hardware.Juego
             catch (Exception e)
             {
                 Resolver.Log.Error($"Err Right Speaker: {e.Message}");
+            } */
+
+            /*
+            try
+            {
+                I2cBus = Device.CreateI2cBus(busSpeed: I2cBusSpeed.FastPlus);
+                Resolver.Log.Info("I2C initialized");
             }
+            catch (Exception e)
+            {
+                Resolver.Log.Error($"Err initializing I2C Bus: {e.Message}");
+            }
+            */
 
             try
             {
@@ -192,6 +209,17 @@ namespace WildernessLabs.Hardware.Juego
                 Resolver.Log.Info("Display initialized");
             }
 
+            try
+            {
+                Resolver.Log.Info("Instantiating motion sensor");
+                MotionSensor = new Bmi270(I2cBus);
+                Resolver.Log.Info("Motion sensor up");
+            }
+            catch (Exception ex)
+            {
+                Resolver.Log.Error($"Unable to create the BMI270 IMU: {ex.Message}");
+            }
+
             if (Mcp_1 != null)
             {
                 var upPort = Mcp_1.Pins.GP1.CreateDigitalInterruptPort(InterruptMode.EdgeBoth, ResistorMode.InternalPullUp);
@@ -221,18 +249,8 @@ namespace WildernessLabs.Hardware.Juego
                 StartButton = new PushButton(startPort);
                 SelectButton = new PushButton(selectPort);
             }
-
-            try
-            {
-                Resolver.Log.Trace("Instantiating motion sensor");
-                MotionSensor = new Bmi270(I2cBus);
-                Resolver.Log.Trace("Motion sensor up");
-            }
-            catch (Exception ex)
-            {
-                Resolver.Log.Error($"Unable to create the BMI270 IMU: {ex.Message}");
-            }
         }
+
         internal DisplayConnector CreateDisplayConnector()
         {
             Resolver.Log.Trace("Creating display connector");

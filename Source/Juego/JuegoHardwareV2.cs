@@ -39,7 +39,7 @@ namespace WildernessLabs.Hardware.Juego
         /// <inheritdoc/>
         public Mcp23008 Mcp_2 { get; protected set; }
         /// <inheritdoc/>
-        public Mcp23008 Mcp_VersionInfo { get; protected set; }
+        public Mcp23008 Mcp_VersionInfo { get; set; }
         /// <inheritdoc/>
         public PushButton? Right_UpButton { get; protected set; }
         /// <inheritdoc/>
@@ -61,9 +61,9 @@ namespace WildernessLabs.Hardware.Juego
         /// <inheritdoc/>
         public PushButton? SelectButton { get; protected set; }
         /// <inheritdoc/>
-        public PiezoSpeaker? LeftSpeaker { get; protected set; }
+        public PiezoSpeaker? LeftSpeaker { get; set; }
         /// <inheritdoc/>
-        public PiezoSpeaker? RightSpeaker { get; protected set; }
+        public PiezoSpeaker? RightSpeaker { get; set; }
         /// <inheritdoc/>
         public PwmLed? BlinkyLed { get; protected set; }
         /// <inheritdoc/>
@@ -103,23 +103,23 @@ namespace WildernessLabs.Hardware.Juego
             Resolver.Log.Info("Initialize hardware...");
 
             // DEV NOTE: **ALWAYS** Set up PWMs first - Nuttx PWM driver will step on pin configs otherwise
-            try
-            {
-                LeftSpeaker = new PiezoSpeaker(device.Pins.PB8); //D03
-            }
-            catch (Exception e)
-            {
-                Resolver.Log.Error($"Err Left Speaker: {e.Message}");
-            }
+            /* try - code left intentionally, restore once the PWM bug is fixed
+             {
+                 LeftSpeaker = new PiezoSpeaker(device.Pins.PB8); //D03
+             }
+             catch (Exception e)
+             {
+                 Resolver.Log.Error($"Err Left Speaker: {e.Message}");
+             } 
 
-            try
-            {
-                RightSpeaker = new PiezoSpeaker(device.Pins.PB9); //D04
-            }
-            catch (Exception e)
-            {
-                Resolver.Log.Error($"Err Right Speaker: {e.Message}");
-            }
+             try
+             {
+                 RightSpeaker = new PiezoSpeaker(device.Pins.PB9); //D04
+             }
+             catch (Exception e)
+             {
+                 Resolver.Log.Error($"Err Right Speaker: {e.Message}");
+             } */
 
             try
             {
@@ -142,16 +142,6 @@ namespace WildernessLabs.Hardware.Juego
             catch (Exception e)
             {
                 Resolver.Log.Error($"Err MCP 2: {e.Message}");
-            }
-
-            try
-            {
-                Mcp_VersionInfo = new Mcp23008(I2cBus, 0x23);
-                Resolver.Log.Info("Mcp23008 version initialized");
-            }
-            catch (Exception e)
-            {
-                Resolver.Log.Error($"Err MCP 3: {e.Message}");
             }
 
             try
