@@ -44,26 +44,36 @@ namespace WildernessLabs.Hardware.Juego
             }
             else if (device is IF7CoreComputeMeadowDevice { } ccm)
             {
-                var i2cBus = device.CreateI2cBus(1, busSpeed: I2cBusSpeed.FastPlus);
-                logger?.Debug("I2C Bus instantiated");
+                var i2cBus = device.CreateI2cBus(busSpeed: I2cBusSpeed.FastPlus);
+                logger?.Info("I2C Bus instantiated");
 
                 try
                 {
-                    var mcp1 = new Mcp23008(i2cBus, address: 0x26);
+                    var mcp1 = new Mcp23008(i2cBus, address: 0x23);
+
+                    var version = mcp1.ReadFromPorts();
 
                     logger?.Trace("McpVersion up");
-                    logger?.Trace($"Hardware version is {mcp1.ReadFromPorts()}");
+                    logger?.Info($"Hardware version is {version}");
 
-                    logger?.Info("Instantiating Juego v3 hardware");
-                    hardware = new JuegoHardwareV3(ccm, i2cBus);
+                    if (version > 3)
+                    {
+                        logger?.Info("Instantiating Juego v3 hardware");
+                        hardware = new JuegoHardwareV3(ccm, i2cBus);
+                    }
+                    else
+                    {
+                        logger?.Info("Instantiating Juego v2 hardware");
+                        hardware = new JuegoHardwareV2(ccm, i2cBus);
+                    }
 
                 }
                 catch (Exception e)
                 {
                     logger?.Debug($"Failed to create McpVersion: {e.Message}, could be a v2 board");
 
-                    logger?.Info("Instantiating Juego v3 hardware");
-                    hardware = new JuegoHardwareV3(ccm, i2cBus);
+                    logger?.Info("Instantiating Juego v2 hardware");
+                    hardware = new JuegoHardwareV2(ccm, i2cBus);
                 }
             }
             else

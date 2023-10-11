@@ -126,8 +126,8 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                Mcp_Reset = Device.CreateDigitalOutputPort(Device.Pins.PC9, true);
-                McpInterrupt_1 = Device.CreateDigitalInterruptPort(Device.Pins.PC6, InterruptMode.EdgeRising);
+                Mcp_Reset = Device.CreateDigitalOutputPort(Device.Pins.PA10, true);
+                McpInterrupt_1 = Device.CreateDigitalInterruptPort(Device.Pins.PD5, InterruptMode.EdgeRising);
                 Mcp_1 = new Mcp23008(I2cBus, 0x20, McpInterrupt_1, Mcp_Reset);
                 Resolver.Log.Info("Mcp23008 #1 initialized");
             }
@@ -138,7 +138,7 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                McpInterrupt_2 = Device.CreateDigitalInterruptPort(Device.Pins.PC7, InterruptMode.EdgeRising);
+                McpInterrupt_2 = Device.CreateDigitalInterruptPort(Device.Pins.PI11, InterruptMode.EdgeRising);
                 Mcp_2 = new Mcp23008(I2cBus, 0x21, McpInterrupt_2);
                 Resolver.Log.Info("Mcp23008 #2 initialized");
             }
