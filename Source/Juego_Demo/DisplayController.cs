@@ -181,7 +181,7 @@ namespace Juego_Demo
             graphics.DrawRectangle(65, 100, 30, 30, WildernessLabsColors.DustyGray, Left_RightButtonState);
             graphics.DrawRectangle(35, 70, 30, 30, WildernessLabsColors.DustyGray, Left_UpButtonState);
             graphics.DrawRectangle(35, 130, 30, 30, WildernessLabsColors.DustyGray, Left_DownButtonState);
-            graphics.DrawCircle(50, 115, 7, WildernessLabsColors.DustyGray, false);
+            graphics.DrawCircle(50, 115, 7, WildernessLabsColors.DustyGray, true);
 
             //Start and Select
             graphics.DrawRoundedRectangle(graphics.Width / 2 - 35, 140, 30, 15, 4, WildernessLabsColors.ChileanFire, SelectButtonState);
@@ -196,9 +196,9 @@ namespace Juego_Demo
             //Motion
             if (acceleration3D is { } accel)
             {
-                graphics.DrawCircle(graphics.Width / 2, 200, 30, WildernessLabsColors.DustyGray, false);
+                graphics.DrawCircle(graphics.Width / 2, 200, 30, WildernessLabsColors.AzureBlue, false);
                 //radius is 30 .... new circle is 10 ... scale position via x & y
-                graphics.DrawCircle(graphics.Width / 2 + (int)(accel.X.Gravity * 20), 200 + (int)(accel.Y.Gravity * -20), 10, WildernessLabsColors.DustyGray, true);
+                graphics.DrawCircle(graphics.Width / 2 + (int)(accel.X.Gravity * 20), 200 + (int)(accel.Y.Gravity * -20), 10, WildernessLabsColors.AzureBlue, true);
             }
         }
     }

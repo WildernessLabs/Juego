@@ -96,7 +96,7 @@ namespace Juego_Demo
             Resolver.Log.Info("Run...");
 
             displayController?.Update();
-            juego.MotionSensor?.StartUpdating(TimeSpan.FromMilliseconds(500));
+            juego.MotionSensor?.StartUpdating(TimeSpan.FromMilliseconds(250));
 
             await audioLeft.PlaySystemSound(SystemSoundEffect.PowerUp);
             await audioRight.PlayGameSound(GameSoundEffect.LevelComplete);
