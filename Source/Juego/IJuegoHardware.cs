@@ -1,18 +1,19 @@
 ﻿using Meadow.Foundation.Audio;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
+using Meadow.Foundation.Sensors.Accelerometers;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
 
 namespace WildernessLabs.Hardware.Juego
 {
     /// <summary>
-    /// Represents the hardware interface for the Juego device.
+    /// Represents the hardware interface for the Juego device
     /// </summary>
     public interface IJuegoHardware
     {
         /// <summary>
-        /// Gets the graphics display interface.
+        /// Gets the graphics display interface
         /// </summary>
         public IGraphicsDisplay? Display { get; }
 
@@ -75,8 +76,18 @@ namespace WildernessLabs.Hardware.Juego
         public PwmLed? BlinkyLed { get; }
 
         /// <summary>
+        /// Gets the motion sensor
+        /// </summary>
+        public Bmi270? MotionSensor { get; }
+
+        /// <summary>
         /// Gets the display header connector
         /// </summary>
         public DisplayConnector DisplayHeader { get; }
+
+        /// <summary>
+        /// Gets the Stemma QT I2C Qwiic connector
+        /// </summary>
+        public I2cConnector? Qwiic { get; }
     }
 }

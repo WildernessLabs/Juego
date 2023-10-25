@@ -3,6 +3,7 @@ using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
+using Meadow.Foundation.Sensors.Accelerometers;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
@@ -11,38 +12,59 @@ using System;
 
 namespace WildernessLabs.Hardware.Juego
 {
+    /// <summary>
+    /// Represents the hardware interface for the Juego v1 device
+    /// </summary>
     public class JuegoHardwareV1 : IJuegoHardware
     {
+        /// <inheritdoc/>
         protected IF7FeatherMeadowDevice Device { get; }
 
+        /// <inheritdoc/>
         public IGraphicsDisplay Display { get; }
 
+        /// <inheritdoc/>
         protected ISpiBus SpiBus { get; }
 
+        /// <inheritdoc/>
         public AnalogJoystick? AnalogJoystick { get; protected set; }
 
+        /// <inheritdoc/>
         public PushButton? Right_UpButton { get; protected set; }
+        /// <inheritdoc/>
         public PushButton? Right_DownButton { get; protected set; }
+        /// <inheritdoc/>
         public PushButton? Right_LeftButton { get; protected set; }
+        /// <inheritdoc/>
         public PushButton? Right_RightButton { get; protected set; }
-
+        /// <inheritdoc/>
         public PushButton? Left_UpButton => null;
+        /// <inheritdoc/>
         public PushButton? Left_DownButton => null;
+        /// <inheritdoc/>
         public PushButton? Left_LeftButton => null;
+        /// <inheritdoc/>
         public PushButton? Left_RightButton => null;
-
+        /// <inheritdoc/>
         public PushButton? StartButton { get; protected set; }
+        /// <inheritdoc/>
         public PushButton? SelectButton { get; protected set; }
-
+        /// <inheritdoc/>
         public PiezoSpeaker? LeftSpeaker { get; protected set; }
+        /// <inheritdoc/>
         public PiezoSpeaker? RightSpeaker { get; protected set; }
-
+        /// <inheritdoc/>
         public PwmLed? BlinkyLed => null;
 
-        /// <summary>
-        /// Gets the display header connector on the Juego board
-        /// </summary>
+        /// <inheritdoc/>
+        public Bmi270? MotionSensor => null;
+
+        /// <inheritdoc/>
         public DisplayConnector DisplayHeader => (DisplayConnector)Connectors[0];
+
+        /// <inheritdoc/>
+        public I2cConnector Qwiic => null;
+
 
         /// <summary>
         /// Collection of connectors on the Juego board
@@ -54,7 +76,7 @@ namespace WildernessLabs.Hardware.Juego
                 if (_connectors == null)
                 {
                     _connectors = new IConnector[1];
-                    _connectors[1] = CreateDisplayConnector();
+                    _connectors[0] = CreateDisplayConnector();
                 }
 
                 return _connectors;
@@ -63,6 +85,9 @@ namespace WildernessLabs.Hardware.Juego
 
         private IConnector?[]? _connectors;
 
+        /// <summary>
+        /// Create a new Juego hardware v1 object
+        /// </summary>
         public JuegoHardwareV1(IF7FeatherMeadowDevice device)
         {
             Device = device;
