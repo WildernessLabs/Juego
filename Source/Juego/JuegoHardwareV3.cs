@@ -21,7 +21,7 @@ namespace WildernessLabs.Hardware.Juego
         /// <summary>
         /// The minimum hardware version for Juego v3 hardware
         /// </summary>
-        public static int MinimumHardareVersion => 3;
+        public static int MinimumHardareVersion => 4;
 
         /// <inheritdoc/>
         protected IF7CoreComputeMeadowDevice Device { get; }
