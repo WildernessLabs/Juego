@@ -1,12 +1,23 @@
-﻿using Meadow;
-using Meadow.Foundation;
+﻿using Meadow.Foundation;
 using Meadow.Foundation.Graphics;
+using Meadow.Units;
 
 namespace Juego_Demo
 {
     public class DisplayController
     {
         readonly MicroGraphics graphics;
+
+        public Acceleration3D? Acceleration3D
+        {
+            get => acceleration3D;
+            set
+            {
+                acceleration3D = value;
+                Update();
+            }
+        }
+        Acceleration3D? acceleration3D = null;
 
         public bool Right_UpButtonState
         {
@@ -123,13 +134,11 @@ namespace Juego_Demo
 
         public DisplayController(IGraphicsDisplay display)
         {
-            Resolver.Log.Info("Display controller ctor");
-
             graphics = new MicroGraphics(display)
             {
                 Rotation = RotationType._270Degrees,
                 IgnoreOutOfBoundsPixels = true,
-                CurrentFont = new Font12x16()
+                CurrentFont = new Font12x20()
             };
 
             graphics.Clear(Color.YellowGreen);
@@ -161,35 +170,36 @@ namespace Juego_Demo
             }
         }
 
-        void DrawStatus(string label, string value, Color color, int yPosition)
-        {
-            graphics.DrawText(x: 2, y: yPosition, label, color: color);
-            graphics.DrawText(x: 318, y: yPosition, value, alignmentH: HorizontalAlignment.Right, color: color);
-        }
 
-        void DrawDivider(Color color, int yPosition)
-        {
-            graphics.DrawLine(0, yPosition, graphics.Width, yPosition, color);
-        }
 
         void Draw()
         {
-            graphics.DrawText(x: 2, y: 0, "Hello Juego!", WildernessLabsColors.AzureBlue);
+            graphics.DrawText(x: graphics.Width / 2, y: 0, "Hello Juego!", WildernessLabsColors.AzureBlue, alignmentH: HorizontalAlignment.Center);
 
-            DrawStatus("Up D-pad:", $"{(Left_UpButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 20);
-            DrawStatus("Down D-pad:", $"{(Left_DownButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 40);
-            DrawStatus("Left D-pad:", $"{(Left_LeftButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 60);
-            DrawStatus("Right D-pad:", $"{(Left_RightButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 80);
-            DrawDivider(WildernessLabsColors.AzureBlue, 98);
+            //D-Pad
+            graphics.DrawRectangle(5, 100, 30, 30, WildernessLabsColors.DustyGray, Left_LeftButtonState);
+            graphics.DrawRectangle(65, 100, 30, 30, WildernessLabsColors.DustyGray, Left_RightButtonState);
+            graphics.DrawRectangle(35, 70, 30, 30, WildernessLabsColors.DustyGray, Left_UpButtonState);
+            graphics.DrawRectangle(35, 130, 30, 30, WildernessLabsColors.DustyGray, Left_DownButtonState);
+            graphics.DrawCircle(50, 115, 7, WildernessLabsColors.DustyGray, true);
 
-            DrawStatus("Up button:", $"{(Right_UpButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 100);
-            DrawStatus("Down button:", $"{(Right_DownButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 120);
-            DrawStatus("Left button:", $"{(Right_LeftButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 140);
-            DrawStatus("Right button:", $"{(Right_RightButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 160);
-            DrawDivider(WildernessLabsColors.AzureBlue, 178);
+            //Start and Select
+            graphics.DrawRoundedRectangle(graphics.Width / 2 - 35, 140, 30, 15, 4, WildernessLabsColors.ChileanFire, SelectButtonState);
+            graphics.DrawRoundedRectangle(graphics.Width / 2 + 5, 140, 30, 15, 4, WildernessLabsColors.ChileanFire, StartButtonState);
 
-            DrawStatus("Select button:", $"{(SelectButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 180);
-            DrawStatus("Start button:", $"{(StartButtonState ? "pressed" : "released")}", WildernessLabsColors.ChileanFire, 200);
+            //Buttons
+            graphics.DrawCircle(graphics.Width - 90, 115, 15, WildernessLabsColors.PearGreen, Right_LeftButtonState);
+            graphics.DrawCircle(graphics.Width - 20, 115, 15, WildernessLabsColors.PearGreen, Right_RightButtonState);
+            graphics.DrawCircle(graphics.Width - 55, 80, 15, WildernessLabsColors.PearGreen, Right_UpButtonState);
+            graphics.DrawCircle(graphics.Width - 55, 150, 15, WildernessLabsColors.PearGreen, Right_DownButtonState);
+
+            //Motion
+            if (acceleration3D is { } accel)
+            {
+                graphics.DrawCircle(graphics.Width / 2, 200, 30, WildernessLabsColors.AzureBlue, false);
+                //radius is 30 .... new circle is 10 ... scale position via x & y
+                graphics.DrawCircle(graphics.Width / 2 + (int)(accel.X.Gravity * 20), 200 + (int)(accel.Y.Gravity * -20), 10, WildernessLabsColors.AzureBlue, true);
+            }
         }
     }
 }
