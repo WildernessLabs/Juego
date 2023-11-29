@@ -8,7 +8,6 @@ using WildernessLabs.Hardware.Juego;
 
 namespace Juego_Demo
 {
-    // Change F7FeatherV2 to F7FeatherV1 for V1.x boards
     public class MeadowApp : App<F7CoreComputeV2>
     {
         private IJuegoHardware juego;
@@ -97,11 +96,7 @@ namespace Juego_Demo
             Resolver.Log.Info("Run...");
 
             displayController?.Update();
-
-            if (juego.MotionSensor is { })
-            {
-                juego.MotionSensor.StartUpdating(TimeSpan.FromMilliseconds(250));
-            }
+            juego.MotionSensor?.StartUpdating(TimeSpan.FromMilliseconds(250));
 
             await audioLeft.PlaySystemSound(SystemSoundEffect.PowerUp);
             await audioRight.PlayGameSound(GameSoundEffect.LevelComplete);
