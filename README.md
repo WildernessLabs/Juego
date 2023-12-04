@@ -34,6 +34,19 @@ Open-source, Meadow-powered, multigame handheld console with DPads, speakers and
 
 ## Getting Started
 
+### Playing Juego
+
+Do you have a brand new Juego and you just wanna play some games? Check out the following demo apps:
+
+* [Juego Out-of-Box Pack or whatever]()
+* [Another demo game set or something]()
+
+#### Are you brand new to Meadow?
+
+If you've never deployed a Meadow app before, you'll want to check out the [Getting Started Guide](https://developer.wildernesslabs.co/Meadow/Getting_Started/) which will get your development environment up and running and validate that you can build and deploy.
+
+### Using the Juego Hardware in your own App
+
 To make using the hardware even simpler, we've created a Nuget package that instantiates and encapsulates the onboard hardware into a `Juego` class.
 
 1. Add the ProjectLab Nuget package your project: 
