@@ -18,8 +18,6 @@ namespace Juego_Demo
         {
             Resolver.Log.Info("Initialize");
 
-            Resolver.Log.Info($"{DateTime.Now}");
-
             juego = Juego.Create();
 
             if (juego.Display is { } display)
