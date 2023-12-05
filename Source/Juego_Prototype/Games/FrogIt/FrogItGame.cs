@@ -66,7 +66,7 @@ namespace Juego.Games
 
         public void Reset()
         {
-            gameStart = DateTime.Now;
+            gameStart = DateTime.UtcNow;
             ResetFrog();
             Lives = 3;
 
@@ -84,14 +84,14 @@ namespace Juego.Games
 
         double lastTime;
         int count = 0;
-        Stopwatch sw = new Stopwatch();
+        readonly Stopwatch sw = new Stopwatch();
         public void Update()
         {
-            if(count == 0)
+            if (count == 0)
             {
                 sw.Start();
             }
-            else if(count == 100)
+            else if (count == 100)
             {
                 sw.Stop();
                 Resolver.Log.Info($"100 frames took {sw.Elapsed}");
@@ -101,7 +101,7 @@ namespace Juego.Games
             count++;
 
             lastTime = GameTime;
-            GameTime = (DateTime.Now - gameStart).TotalSeconds;
+            GameTime = (DateTime.UtcNow - gameStart).TotalSeconds;
 
             switch (lastInput)
             {

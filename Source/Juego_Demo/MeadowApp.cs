@@ -18,6 +18,8 @@ namespace Juego_Demo
         {
             Resolver.Log.Info("Initialize");
 
+            Resolver.Log.Info($"{DateTime.Now}");
+
             juego = Juego.Create();
 
             if (juego.Display is { } display)
@@ -96,7 +98,11 @@ namespace Juego_Demo
             Resolver.Log.Info("Run...");
 
             displayController?.Update();
-            juego.MotionSensor?.StartUpdating(TimeSpan.FromMilliseconds(250));
+
+            if (juego.MotionSensor is { })
+            {
+                juego.MotionSensor.StartUpdating(TimeSpan.FromMilliseconds(250));
+            }
 
             await audioLeft.PlaySystemSound(SystemSoundEffect.PowerUp);
             await audioRight.PlayGameSound(GameSoundEffect.LevelComplete);
