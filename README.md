@@ -4,12 +4,17 @@
 
 Open-source, Meadow-powered, multigame handheld console with DPads, speakers and a colored display.
 
+#### Are you brand new to Meadow?
+
+If you've never deployed a Meadow app before, you'll want to check out the [Getting Started Guide](https://developer.wildernesslabs.co/Meadow/Getting_Started/) which will get your development environment up and running and validate that you can build and deploy.
+
 ## Contents
 * [Purchasing or Building](#purchasing-or-building)
 * [Getting Started](#getting-started)
 * [Hardware Specifications](#hardware-specifications)
-* [Building Locally](#building-locally)
+* [Additional Samples](#additional-samples)
 * [Juego Hack Kit Version](#juego-hack-kit-version)
+* [Support](#support)
 
 ## Purchasing or Building
 
@@ -24,7 +29,7 @@ Open-source, Meadow-powered, multigame handheld console with DPads, speakers and
     </tr>
     <tr>
         <td>
-            You can get a Juego board from the <strong>Wilderness Labs store</strong> very soon.
+            You can get a Juego board from the <strong><a href="https://store.wildernesslabs.co/collections/frontpage/products/juego">Wilderness Labs store</a></strong>.
         </td>
         <td> 
             You can also build a simpler Juego using a monocolor display and push buttons.
@@ -34,7 +39,7 @@ Open-source, Meadow-powered, multigame handheld console with DPads, speakers and
 
 ## Getting Started
 
-To make using the hardware even simpler, we've created a Nuget package that instantiates and encapsulates the onboard hardware into a `Juego` class.
+To make using the hardware even simpler, we've created a [NuGet package](https://www.nuget.org/packages/Meadow.Juego) that instantiates and encapsulates the onboard hardware into a `Juego` class.
 
 1. Add the ProjectLab Nuget package your project: 
     - `dotnet add package Meadow.Juego`, or
@@ -131,19 +136,14 @@ public class MeadowApp : App<F7CoreComputeV2>
 
 You can find the schematics and other design files in the [Hardware folder](Source/Hardware).
 
-## Building locally
+## Additional Samples
 
-When using the develop branch, you'll need to clone additional Meadow repos:
-
-- [Meadow.Core](https://github.com/WildernessLabs/Meadow.Core)
-- [Meadow.Units](https://github.com/WildernessLabs/Meadow.Units)
-- [Meadow.Contracts](https://github.com/WildernessLabs/Meadow.Contracts)
-- [Meadow.Foundation](https://github.com/WildernessLabs/Meadow.Foundation)
-- [Meadow.Logging](https://github.com/WildernessLabs/Meadow.Logging)
-
-Be sure to clone all these repos including `Juego` at the same folder level and set all repos to the `develop` branch.
-
-Also, make sure you are running the latest version of Meadow OS on your Juego v2 board.
+1. **[Setup your Meadow Build Environment](http://developer.wildernesslabs.co/Meadow/Getting_Started/Deploying_Meadow/)** - If you haven't deployed a Meadow app before, you'll need to setup your IDE extension(s), deploy Meadow.OS, etc.
+2. **[Run the Demo App](Source/Juego_Demo/)** - Deploy the Juego demonstration app to see the built in peripherals at work.
+3. **[Check out the Juego.Samples repo](https://github.com/WildernessLabs/Juego.Samples)** - We recommend cloning the [Juego.Samples](https://github.com/WildernessLabs/Juego.Samples) repo. There you'll find a bunch of awesome samples that you can run right out-of-the box! 
+<a href="https://github.com/WildernessLabs/Juego.Samples">
+    <img src="Design/juego-samples.png" alt="juego, iot, project, samples" style="margin-top:10px;margin-bottom:10px" />
+</a>
 
 ## Juego Hack Kit Version
 
@@ -180,3 +180,8 @@ Includes five games:
     </tr>
 </table>
 
+## Support
+
+Having trouble building/running these projects? 
+* File an [issue](https://github.com/WildernessLabs/Meadow.Desktop.Samples/issues) with a repro case to investigate, and/or
+* Join our [public Slack](http://slackinvite.wildernesslabs.co/), where we have an awesome community helping, sharing and building amazing things using Meadow.
