@@ -39,6 +39,16 @@ If you've never deployed a Meadow app before, you'll want to check out the [Gett
 
 ## Getting Started
 
+### Playing Juego
+
+Do you have a brand new Juego and you just wanna play some games? Check out the [Juego.Samples repo](https://github.com/WildernessLabs/Juego.Samples) with some games you can play out of the box.
+
+#### Are you brand new to Meadow?
+
+If you've never deployed a Meadow app before, you'll want to check out the [Getting Started Guide](https://developer.wildernesslabs.co/Meadow/Getting_Started/) which will get your development environment up and running and validate that you can build and deploy.
+
+### Using the Juego Hardware in your own App
+
 To make using the hardware even simpler, we've created a [NuGet package](https://www.nuget.org/packages/Meadow.Juego) that instantiates and encapsulates the onboard hardware into a `Juego` class.
 
 1. Add the ProjectLab Nuget package your project: 
