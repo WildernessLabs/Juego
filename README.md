@@ -43,6 +43,8 @@ If you've never deployed a Meadow app before, you'll want to check out the [Gett
 
 Do you have a brand new Juego and you just wanna play some games? Check out the [Juego.Samples repo](https://github.com/WildernessLabs/Juego.Samples) with some games you can play out of the box.
 
+![Screenshot of the Juego.Samples repo readme showing several games that can be played.](Juego.Samples_Screenshot.png)
+
 #### Are you brand new to Meadow?
 
 If you've never deployed a Meadow app before, you'll want to check out the [Getting Started Guide](https://developer.wildernesslabs.co/Meadow/Getting_Started/) which will get your development environment up and running and validate that you can build and deploy.
