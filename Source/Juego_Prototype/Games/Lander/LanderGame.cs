@@ -46,7 +46,7 @@ namespace Juego.Games
 
         public void Reset()
         {
-            gameStart = DateTime.Now;
+            gameStart = DateTime.UtcNow;
 
             Lives = 3;
 
@@ -70,9 +70,9 @@ namespace Juego.Games
         public void Update()
         {
             lastTime = GameTime;
-            GameTime = (DateTime.Now - gameStart).TotalSeconds;
+            GameTime = (DateTime.UtcNow - gameStart).TotalSeconds;
 
-            switch(lastInput)
+            switch (lastInput)
             {
                 case UserInput.Up:
 
