@@ -1,6 +1,7 @@
 ﻿using Meadow;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.ICs.IOExpanders;
+using Meadow.Hardware;
 using Meadow.Logging;
 using System;
 
@@ -18,7 +19,7 @@ namespace WildernessLabs.Hardware.Juego
         /// </summary>
         public static IJuegoHardware? Create()
         {
-            IJuegoHardware? hardware;
+            IJuegoHardware? hardware = null;
             Logger? logger = Resolver.Log;
 
             logger?.Debug("Initializing Juego...");
@@ -40,23 +41,51 @@ namespace WildernessLabs.Hardware.Juego
             }
             else if (device is IF7CoreComputeMeadowDevice { } ccm)
             {
+                II2cBus i2cBus;
+                Mcp23008? mcpVersion = null;
+                byte version = 0;
+
+                PiezoSpeaker? leftSpeaker = null;
+                PiezoSpeaker? rightSpeaker = null;
+
                 try
                 {
+                    logger?.Info("Instantiating speakers");
                     // hack for PWM init bug .... move back into the hardware classes once it's fixed
-                    var leftSpeaker = new PiezoSpeaker(ccm.Pins.PB8);
-                    var rightSpeaker = new PiezoSpeaker(ccm.Pins.PB9);
+                    leftSpeaker = new PiezoSpeaker(ccm.Pins.PB8);
+                    rightSpeaker = new PiezoSpeaker(ccm.Pins.PB9);
+                }
+                catch
+                {
+                    logger?.Info("Failed to instantiate speakers");
+                }
 
-                    var i2cBus = ccm.CreateI2cBus(busSpeed: Meadow.Hardware.I2cBusSpeed.FastPlus);
-                    logger?.Info("I2C Bus instantiated");
+                try
+                {
+                    logger?.Info("Intantiating I2C Bus");
+                    i2cBus = ccm.CreateI2cBus(busSpeed: I2cBusSpeed.FastPlus);
+                }
+                catch
+                {
+                    logger?.Info("Failed to instantiate I2C Bus");
+                    logger?.Info("Cannot instantiate Juego hardware");
+                    return null;
+                }
 
-                    var mcpVersion = new Mcp23008(i2cBus, address: 0x23);
+                try
+                {
+                    logger?.Info("Intantiating version MCP23008");
+                    mcpVersion = new Mcp23008(i2cBus, address: 0x23);
+                }
+                catch
+                {
+                    logger?.Info("Failed to instantiate version MCP23008");
+                }
 
-                    logger?.Trace("McpVersion up");
-                    var version = mcpVersion.ReadFromPorts();
-
-                    logger?.Info($"Hardware version is {version}");
-
-                    if (version >= JuegoHardwareV3.MinimumHardareVersion)
+                try
+                {
+                    if (mcpVersion != null &&
+                        version >= JuegoHardwareV3.MinimumHardareVersion)
                     {
                         logger?.Info("Instantiating Juego v3 hardware");
                         hardware = new JuegoHardwareV3(ccm, i2cBus)
@@ -71,21 +100,16 @@ namespace WildernessLabs.Hardware.Juego
                         logger?.Info("Instantiating Juego v2 hardware");
                         hardware = new JuegoHardwareV2(ccm, i2cBus)
                         {
-                            Mcp_VersionInfo = mcpVersion,
+                            Mcp_VersionInfo = mcpVersion!,
                             LeftSpeaker = leftSpeaker,
                             RightSpeaker = rightSpeaker,
                         };
                     }
                 }
-                catch (Exception e)
+                catch
                 {
-                    logger?.Debug($"Failed to create McpVersion: {e.Message}");
-                    hardware = null;
+                    logger?.Info("Failed to instantiate Juego hardware");
                 }
-            }
-            else
-            {
-                throw new NotSupportedException();
             }
 
             return hardware;
