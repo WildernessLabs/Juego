@@ -20,6 +20,11 @@ namespace Juego_Demo
 
             juego = Juego.Create();
 
+            if (juego == null)
+            {
+                return Task.FromException(new Exception("Juego hardware not found"));
+            }
+
             if (juego.Display is { } display)
             {
                 displayController = new DisplayController(display);

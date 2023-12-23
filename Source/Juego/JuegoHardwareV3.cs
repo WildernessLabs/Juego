@@ -110,37 +110,6 @@ namespace WildernessLabs.Hardware.Juego
 
             Resolver.Log.Info("Initialize hardware...");
 
-            // DEV NOTE: **ALWAYS** Set up PWMs first - Nuttx PWM driver will step on pin configs otherwise
-            /* try // code left intentionally, restore once the PWM bug is fixed
-            {
-                LeftSpeaker = new PiezoSpeaker(device.Pins.PB8); //D03
-            }
-            catch (Exception e)
-            {
-                Resolver.Log.Error($"Err Left Speaker: {e.Message}");
-            }
-
-            try
-            {
-                RightSpeaker = new PiezoSpeaker(device.Pins.PB9); //D04
-            }
-            catch (Exception e)
-            {
-                Resolver.Log.Error($"Err Right Speaker: {e.Message}");
-            } */
-
-            /*
-            try
-            {
-                I2cBus = Device.CreateI2cBus(busSpeed: I2cBusSpeed.FastPlus);
-                Resolver.Log.Info("I2C initialized");
-            }
-            catch (Exception e)
-            {
-                Resolver.Log.Error($"Err initializing I2C Bus: {e.Message}");
-            }
-            */
-
             try
             {
                 Mcp_Reset = Device.CreateDigitalOutputPort(Device.Pins.PA10, true);
