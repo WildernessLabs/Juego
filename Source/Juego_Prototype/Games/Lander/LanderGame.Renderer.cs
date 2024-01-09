@@ -1,6 +1,4 @@
-﻿using System;
-using Meadow.Foundation;
-using Meadow.Foundation.Audio;
+﻿using Meadow;
 using Meadow.Foundation.Graphics;
 
 namespace Juego.Games
@@ -9,7 +7,7 @@ namespace Juego.Games
     {
         readonly byte cellSize = 8;
 
-        DrawPixelDel DrawPixel;
+        readonly DrawPixelDel DrawPixel;
 
         public void Init(MicroGraphics gl)
         {
@@ -34,7 +32,7 @@ namespace Juego.Games
 
         void DrawBackground(MicroGraphics graphics)
         {
-          
+
         }
 
         void DrawLives(MicroGraphics graphics)
@@ -46,7 +44,7 @@ namespace Juego.Games
 
         void DrawPixel1x(int x, int y, bool colored, MicroGraphics graphics, Color color)
         {
-            graphics.DrawPixel(x, y, colored?color:Color.Black);
+            graphics.DrawPixel(x, y, colored ? color : Color.Black);
         }
 
         void DrawPixel2x(int x, int y, bool colored, MicroGraphics graphics)
