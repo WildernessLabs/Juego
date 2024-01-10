@@ -11,7 +11,7 @@
     <PackageId>Meadow.Juego</PackageId>
     <RepositoryUrl>https://github.com/WildernessLabs/Meadow.ProjectLab</RepositoryUrl>
     <PackageTags>Meadow.Juego, Meadow, Juego</PackageTags>
-    <Version>0.96.0</Version>
+    <Version>1.7.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Convenience library for the Meadow Juego family of boards</Description>
     <Nullable>enable</Nullable>
@@ -24,10 +24,10 @@
     <None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.F7" Version="1.6.0" />
-    <PackageReference Include="Meadow.Foundation.Audio.MicroAudio" Version="1.6.0" />
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="1.6.0" />
-    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Mcp23xxx" Version="1.6.0" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Bmi270" Version="1.6.0" />
+    <PackageReference Include="Meadow.F7" Version="1.7.0" />
+    <PackageReference Include="Meadow.Foundation.Audio.MicroAudio" Version="1.7.0" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="1.7.0" />
+    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Mcp23xxx" Version="1.7.0" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Bmi270" Version="1.7.0" />
   </ItemGroup>
 </Project>
