@@ -21,10 +21,10 @@ namespace WildernessLabs.Hardware.Juego
         protected IF7FeatherMeadowDevice Device { get; }
 
         /// <inheritdoc/>
-        public IGraphicsDisplay Display { get; }
+        public IGraphicsDisplay? Display { get; }
 
         /// <inheritdoc/>
-        protected ISpiBus SpiBus { get; }
+        protected ISpiBus? SpiBus { get; }
 
         /// <inheritdoc/>
         public AnalogJoystick? AnalogJoystick { get; protected set; }
@@ -60,10 +60,10 @@ namespace WildernessLabs.Hardware.Juego
         public Bmi270? MotionSensor => null;
 
         /// <inheritdoc/>
-        public DisplayConnector DisplayHeader => (DisplayConnector)Connectors[0];
+        public DisplayConnector DisplayHeader => (DisplayConnector)Connectors[0]!;
 
         /// <inheritdoc/>
-        public I2cConnector Qwiic => null;
+        public I2cConnector? Qwiic => null;
 
 
         /// <summary>
@@ -126,13 +126,16 @@ namespace WildernessLabs.Hardware.Juego
             var dcPort = Device.CreateDigitalOutputPort(Device.Pins.D04);
             var resetPort = Device.CreateDigitalOutputPort(Device.Pins.D14);
 
-            Display = new St7789(
-                spiBus: SpiBus,
-                chipSelectPort: chipSelectPort,
-                dataCommandPort: dcPort,
-                resetPort: resetPort,
-                width: 240, height: 240);
-            Resolver.Log.Info("Display initialized");
+            if (SpiBus != null)
+            {
+                Display = new St7789(
+                    spiBus: SpiBus,
+                    chipSelectPort: chipSelectPort,
+                    dataCommandPort: dcPort,
+                    resetPort: resetPort,
+                    width: 240, height: 240);
+                Resolver.Log.Info("Display initialized");
+            }
 
             Right_UpButton = new PushButton(device.Pins.D06, ResistorMode.InternalPullDown);
             Right_DownButton = new PushButton(device.Pins.D05, ResistorMode.InternalPullDown);
