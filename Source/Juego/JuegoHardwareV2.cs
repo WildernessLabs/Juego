@@ -21,25 +21,25 @@ namespace WildernessLabs.Hardware.Juego
         /// <inheritdoc/>
         protected IF7CoreComputeMeadowDevice Device { get; }
         /// <inheritdoc/>
-        protected IDigitalInterruptPort McpInterrupt_1 { get; }
+        protected IDigitalInterruptPort? McpInterrupt_1 { get; }
         /// <inheritdoc/>
-        protected IDigitalInterruptPort McpInterrupt_2 { get; }
+        protected IDigitalInterruptPort? McpInterrupt_2 { get; }
         /// <inheritdoc/>
-        protected IDigitalOutputPort Mcp_Reset { get; }
+        protected IDigitalOutputPort? Mcp_Reset { get; }
         /// <inheritdoc/>
-        public IGraphicsDisplay Display { get; }
+        public IGraphicsDisplay? Display { get; }
         /// <inheritdoc/>
-        public IDigitalOutputPort DisplayBacklightPort { get; }
+        public IDigitalOutputPort? DisplayBacklightPort { get; }
         /// <inheritdoc/>
         protected II2cBus I2cBus { get; }
         /// <inheritdoc/>
-        protected ISpiBus SpiBus { get; }
+        protected ISpiBus? SpiBus { get; }
         /// <inheritdoc/>
-        public Mcp23008 Mcp_1 { get; protected set; }
+        public Mcp23008? Mcp_1 { get; protected set; }
         /// <inheritdoc/>
-        public Mcp23008 Mcp_2 { get; protected set; }
+        public Mcp23008? Mcp_2 { get; protected set; }
         /// <inheritdoc/>
-        public Mcp23008 Mcp_VersionInfo { get; set; }
+        public Mcp23008? Mcp_VersionInfo { get; set; }
         /// <inheritdoc/>
         public PushButton? Right_UpButton { get; protected set; }
         /// <inheritdoc/>
@@ -70,7 +70,7 @@ namespace WildernessLabs.Hardware.Juego
         public Bmi270? MotionSensor => null;
 
         /// <inheritdoc/>
-        public DisplayConnector DisplayHeader => (DisplayConnector)Connectors[0];
+        public DisplayConnector DisplayHeader => (DisplayConnector)Connectors[0]!;
 
         /// <inheritdoc/>
         public I2cConnector? Qwiic => null;
@@ -174,19 +174,21 @@ namespace WildernessLabs.Hardware.Juego
 
                 Thread.Sleep(50);
 
-                Display = new Ili9341(
+                if (SpiBus != null)
+                {
+                    Display = new Ili9341(
                     spiBus: SpiBus,
                     chipSelectPort: chipSelectPort,
                     dataCommandPort: dcPort,
                     resetPort: resetPort,
                     width: 240, height: 320)
-                {
-                    SpiBusSpeed = new Frequency(48000, Frequency.UnitType.Kilohertz),
-                };
+                    {
+                        SpiBusSpeed = new Frequency(48000, Frequency.UnitType.Kilohertz),
+                    };
+                    ((Ili9341)Display).SetRotation(RotationType._270Degrees);
 
-                ((Ili9341)Display).SetRotation(RotationType._270Degrees);
-
-                Resolver.Log.Info("Display initialized");
+                    Resolver.Log.Info("Display initialized");
+                }
             }
 
             if (Mcp_1 != null)
@@ -219,9 +221,14 @@ namespace WildernessLabs.Hardware.Juego
                 SelectButton = new PushButton(selectPort);
             }
         }
-        internal DisplayConnector CreateDisplayConnector()
+        internal DisplayConnector? CreateDisplayConnector()
         {
             Resolver.Log.Trace("Creating display connector");
+
+            if (Mcp_1 == null)
+            {
+                return null;
+            }
 
             return new DisplayConnector(
                "Display",

@@ -74,7 +74,7 @@ namespace WildernessLabs.Hardware.Juego
 
                 try
                 {
-                    logger?.Info("Intantiating version MCP23008");
+                    logger?.Info("Instantiating version MCP23008");
                     mcpVersion = new Mcp23008(i2cBus, address: 0x23);
                     version = mcpVersion.ReadFromPorts();
                 }
