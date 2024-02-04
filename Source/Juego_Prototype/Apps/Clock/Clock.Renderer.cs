@@ -1,5 +1,4 @@
 ﻿using Meadow;
-using Meadow.Foundation;
 using Meadow.Foundation.Displays.UI;
 using Meadow.Foundation.Graphics;
 using System;
@@ -32,13 +31,6 @@ namespace Juego.Apps
             InitMenu(gl);
 
             return;
-
-            gl.Clear();
-            gl.DrawText(0, 0, "Meadow Clock");
-            gl.DrawText(0, 16, "v0.1.0");
-            gl.Show();
-
-            Thread.Sleep(500);
         }
 
         public void Update(IIOConfig ioConfig)
