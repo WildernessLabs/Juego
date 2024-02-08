@@ -1,12 +1,12 @@
 ﻿using Meadow;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
-using Meadow.Foundation.Graphics;
 using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Accelerometers;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
+using Meadow.Peripherals.Displays;
 using Meadow.Units;
 using System;
 using System.Threading;
@@ -32,7 +32,7 @@ namespace WildernessLabs.Hardware.Juego
         /// <inheritdoc/>
         protected IDigitalOutputPort? Mcp_Reset { get; }
         /// <inheritdoc/>
-        public IGraphicsDisplay? Display { get; }
+        public IPixelDisplay? Display { get; }
         /// <inheritdoc/>
         public IDigitalOutputPort? DisplayBacklightPort { get; }
         /// <inheritdoc/>

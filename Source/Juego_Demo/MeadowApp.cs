@@ -90,8 +90,11 @@ namespace Juego_Demo
                 startButton.PressEnded += (s, e) => displayController.StartButtonState = false;
             }
 
-            audioLeft = new MicroAudio(juego.LeftSpeaker);
-            audioRight = new MicroAudio(juego.RightSpeaker);
+            if (juego.LeftSpeaker != null)
+            {
+                audioLeft = new MicroAudio(juego.LeftSpeaker);
+                audioRight = new MicroAudio(juego.RightSpeaker);
+            }
 
             return Task.CompletedTask;
         }
@@ -107,8 +110,11 @@ namespace Juego_Demo
                 juego.MotionSensor.StartUpdating(TimeSpan.FromMilliseconds(250));
             }
 
-            await audioLeft.PlaySystemSound(SystemSoundEffect.PowerUp);
-            await audioRight.PlayGameSound(GameSoundEffect.LevelComplete);
+            if (juego.LeftSpeaker != null)
+            {
+                await audioLeft.PlaySystemSound(SystemSoundEffect.PowerUp);
+                await audioRight.PlayGameSound(GameSoundEffect.LevelComplete);
+            }
 
             return;
         }
