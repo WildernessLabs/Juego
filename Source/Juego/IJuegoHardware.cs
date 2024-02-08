@@ -1,9 +1,9 @@
 ﻿using Meadow.Foundation.Audio;
-using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Accelerometers;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
+using Meadow.Peripherals.Displays;
 
 namespace WildernessLabs.Hardware.Juego
 {
@@ -15,7 +15,7 @@ namespace WildernessLabs.Hardware.Juego
         /// <summary>
         /// Gets the graphics display interface
         /// </summary>
-        public IGraphicsDisplay? Display { get; }
+        public IPixelDisplay? Display { get; }
 
         /// <summary>
         /// Gets the right/up button
