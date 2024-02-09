@@ -155,7 +155,7 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                var config = new SpiClockConfiguration(new Frequency(48000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
+                var config = new SpiClockConfiguration(new Frequency(24, Frequency.UnitType.Megahertz), SpiClockConfiguration.Mode.Mode0);
                 SpiBus = Device.CreateSpiBus(Device.Pins.SPI5_SCK, Device.Pins.SPI5_COPI, Device.Pins.SPI5_CIPO, config);
             }
             catch (Exception e)
@@ -177,14 +177,15 @@ namespace WildernessLabs.Hardware.Juego
                 if (SpiBus != null)
                 {
                     Display = new Ili9341(
-                    spiBus: SpiBus,
-                    chipSelectPort: chipSelectPort,
-                    dataCommandPort: dcPort,
-                    resetPort: resetPort,
-                    width: 240, height: 320)
+                        spiBus: SpiBus,
+                        chipSelectPort: chipSelectPort,
+                        dataCommandPort: dcPort,
+                        resetPort: resetPort,
+                        width: 240, height: 320)
                     {
-                        SpiBusSpeed = new Frequency(48000, Frequency.UnitType.Kilohertz),
+                        SpiBusSpeed = new Frequency(24, Frequency.UnitType.Megahertz),
                     };
+
                     ((Ili9341)Display).SetRotation(RotationType._270Degrees);
 
                     Resolver.Log.Info("Display initialized");
@@ -221,6 +222,7 @@ namespace WildernessLabs.Hardware.Juego
                 SelectButton = new PushButton(selectPort);
             }
         }
+
         internal DisplayConnector? CreateDisplayConnector()
         {
             Resolver.Log.Trace("Creating display connector");

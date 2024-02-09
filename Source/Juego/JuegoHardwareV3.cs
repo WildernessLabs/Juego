@@ -21,7 +21,7 @@ namespace WildernessLabs.Hardware.Juego
         /// <summary>
         /// The minimum hardware version for Juego v3 hardware
         /// </summary>
-        public static int MinimumHardareVersion => 3;
+        public static int MinimumHardareVersion => 4;
 
         /// <inheritdoc/>
         protected IF7CoreComputeMeadowDevice Device { get; }
@@ -144,7 +144,7 @@ namespace WildernessLabs.Hardware.Juego
 
             try
             {
-                var config = new SpiClockConfiguration(new Frequency(48000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
+                var config = new SpiClockConfiguration(new Frequency(24, Frequency.UnitType.Megahertz), SpiClockConfiguration.Mode.Mode0);
                 SpiBus = Device.CreateSpiBus(Device.Pins.SPI5_SCK, Device.Pins.SPI5_COPI, Device.Pins.SPI5_CIPO, config);
             }
             catch (Exception e)
@@ -172,7 +172,7 @@ namespace WildernessLabs.Hardware.Juego
                         resetPort: resetPort,
                         width: 240, height: 320)
                     {
-                        SpiBusSpeed = new Frequency(48000, Frequency.UnitType.Kilohertz),
+                        SpiBusSpeed = new Frequency(24, Frequency.UnitType.Megahertz),
                     };
 
                     ((Ili9341)Display).SetRotation(RotationType._270Degrees);
