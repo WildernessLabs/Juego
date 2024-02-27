@@ -1,6 +1,7 @@
 ﻿using Meadow;
 using Meadow.Foundation;
 using Meadow.Foundation.Graphics;
+using Meadow.Peripherals.Displays;
 using Meadow.Units;
 
 namespace Juego_Demo
@@ -133,7 +134,7 @@ namespace Juego_Demo
         bool isUpdating = false;
         bool needsUpdate = false;
 
-        public DisplayController(IGraphicsDisplay display)
+        public DisplayController(IPixelDisplay display)
         {
             graphics = new MicroGraphics(display)
             {
