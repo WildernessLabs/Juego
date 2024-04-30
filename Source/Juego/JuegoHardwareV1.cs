@@ -1,9 +1,9 @@
 ﻿using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Leds;
-using Meadow.Foundation.Sensors.Accelerometers;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Hid;
+using Meadow.Foundation.Sensors.Motion;
 using Meadow.Hardware;
 using Meadow.Peripherals.Displays;
 using Meadow.Units;
