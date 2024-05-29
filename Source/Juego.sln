@@ -31,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Logging", "..\..\Mea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juego", "Juego\Juego.csproj", "{8DAF92C4-EAEE-4399-A554-D8316AC75984}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juego_Prototype", "Juego_Prototype\Juego_Prototype.csproj", "{5DBF9130-4538-488A-8274-C9EEFA9056A9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.Sh110x", "..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Sh110x\Driver\Displays.Sh110x.csproj", "{7D611BC9-B5BF-424C-A03C-3FC7FA8E703A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Modbus", "..\..\Meadow.Modbus\src\Meadow.Modbus\Meadow.Modbus.csproj", "{D1FD4798-703D-4199-940C-4EDC516E88FC}"
@@ -119,12 +117,6 @@ Global
 		{8DAF92C4-EAEE-4399-A554-D8316AC75984}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DAF92C4-EAEE-4399-A554-D8316AC75984}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8DAF92C4-EAEE-4399-A554-D8316AC75984}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DBF9130-4538-488A-8274-C9EEFA9056A9}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{7D611BC9-B5BF-424C-A03C-3FC7FA8E703A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7D611BC9-B5BF-424C-A03C-3FC7FA8E703A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D611BC9-B5BF-424C-A03C-3FC7FA8E703A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
