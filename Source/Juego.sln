@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Motion.Bmi270", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Audio.MicroAudio", "..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Audio.MicroAudio\Driver\Audio.MicroAudio.csproj", "{8E8CE3FA-D9D8-4912-A76D-F8017A7AEBC7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serialization.MicroJson", "..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Serialization.MicroJson\Driver\Serialization.MicroJson.csproj", "{A0C77E25-9F0C-48C8-BC23-9A008A2FFE04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,10 @@ Global
 		{8E8CE3FA-D9D8-4912-A76D-F8017A7AEBC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E8CE3FA-D9D8-4912-A76D-F8017A7AEBC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E8CE3FA-D9D8-4912-A76D-F8017A7AEBC7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A0C77E25-9F0C-48C8-BC23-9A008A2FFE04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0C77E25-9F0C-48C8-BC23-9A008A2FFE04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0C77E25-9F0C-48C8-BC23-9A008A2FFE04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0C77E25-9F0C-48C8-BC23-9A008A2FFE04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +170,7 @@ Global
 		{20EC73F2-5F86-40DB-8FEA-4B60BFE3D7EA} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{638A262A-E4F3-4D86-9E34-21717F928D79} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 		{8E8CE3FA-D9D8-4912-A76D-F8017A7AEBC7} = {FF570CB7-3F54-4049-A167-304A90098DB6}
+		{A0C77E25-9F0C-48C8-BC23-9A008A2FFE04} = {FF570CB7-3F54-4049-A167-304A90098DB6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB582CC6-C626-484E-9742-43FD65FE8158}

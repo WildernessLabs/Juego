@@ -8,4 +8,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Juego\Juego.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="app.build.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="app.config.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
