@@ -156,12 +156,12 @@ public class JuegoHardwareV2 : IJuegoHardware
         {
             var config = new SpiClockConfiguration(new Frequency(24, Frequency.UnitType.Megahertz), SpiClockConfiguration.Mode.Mode0);
             SpiBus = Device.CreateSpiBus(Device.Pins.SPI5_SCK, Device.Pins.SPI5_COPI, Device.Pins.SPI5_CIPO, config);
+            Resolver.Log.Info("SPI initialized");
         }
         catch (Exception e)
         {
             Resolver.Log.Error($"Err initializing SPI: {e.Message}");
         }
-        Resolver.Log.Info("SPI initialized");
 
         if (Mcp_1 != null)
         {
