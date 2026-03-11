@@ -92,6 +92,9 @@ namespace Juego_Demo
             if (juego.LeftSpeaker != null)
             {
                 audioLeft = new MicroAudio(juego.LeftSpeaker);
+            }
+            if (juego.RightSpeaker != null)
+            {
                 audioRight = new MicroAudio(juego.RightSpeaker);
             }
 
@@ -120,7 +123,7 @@ namespace Juego_Demo
 
         private void Bmi270Updated(object sender, IChangeResult<(Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, Temperature? Temperature)> e)
         {
-            Resolver.Log.Info($"BMI270: X:{e.New.Acceleration3D.Value.X.Gravity:0.0}g, Y:{e.New.Acceleration3D.Value.Y.Gravity:0.0}g, Z:{e.New.Acceleration3D.Value.Z.Gravity:0.0}g");
+            Resolver.Log.Info($"BMI270: X:{e.New.Acceleration3D?.X.Gravity:0.0}g, Y:{e.New.Acceleration3D?.Y.Gravity:0.0}g, Z:{e.New.Acceleration3D?.Z.Gravity:0.0}g");
 
             if (displayController != null)
             {

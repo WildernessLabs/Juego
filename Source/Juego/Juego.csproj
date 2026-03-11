@@ -7,9 +7,10 @@
     <OutputType>Library</OutputType>
     <AssemblyName>Juego</AssemblyName>
     <Company>Wilderness Labs, Inc</Company>
-    <PackageProjectUrl>https://github.com/WildernessLabs/Meadow.ProjectLab</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/WildernessLabs/Juego</PackageProjectUrl>
     <PackageId>Meadow.Juego</PackageId>
-    <RepositoryUrl>https://github.com/WildernessLabs/Meadow.ProjectLab</RepositoryUrl>
+    <RepositoryUrl>https://github.com/WildernessLabs/Juego</RepositoryUrl>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <PackageTags>Meadow.Juego, Meadow, Juego</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Convenience library for the Meadow Juego family of boards</Description>
@@ -21,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="" />
+    <None Include="Readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Meadow.Core\Source\implementations\f7\Meadow.F7\Meadow.F7.csproj" />

@@ -20,7 +20,7 @@ public class JuegoHardwareV3 : IJuegoHardware
     /// <summary>
     /// The minimum hardware version for Juego v3 hardware
     /// </summary>
-    public static int MinimumHardareVersion => 4;
+    public static int MinimumHardwareVersion => 4;
 
     /// <inheritdoc/>
     protected IF7CoreComputeMeadowDevice Device { get; }

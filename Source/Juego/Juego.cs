@@ -61,7 +61,7 @@ public class Juego
 
             try
             {
-                logger?.Info("Intantiating I2C Bus");
+                logger?.Info("Instantiating I2C Bus");
                 i2cBus = ccm.CreateI2cBus(busSpeed: I2cBusSpeed.FastPlus);
             }
             catch
@@ -85,7 +85,7 @@ public class Juego
             try
             {
                 if (mcpVersion != null &&
-                    version >= JuegoHardwareV3.MinimumHardareVersion)
+                    version >= JuegoHardwareV3.MinimumHardwareVersion)
                 {
                     logger?.Info("Instantiating Juego v3 hardware");
                     hardware = new JuegoHardwareV3(ccm, i2cBus)
@@ -100,7 +100,7 @@ public class Juego
                     logger?.Info("Instantiating Juego v2 hardware");
                     hardware = new JuegoHardwareV2(ccm, i2cBus)
                     {
-                        Mcp_VersionInfo = mcpVersion!,
+                        Mcp_VersionInfo = mcpVersion,
                         LeftSpeaker = leftSpeaker,
                         RightSpeaker = rightSpeaker,
                     };
